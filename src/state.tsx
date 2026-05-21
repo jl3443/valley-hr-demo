@@ -13,6 +13,7 @@ export type View =
   | { kind: "dashboard" }
   | { kind: "insights" }
   | { kind: "compliance-radar" }
+  | { kind: "people-lifecycle" }
   | { kind: "documents"; tab: "letters" | "policies" }
   | { kind: "workspace"; flow: "uc1" | "uc2" | "uc3" | "uc4" }
   | { kind: "doc"; id: DocId }

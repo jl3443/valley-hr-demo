@@ -21,6 +21,7 @@ type NavItem = {
     | { kind: "dashboard" }
     | { kind: "insights" }
     | { kind: "compliance-radar" }
+    | { kind: "people-lifecycle" }
     | { kind: "documents"; tab: "letters" | "policies" };
   badge?: { kind: "star" } | { kind: "count"; value: number } | { kind: "soon" };
   active?: boolean;
@@ -44,9 +45,9 @@ const sections: Section[] = [
     title: "HR operations",
     items: [
       { label: "Compliance radar", icon: Radar, view: { kind: "compliance-radar" }, badge: { kind: "star" } },
-      { label: "People lifecycle", icon: Users, badge: { kind: "count", value: 5 } },
-      { label: "Workforce", icon: Briefcase },
-      { label: "Cases", icon: Inbox, badge: { kind: "count", value: 12 } },
+      { label: "People lifecycle", icon: Users, view: { kind: "people-lifecycle" }, badge: { kind: "count", value: 5 } },
+      { label: "Workforce", icon: Briefcase, comingSoon: true },
+      { label: "Cases", icon: Inbox, badge: { kind: "count", value: 12 }, comingSoon: true },
     ],
   },
   {
@@ -95,6 +96,7 @@ export function Sidebar() {
                   (item.view?.kind === "dashboard" && activeKind === "dashboard") ||
                   (item.view?.kind === "insights" && activeKind === "insights") ||
                   (item.view?.kind === "compliance-radar" && activeKind === "compliance-radar") ||
+                  (item.view?.kind === "people-lifecycle" && activeKind === "people-lifecycle") ||
                   (item.view?.kind === "documents" &&
                     activeKind === "documents" &&
                     (view as { kind: "documents"; tab: string }).tab === item.view.tab);

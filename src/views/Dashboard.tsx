@@ -43,7 +43,7 @@ export function Dashboard() {
       <HeroBanner
         eyebrow="AI-powered HR operations"
         summary="3 cases need your decision today · 5 lifecycle events in flight · agent has resolved 47 cases this month."
-        cta={<PillButton variant="deep" size="sm">+ New HR request</PillButton>}
+        cta={<PillButton variant="mint" size="sm">+ New HR request</PillButton>}
         meta="Updated 2 min ago"
       />
 

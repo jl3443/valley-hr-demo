@@ -5,6 +5,7 @@ import { Dashboard } from "@/views/Dashboard";
 import { Insights } from "@/views/Insights";
 import { Documents } from "@/views/Documents";
 import { ComplianceRadar } from "@/views/ComplianceRadar";
+import { PeopleLifecycle } from "@/views/PeopleLifecycle";
 import { CompletionModal } from "@/components/workspace/CompletionModal";
 import { WorkspaceUC1 } from "@/views/WorkspaceUC1";
 import { WorkspaceUC2 } from "@/views/WorkspaceUC2";
@@ -26,6 +27,8 @@ function Router() {
       return <Insights />;
     case "compliance-radar":
       return <ComplianceRadar />;
+    case "people-lifecycle":
+      return <PeopleLifecycle />;
     case "documents":
       return <Documents tab={view.tab} />;
     case "workspace":
@@ -57,6 +60,7 @@ function Shell() {
     (view.kind === "dashboard" ||
       view.kind === "insights" ||
       view.kind === "compliance-radar" ||
+      view.kind === "people-lifecycle" ||
       view.kind === "documents");
 
   return (

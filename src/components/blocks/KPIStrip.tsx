@@ -12,6 +12,8 @@ export type KPI = {
   trend?: { delta: string; direction: "up" | "down" | "flat" };
   /** 8 points for the inline sparkline. */
   spark?: number[];
+  /** Optional yellow accent — surfaces high-priority tiles (e.g. compliance hold). */
+  highlight?: "yellow";
 };
 
 const trendTone = {
@@ -20,15 +22,40 @@ const trendTone = {
   flat: "text-mute",
 };
 
-export function KPIStrip({ items, className }: { items: KPI[]; className?: string }) {
+const colsClass: Record<3 | 4 | 5 | 6, string> = {
+  3: "grid-cols-3",
+  4: "grid-cols-4",
+  5: "grid-cols-5",
+  6: "grid-cols-6",
+};
+
+export function KPIStrip({
+  items,
+  cols = 4,
+  className,
+}: {
+  items: KPI[];
+  cols?: 3 | 4 | 5 | 6;
+  className?: string;
+}) {
   return (
-    <div className={cn("grid grid-cols-4 gap-3", className)}>
+    <div className={cn("grid gap-3", colsClass[cols], className)}>
       {items.map((k, i) => (
         <article
           key={k.label}
-          className="bg-white border border-divider rounded-md px-4 py-3 flex flex-col justify-between h-[92px]"
+          className={cn(
+            "rounded-md px-4 py-3 flex flex-col justify-between h-[92px] transition-colors",
+            k.highlight === "yellow"
+              ? "bg-surface-sage border border-surface-sage text-surface-deep"
+              : "bg-white border border-divider",
+          )}
         >
-          <div className="text-[12px] tracking-[0.08em] uppercase text-mute font-medium">
+          <div
+            className={cn(
+              "text-[12px] tracking-[0.08em] uppercase font-medium",
+              k.highlight === "yellow" ? "text-surface-deep" : "text-mute",
+            )}
+          >
             {k.label}
           </div>
           <div className="flex items-end justify-between gap-3">
