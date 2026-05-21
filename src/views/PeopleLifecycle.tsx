@@ -173,11 +173,14 @@ function DecisionsHero() {
             {/* CXO card — single plain-English sentence + one action.
                 No sub-text under the title (the rule). Urgency + date are
                 discrete metadata chips, NOT explanations of the title. */}
-            <article className="px-5 py-5 grid grid-cols-[auto_auto_1fr_auto] gap-3 items-center min-h-[88px]">
-              <span className={cn("text-[10px] font-bold tracking-[0.08em] uppercase px-2 py-1 rounded shrink-0", urgencyChip[d.urgency])}>
+            {/* Fixed-width columns on urgency + date so the chip / date / title
+                left-align vertically across all 3 rows regardless of text width
+                (HIGH vs CRITICAL, Today vs Tomorrow vs End of week). */}
+            <article className="px-5 py-5 grid grid-cols-[88px_120px_1fr_auto] gap-3 items-center min-h-[88px]">
+              <span className={cn("inline-flex justify-center text-[10px] font-bold tracking-[0.08em] uppercase px-2 py-1 rounded w-fit", urgencyChip[d.urgency])}>
                 {d.urgency}
               </span>
-              <span className="text-[12px] font-semibold text-surface-deep shrink-0">
+              <span className="text-[12px] font-semibold text-surface-deep">
                 {d.dueWhen}
               </span>
               <h3 className="text-[16px] font-bold leading-[22px] text-ink truncate">

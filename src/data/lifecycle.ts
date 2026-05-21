@@ -146,7 +146,7 @@ export const lifecycleCards: LifecycleCard[] = [
     role: "Treasury Analyst",
     branch: "NYC",
     dateLabel: "Day 4 of 90",
-    date: "May 15 → Aug 13",
+    date: "May 15",
     stepsDone: 4,
     stepsTotal: 12,
     status: "action",
