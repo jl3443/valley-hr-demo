@@ -34,7 +34,7 @@ const activityIdle: ActivityEntry[] = [
   { time: "Yest.", text: "Resignation parsed · 30-day notice detected" },
   { time: "Yest.", text: "Knowledge-transfer plan drafted · 14 single-owner areas" },
   { time: "Yest.", text: "Access revocation queue assembled · 23 SaaS systems" },
-  { time: "Yest.", text: "Exit package drafted · TRCT-format · PT + EN" },
+  { time: "Yest.", text: "Exit package drafted · NJ-final-pay format · EN + ES" },
 ];
 
 const activityExecuting: ActivityEntry[] = [
@@ -49,13 +49,13 @@ const stepLabels = ["Read resignation", "Build KT plan", "Compile revocation", "
 
 const liveScripts: Record<number, string[]> = {
   0: [
-    "Parsing the resignation email from Camila…",
-    "Detecting CLT aviso prévio · 30-day default…",
+    "Parsing the resignation email from Carlos…",
+    "Detecting NJ two-week notice baseline…",
     "Computing the statutory last working day (Fri 27 Jun)…",
-    "Cross-checking tenure + 13th-month progress in Workday…",
+    "Cross-checking tenure + annual bonus progress in Workday…",
   ],
   1: [
-    "Walking Camila's GitHub footprint · 4 repos owned…",
+    "Walking Carlos's GitHub footprint · 4 repos owned…",
     "Reading Confluence spaces she edits…",
     "Mapping Jira projects + sole-owner stories…",
     "Picking successors from same-pod headcount…",
@@ -67,9 +67,9 @@ const liveScripts: Record<number, string[]> = {
     "Scheduling Okta cascade for cutoff + 5 min…",
   ],
   3: [
-    "Pricing salary balance + 13th-month proration…",
+    "Pricing salary balance + prorated annual bonus…",
     "Computing vacation + 1/3 constitutional bonus…",
-    "Drafting bilingual offboarding letter (PT + EN)…",
+    "Drafting bilingual offboarding letter (EN + ES)…",
     "Routing to homologação queue (union)…",
   ],
   4: [
@@ -99,9 +99,9 @@ const runningStatus: Record<number, string[]> = {
     "Compiling the revocation schedule…",
   ],
   3: [
-    "Pricing CLT severance line items…",
+    "Pricing NJ final-pay line items…",
     "Localising the offboarding letter…",
-    "Generating bilingual PT + EN drafts…",
+    "Generating bilingual EN + ES drafts…",
     "Routing for HRBP signature…",
   ],
 };

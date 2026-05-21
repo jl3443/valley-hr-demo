@@ -1,29 +1,34 @@
 import { DocChrome, Paper, SideRail } from "./DocChrome";
 
+/**
+ * Offboarding letter — Wayne NJ Senior Commercial Lender Carlos Ramirez.
+ * Localized to NJ employment law: at-will + voluntary resignation, NJ-required
+ * accrued PTO payout, prorated annual bonus.
+ */
 export function TerminationLetter() {
   return (
     <DocChrome
-      title="Document · Offboarding letter · Heidelberg · German + English"
+      title="Document · Offboarding letter · Wayne NJ · English"
       secondary={{ label: "Edit" }}
       primary={{ label: "Send signed PDF" }}
     >
       <Paper>
         <header className="flex items-center gap-3.5 pb-5 border-b border-divider">
           <div className="w-10 h-10 rounded-lg bg-surface-deep flex items-center justify-center text-ink-inverse text-[14px] font-bold">
-            HR
+            VB
           </div>
           <div className="text-[13px] leading-tight">
-            <div className="text-ink">People team · Heidelberg site</div>
-            <div className="text-mute text-[12px]">Industriestraße 25, 69115 Heidelberg</div>
+            <div className="text-ink">Valley People team · Wayne NJ HQ</div>
+            <div className="text-mute text-[12px]">1455 Valley Road, Wayne NJ 07470</div>
           </div>
         </header>
 
         <div className="grid grid-cols-4 gap-6 text-[13px]">
           {[
-            ["Document", "Aufhebungsvereinbarung"],
-            ["Reference", "AUF-2026-0178"],
-            ["Date", "19. Mai 2026"],
-            ["Last day", "23. Mai 2026"],
+            ["Document",   "Voluntary separation acknowledgment"],
+            ["Reference",  "SEP-2026-0178"],
+            ["Date",       "May 19, 2026"],
+            ["Last day",   "May 23, 2026"],
           ].map(([k, v]) => (
             <div key={k}>
               <div className="text-[11px] tracking-[0.08em] uppercase text-mute font-medium">{k}</div>
@@ -33,56 +38,48 @@ export function TerminationLetter() {
         </div>
 
         <div className="space-y-0.5">
-          <div className="text-[13px] text-ink">An</div>
-          <div className="text-[15px] font-bold text-ink">Sabine Hofmann</div>
-          <div className="text-[13px] text-mute">Senior R&D Scientist · Personalnummer 8842-DE</div>
+          <div className="text-[13px] text-ink">To:</div>
+          <div className="text-[15px] font-bold text-ink">Carlos Ramirez</div>
+          <div className="text-[13px] text-mute">Senior Commercial Lending Officer · Employee ID 8842-NJ</div>
         </div>
 
         <div className="bg-surface-mint rounded p-4 space-y-1.5">
           <div className="text-[11px] tracking-[0.08em] uppercase text-surface-deep font-medium">
-            Betreff
+            Subject
           </div>
           <div className="text-[15px] font-bold text-ink leading-tight">
-            Bestätigung der einvernehmlichen Vertragsauflösung zum 23. Mai 2026
+            Acknowledgment of voluntary resignation effective May 23, 2026
           </div>
         </div>
 
         <div className="space-y-3 text-[14px] leading-[22px] text-ink">
-          <p>Sehr geehrte Frau Hofmann,</p>
+          <p>Dear Carlos,</p>
           <p>
-            hiermit bestätigen wir die einvernehmliche Auflösung Ihres Arbeitsvertrags zum
-            23. Mai 2026, gemäß dem Aufhebungsangebot vom 5. Mai 2026. Wir danken Ihnen herzlich
-            für Ihre Arbeit und Ihren Beitrag über die letzten Jahre.
-          </p>
-          <p>
-            Mit Ihrer letzten Gehaltsabrechnung erhalten Sie das vollständige Gehalt für Mai 2026,
-            das anteilige Weihnachtsgeld, sowie die Abgeltung Ihres verbleibenden Urlaubsanspruchs.
-            Die Gesamtsumme beläuft sich auf EUR 8.940 (brutto).
+            This letter acknowledges receipt of your two-week resignation notice dated May 9, 2026,
+            and confirms your last working day as Friday, May 23, 2026. On behalf of Valley
+            National Bank, thank you for your contributions to the Commercial Lending team over
+            the past several years.
           </p>
           <p>
-            Ihre System-Zugänge werden am letzten Arbeitstag um 18:00 Uhr automatisch deaktiviert.
-            Ein qualifiziertes Arbeitszeugnis wird Ihnen innerhalb von vier Wochen ausgestellt.
+            Your final paycheck will include base salary through May 23, your prorated 2026 annual
+            bonus, and a payout of accrued, unused PTO (16 days, NJ-required), for a gross total of
+            $14,820. Final pay will be deposited on the next scheduled payroll cycle (May 26)
+            in accordance with NJ wage payment law.
           </p>
-          <p>Für Rückfragen stehen wir Ihnen jederzeit zur Verfügung.</p>
-        </div>
-
-        <div className="bg-surface-fog rounded p-4">
-          <div className="text-[11px] tracking-[0.08em] uppercase text-mute font-medium mb-2">
-            English summary
-          </div>
-          <p className="text-[14px] leading-[22px] text-ink">
-            This confirms the mutual termination of your employment contract effective
-            23 May 2026, per the separation agreement of 5 May 2026. Your final payment of
-            EUR 8,940 (gross) includes May salary, prorated Christmas bonus, and unused leave
-            payout. System access will be deactivated at 18:00 on your last day. A qualified work
-            reference will be issued within four weeks.
+          <p>
+            Your system accesses (23 applications including nCino, Salesforce, FIS Profile, and Q2)
+            will be deactivated at 6:00 PM ET on your last day. Your client portfolio will be
+            reassigned per the knowledge-transfer plan attached. We will provide a neutral
+            verification-of-employment letter on request, in line with Valley's standard
+            reference policy.
           </p>
+          <p>If you have any questions, please reply directly or reach out to HR Concierge.</p>
         </div>
 
         <div className="pt-3 space-y-1">
-          <div className="text-[13px] text-ink">Mit freundlichen Grüßen</div>
-          <div className="text-[15px] font-bold text-ink">Annika Voss</div>
-          <div className="text-[12px] text-mute">HR Director Germany · e-signed 19 May 2026, 10:42 CET</div>
+          <div className="text-[13px] text-ink">Sincerely,</div>
+          <div className="text-[15px] font-bold text-ink">Annika Vasquez</div>
+          <div className="text-[12px] text-mute">HR Director · Valley National Bank · e-signed May 19, 2026, 10:42 ET</div>
         </div>
       </Paper>
 
@@ -90,9 +87,9 @@ export function TerminationLetter() {
         <div className="bg-white border border-divider rounded-md p-5 space-y-2">
           <div className="text-[14px] font-bold text-ink mb-1">Final pay breakdown</div>
           {[
-            ["May salary (full)", "EUR 7,200"],
-            ["Christmas bonus (prorated)", "EUR 1,200"],
-            ["Unused leave (12 days)", "EUR 540"],
+            ["May salary (Apr 26–May 23)", "$11,200"],
+            ["2026 annual bonus (prorated)", "$2,440"],
+            ["Accrued PTO payout (16 days)", "$1,180"],
           ].map(([k, v]) => (
             <div key={k} className="flex items-center justify-between text-[13px]">
               <span className="text-ink">{k}</span>
@@ -101,7 +98,7 @@ export function TerminationLetter() {
           ))}
           <div className="pt-2 mt-2 border-t border-divider flex items-center justify-between">
             <span className="text-[13px] text-ink">Gross total</span>
-            <span className="text-[16px] font-bold text-surface-deep">EUR 8,940</span>
+            <span className="text-[16px] font-bold text-surface-deep">$14,820</span>
           </div>
         </div>
 
@@ -111,13 +108,13 @@ export function TerminationLetter() {
           </div>
           <div className="text-[14px] font-bold text-ink">Last 4 working days</div>
           {[
-            ["Mon 19 May", "Letter sent to Sabine"],
-            ["Tue 20 May", "Transfer sessions with João + Carla"],
-            ["Wed 21 May", "Knowledge wiki finalized"],
-            ["Thu 22 May", "Exit interview at 15:00"],
-            ["Fri 23 May", "Last day · access removed 18:00"],
-            ["Mon 26 May", "Final payslip · €8,940"],
-            ["~21 Jun", "Qualified work reference issued"],
+            ["Mon May 19", "Letter sent to Carlos"],
+            ["Tue May 20", "Portfolio handoff to Brian + Priya"],
+            ["Wed May 21", "Knowledge transfer wiki finalized"],
+            ["Thu May 22", "Exit interview at 3:00 PM ET"],
+            ["Fri May 23", "Last day · access removed 6:00 PM"],
+            ["Mon May 26", "Final paycheck · $14,820"],
+            ["~Jun 19",    "Verification letter on request"],
           ].map(([d, lbl]) => (
             <div key={lbl} className="flex items-start gap-3">
               <div className="text-[12px] font-medium text-surface-deep w-16 shrink-0">{d}</div>

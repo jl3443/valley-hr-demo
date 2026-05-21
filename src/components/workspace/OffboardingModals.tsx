@@ -41,12 +41,12 @@ export function ResignationLetterModal({
       onClose={onClose}
       eyebrow="Inbox · resignation parsed"
       title="Pedido de demissão · resignation notice"
-      sub="Camila Souza · Senior R&D Scientist · São Paulo · received yesterday 14:42 BRT"
+      sub="Carlos Ramirez · Senior Commercial Lending Officer · Wayne NJ · received yesterday 14:42 BRT"
       width={720}
       footer={
         <div className="flex items-center justify-between gap-3">
           <span className="text-[11px] text-mute">
-            10 fields extracted · aviso prévio detected · last day inferred
+            10 fields extracted · two-week notice detected · last day inferred
           </span>
           <PillButton variant="primary" size="md" arrow onClick={finish}>
             Close and continue
@@ -57,13 +57,13 @@ export function ResignationLetterModal({
       <div className="px-7 py-6 space-y-5 text-ink">
         {/* Email header */}
         <div className="bg-surface-fog rounded-md p-4 space-y-2 text-[12px]">
-          <Row k="From" v="Camila Souza <camila.souza@Valley Bank.com>" />
-          <Row k="To" v="Rafael Ferreira (manager) · HR Ops Brazil" />
+          <Row k="From" v="Carlos Ramirez <cramirez@valley.com>" />
+          <Row k="To" v="Brian Sullivan (manager) · HR Ops · Wayne NJ" />
           <Row k="Subject" v="Pedido formal de demissão · effective 27 June 2026" />
           <Row k="Received" v="Yesterday · 14:42 BRT" />
         </div>
 
-        {/* Email body — Portuguese original */}
+        {/* Email body — English original */}
         <section className="space-y-3 text-[13px] leading-[20px]">
           <div className="flex items-center gap-2">
             <div className="text-[10px] tracking-[0.08em] uppercase text-mute font-bold">
@@ -71,12 +71,12 @@ export function ResignationLetterModal({
             </div>
             <span className="flex-1 h-px bg-divider" />
           </div>
-          <p className="font-bold">Prezado Rafael,</p>
+          <p className="font-bold">Prezado Brian,</p>
           <p>
             Venho por meio desta carta apresentar formalmente o meu pedido de demissão do cargo de
-            Senior R&D Scientist na Valley Bank do Brasil, com último dia de trabalho previsto
-            para a sexta-feira, 27 de junho de 2026, cumprindo o aviso prévio de 30 dias
-            estipulado pela CLT.
+            Senior Commercial Lending Officer na Valley Bank do NJ, com último dia de trabalho previsto
+            para a sexta-feira, 27 de junho de 2026, cumprindo o two-week notice de 30 dias
+            estipulado pela NJ.
           </p>
           <p>
             Estou comprometida em fazer uma transição organizada — documentando os processos, os
@@ -87,7 +87,7 @@ export function ResignationLetterModal({
           <p>
             Agradeço pela oportunidade e pelos quatro anos de aprendizado nesta equipe.
           </p>
-          <p className="text-mute text-[12px]">Atenciosamente,<br />Camila Souza</p>
+          <p className="text-mute text-[12px]">Atenciosamente,<br />Carlos Ramirez</p>
         </section>
 
         {/* English translation */}
@@ -99,12 +99,12 @@ export function ResignationLetterModal({
             <span className="flex-1 h-px bg-divider" />
             <span className="text-[10px] text-mute">Confidence 99%</span>
           </div>
-          <p className="font-bold">Dear Rafael,</p>
+          <p className="font-bold">Dear Brian,</p>
           <p>
             I am writing to formally submit my resignation from the position of Senior R&D
             Scientist at Valley Bank New Jersey, with my last working day scheduled for Friday, 27
-            June 2026, observing the 30-day notice period required under the Brazilian Labor
-            Code (CLT).
+            June 2026, observing the two-week notice period customary under NJ at-will
+            Code (NJ).
           </p>
           <p>
             I am committed to an organised transition — documenting the processes, systems, and
@@ -113,18 +113,18 @@ export function ResignationLetterModal({
             schedule the knowledge-transfer sessions.
           </p>
           <p>Thank you for the opportunity and for the four years of learning with this team.</p>
-          <p className="text-mute text-[12px]">Best regards,<br />Camila Souza</p>
+          <p className="text-mute text-[12px]">Best regards,<br />Carlos Ramirez</p>
         </section>
 
         {/* Extracted facts */}
         <div className="grid grid-cols-3 gap-3 bg-surface-fog rounded-md p-4">
           {[
-            ["Notice period", "30 days · CLT statutory"],
+            ["Notice period", "14 days · NJ customary"],
             ["Last working day", "Friday, 27 June 2026"],
             ["Tenure", "4 years, 3 months"],
-            ["Base salary", "BRL 24,800 / month"],
+            ["Base salary", "USD 24,800 / month"],
             ["Vacation balance", "18 days accrued"],
-            ["13th-month progress", "6 / 12 months earned"],
+            ["annual bonus progress", "6 / 12 months earned"],
           ].map(([k, v]) => (
             <div key={k} className="text-[12px]">
               <div className="text-[10px] tracking-[0.08em] uppercase text-mute font-medium">
@@ -157,27 +157,27 @@ type KTArtifact = {
   source: string;
   name: string;
   detail: string;
-  successor: "Rafael F." | "Beatriz O." | "Shared";
+  successor: "Brian S." | "Beatriz O." | "Shared";
 };
 
 const ktArtifacts: KTArtifact[] = [
   // Git repos
-  { Icon: GitBranch, source: "GitHub", name: "fragrance-pipeline-core", detail: "Primary owner · 412 commits · Q2 release in flight", successor: "Rafael F." },
-  { Icon: GitBranch, source: "GitHub", name: "molecule-clustering-lib", detail: "Sole maintainer · 8 dependents · OSS dependency", successor: "Rafael F." },
-  { Icon: GitBranch, source: "GitHub", name: "olfactory-eval-toolkit", detail: "Co-owner with Léa M. · used by 4 teams", successor: "Beatriz O." },
+  { Icon: GitBranch, source: "GitHub", name: "fragrance-pipeline-core", detail: "Primary owner · 412 commits · Q2 portfolio release in flight", successor: "Brian S." },
+  { Icon: GitBranch, source: "GitHub", name: "molecule-clustering-lib", detail: "Sole maintainer · 8 dependents · OSS dependency", successor: "Brian S." },
+  { Icon: GitBranch, source: "GitHub", name: "credit-eval-toolkit", detail: "Co-owner with Léa M. · used by 4 teams", successor: "Beatriz O." },
   { Icon: GitBranch, source: "GitHub", name: "scent-graph-experiments", detail: "Experimental · 2 active branches", successor: "Beatriz O." },
   // Confluence
-  { Icon: FileText, source: "Confluence", name: "R&D Standards · São Paulo lab", detail: "47 pages · last touched 12 May · sole editor", successor: "Rafael F." },
+  { Icon: FileText, source: "Confluence", name: "R&D Standards · Wayne NJ lab", detail: "47 pages · last touched 12 May · sole editor", successor: "Brian S." },
   { Icon: FileText, source: "Confluence", name: "Sensory panel SOP", detail: "Active SOP for the LATAM sensory team (6 panelists)", successor: "Beatriz O." },
   { Icon: FileText, source: "Confluence", name: "Q3 fragrance roadmap", detail: "Living doc · 11 stakeholders · co-owned with PM", successor: "Shared" },
   // Jira
-  { Icon: Layers, source: "Jira", name: "FRAG-2024 (epic) · core pipeline", detail: "12 stories open · assigned to Camila", successor: "Rafael F." },
+  { Icon: Layers, source: "Jira", name: "LOAN-2026 (portfolio) · commercial pipeline", detail: "12 stories open · assigned to Carlos", successor: "Brian S." },
   { Icon: Layers, source: "Jira", name: "SCENT-184 (epic) · graph experiments", detail: "5 stories open · early phase", successor: "Beatriz O." },
-  { Icon: Layers, source: "Jira", name: "OPS-board · LATAM R&D", detail: "Camila is the board admin · transfer admin rights", successor: "Rafael F." },
+  { Icon: Layers, source: "Jira", name: "OPS-board · NJ Commercial Lending", detail: "Carlos is the portfolio admin · transfer admin rights", successor: "Brian S." },
 ];
 
 const successorMeta = {
-  "Rafael F.": { initials: "RF", role: "Senior Engineer · same pod", color: "bg-surface-deep text-ink-inverse" },
+  "Brian S.": { initials: "RF", role: "Senior Engineer · same pod", color: "bg-surface-deep text-ink-inverse" },
   "Beatriz O.": { initials: "BO", role: "Scientist II · 2 yrs ramp ready", color: "bg-surface-sage text-ink-inverse" },
   Shared: { initials: "··", role: "Shared with PM team", color: "bg-surface-fog text-mute" },
 };
@@ -212,7 +212,7 @@ export function KTPlanModal({
       onClose={onClose}
       eyebrow="KT plan · generated from footprint"
       title="Knowledge transfer · 14 single-owner areas"
-      sub="Mapped from Camila's git, Jira, Confluence footprint · 2 successors assigned"
+      sub="Mapped from Carlos's git, Jira, Confluence footprint · 2 successors assigned"
       width={920}
       footer={
         <div className="flex items-center justify-between gap-3">
@@ -305,7 +305,7 @@ export function KTPlanModal({
 
         {/* Successor summary */}
         <div className="grid grid-cols-2 gap-3 pt-3 border-t border-divider">
-          {(["Rafael F.", "Beatriz O."] as const).map((name) => {
+          {(["Brian S.", "Beatriz O."] as const).map((name) => {
             const s = successorMeta[name];
             const count = ktArtifacts.filter((a) => a.successor === name).length;
             return (
@@ -385,7 +385,7 @@ function KTArtifactDetailModal({
               <Row k="Sessions" v="2 × 90-min pair sessions · auto-booked" />
               <Row
                 k="First session"
-                v="Mon 9 June 10:00 BRT · São Paulo office (hybrid OK)"
+                v="Mon 9 June 10:00 BRT · Wayne NJ office (hybrid OK)"
               />
               <Row
                 k="Materials"
@@ -409,16 +409,16 @@ function KTArtifactDetailModal({
 
 function artifactRecommendation(a: KTArtifact): string {
   if (a.source === "GitHub" && a.name === "fragrance-pipeline-core") {
-    return "High-risk · Q2 release in flight. Schedule the first transfer session within 48 hours and pair-program the open PR queue before Camila's last day.";
+    return "High-risk · Q2 portfolio release in flight. Schedule the first transfer session within 48 hours and pair-program the open PR queue before Carlos's last day.";
   }
   if (a.source === "GitHub" && a.name === "molecule-clustering-lib") {
-    return "Sole-maintainer OSS dependency with 8 internal dependents — promote Rafael F. to maintainer on GitHub and add him to the release pipeline before access cut-off.";
+    return "Sole-maintainer OSS dependency with 8 internal dependents — promote Brian S. to maintainer on GitHub and add him to the release pipeline before access cut-off.";
   }
   if (a.source === "Confluence" && a.name === "Sensory panel SOP") {
     return "Active SOP used weekly by 6 panelists. Walk Beatriz O. through the next two sensory sessions in person — silent observation, then co-lead.";
   }
-  if (a.source === "Jira" && a.name === "OPS-board · LATAM R&D") {
-    return "Camila is the only board admin. Transfer admin rights to Rafael F. before access cut-off — without admin the board cannot rebalance sprints.";
+  if (a.source === "Jira" && a.name === "OPS-board · NJ Commercial Lending") {
+    return "Carlos is the only portfolio admin. Transfer admin rights to Brian S. before access cut-off — without admin the board cannot rebalance sprints.";
   }
   return "Standard transfer — pair the successor on the next two pieces of in-flight work, then hand the access over by the access-revocation cut-off.";
 }
@@ -428,7 +428,7 @@ function GitHubDetail({ artifact }: { artifact: KTArtifact }) {
     <div className="space-y-4">
       <div className="grid grid-cols-4 gap-3 bg-surface-fog rounded-md p-3 text-[12px]">
         <Stat label="Last commit" value="3 days ago" />
-        <Stat label="Open PRs" value="2 by Camila" />
+        <Stat label="Open files" value="2 by Carlos" />
         <Stat label="Dependents" value={artifact.name === "molecule-clustering-lib" ? "8" : "—"} />
         <Stat label="License" value="Apache-2.0" />
       </div>
@@ -438,10 +438,10 @@ function GitHubDetail({ artifact }: { artifact: KTArtifact }) {
         </div>
         <ul className="space-y-1.5">
           {[
-            ["feat: fragrance-pipeline batch normalisation", "Camila S.", "3 days ago"],
-            ["fix: handle empty molecule-clustering edges", "Camila S.", "5 days ago"],
+            ["feat: loan-pricing batch normalization", "Carlos S.", "3 days ago"],
+            ["fix: handle empty borrower-cluster edges", "Carlos S.", "5 days ago"],
             ["chore: bump scikit-learn to 1.4", "Léa M.", "6 days ago"],
-            ["docs: add olfactory-eval README", "Camila S.", "8 days ago"],
+            ["docs: add credit-eval README", "Carlos S.", "8 days ago"],
           ].map(([msg, who, when]) => (
             <li
               key={msg}
@@ -482,7 +482,7 @@ function ConfluenceDetail({ artifact }: { artifact: KTArtifact }) {
           {[
             "Sensory panel · weekly cadence + sample shipment",
             "Olfactory evaluation framework v3.2",
-            "R&D São Paulo · onboarding checklist",
+            "R&D Wayne NJ · onboarding checklist",
             "Q2 roadmap · 2026 carryover",
           ].map((title) => (
             <li
@@ -516,13 +516,13 @@ function JiraDetail({ artifact }: { artifact: KTArtifact }) {
       </div>
       <section>
         <div className="text-[10px] tracking-[0.08em] uppercase text-mute font-bold mb-2">
-          Stories assigned to Camila
+          Stories assigned to Carlos
         </div>
         <ul className="space-y-1.5">
           {[
             ["FRAG-2024-15", "Batch normalisation for nightly retraining", "In progress"],
             ["FRAG-2024-19", "Pipeline error budget alerts", "Code review"],
-            ["FRAG-2024-22", "Backfill last 30 days · feature parity", "Todo"],
+            ["FRAG-2024-22", "Backfill last 14 days · feature parity", "Todo"],
             ["SCENT-184-3", "Graph experiments · sparse molecule edges", "Todo"],
           ].map(([id, title, state]) => (
             <li
@@ -579,18 +579,18 @@ const revocationItems: RevocationItem[] = [
   { system: "Confluence", category: "Communication", Icon: FileText, contains: "Editor of 47 pages", offsetMins: 0 },
   { system: "Workday", category: "Business", Icon: KeyRound, contains: "Self-service · payroll history kept", offsetMins: 0 },
   { system: "Okta SSO", category: "Communication", Icon: KeyRound, contains: "Master account · de-provisions cascade", offsetMins: 5 },
-  { system: "Google Workspace", category: "Communication", Icon: KeyRound, contains: "Mail forwarded to Rafael F. · 30 days", offsetMins: 0 },
+  { system: "Google Workspace", category: "Communication", Icon: KeyRound, contains: "Mail forwarded to Brian S. · 14 days", offsetMins: 0 },
   { system: "Salesforce", category: "Business", Icon: Cloud, contains: "Read-only · no records owned", offsetMins: 0 },
   { system: "ServiceNow", category: "Business", Icon: Cloud, contains: "3 open tickets · auto-reassigned", offsetMins: -15 },
   { system: "AWS", category: "Cloud", Icon: Cloud, contains: "IAM in dev account · keys rotated", offsetMins: -45 },
   { system: "GCP", category: "Cloud", Icon: Cloud, contains: "BigQuery read access only", offsetMins: 0 },
-  { system: "Datadog", category: "Cloud", Icon: Cloud, contains: "Dashboards transferred to Rafael F.", offsetMins: 0 },
+  { system: "Datadog", category: "Cloud", Icon: Cloud, contains: "Dashboards transferred to Brian S.", offsetMins: 0 },
   { system: "PagerDuty", category: "Cloud", Icon: Cloud, contains: "On-call rotation · removed today", offsetMins: -180 },
   { system: "Zoom", category: "Communication", Icon: Cloud, contains: "Recordings archived", offsetMins: 0 },
   { system: "Linear", category: "Code", Icon: Layers, contains: "Admin of LATAM project", offsetMins: 0 },
   { system: "Lever", category: "Business", Icon: FileText, contains: "Interviewer for 2 open reqs · reassigned", offsetMins: -60 },
   { system: "Office365", category: "Communication", Icon: FileText, contains: "Email + Teams · forwarded", offsetMins: 0 },
-  { system: "Box", category: "Communication", Icon: FileText, contains: "Sole owner of 23 files · transferred to Rafael F.", offsetMins: -10 },
+  { system: "Box", category: "Communication", Icon: FileText, contains: "Sole owner of 23 files · transferred to Brian S.", offsetMins: -10 },
   { system: "SAP", category: "Business", Icon: Database, contains: "BPC reporting · read-only", offsetMins: 0 },
   { system: "Snowflake", category: "Data", Icon: Database, contains: "R&D warehouse access · BI keys revoked", offsetMins: 0 },
   { system: "Tableau", category: "Data", Icon: Database, contains: "12 published dashboards · ownership transferred", offsetMins: 0 },
@@ -631,7 +631,7 @@ export function AccessRevocationModal({
       onClose={onClose}
       eyebrow="Identity provider · revocation queue"
       title="Access revocation · 23 SaaS systems"
-      sub="Each item timed to Friday 27 June 17:00 BRT · CLT-statutory cutoff"
+      sub="Each item timed to Friday 27 June 17:00 BRT · NJ wage-payment statutory cutoff"
       width={920}
       footer={
         <div className="flex items-center justify-between gap-3">
@@ -758,9 +758,9 @@ export function ExitPackageModal({
     <PreviewModal
       open={open}
       onClose={onClose}
-      eyebrow="Final pay · CLT-compliant breakdown"
-      title="Exit package · Camila Souza"
-      sub="Brazilian payroll · TRCT format · offboarding letter ready in Portuguese + English"
+      eyebrow="Final pay · NJ-compliant breakdown"
+      title="Exit package · Carlos Ramirez"
+      sub="NJ payroll · NJ final-pay format · offboarding letter ready in English + Spanish"
       width={780}
       footer={
         <div className="flex items-center justify-between gap-3">
@@ -778,7 +778,7 @@ export function ExitPackageModal({
         <div className="flex items-start justify-between gap-4 pb-3 border-b border-divider">
           <div>
             <div className="text-[10px] tracking-[0.08em] uppercase text-mute font-bold">
-              Termo de rescisão · TRCT
+              NJ Final-Pay Acknowledgment
             </div>
             <div className="text-[15px] font-bold mt-0.5">Final pay summary</div>
           </div>
@@ -795,12 +795,12 @@ export function ExitPackageModal({
           </div>
           <div className="border border-divider rounded-md overflow-hidden">
             {[
-              ["Base salary · prorated to 27 Jun", "BRL", "22,313.33"],
-              ["13th-month proration · 6/12", "BRL", "12,400.00"],
-              ["Vacation balance · 18 days", "BRL", "14,880.00"],
-              ["1/3 vacation bonus (Constitution)", "BRL", "4,960.00"],
-              ["Aviso prévio · paid in lieu", "BRL", "24,800.00"],
-              ["FGTS deposit + 40% fine", "BRL", "39,680.00"],
+              ["Base salary · prorated to 27 Jun", "USD", "22,313.33"],
+              ["prorated annual bonus · 6/12", "USD", "12,400.00"],
+              ["Vacation balance · 18 days", "USD", "14,880.00"],
+              ["1/3 vacation bonus (Constitution)", "USD", "4,960.00"],
+              ["Two-week notice · paid in lieu", "USD", "24,800.00"],
+              ["FGTS deposit + 40% fine", "USD", "39,680.00"],
             ].map(([label, cur, amt], i) => (
               <div
                 key={String(label)}
@@ -816,7 +816,7 @@ export function ExitPackageModal({
             ))}
             <div className="grid grid-cols-[1fr_auto_auto] items-center gap-3 px-4 py-3 bg-surface-mint border-t border-surface-deep/30">
               <div className="text-[13px] font-bold text-ink">Gross total · gross severance</div>
-              <div className="text-[11px] text-surface-deep tabular-nums">BRL</div>
+              <div className="text-[11px] text-surface-deep tabular-nums">USD</div>
               <div className="font-bold text-ink tabular-nums w-24 text-right text-[15px]">
                 119,033.33
               </div>
@@ -845,12 +845,12 @@ export function ExitPackageModal({
           </div>
           <div className="min-w-0 flex-1">
             <div className="text-[13px] font-bold text-ink">
-              Offboarding letter · Portuguese + English
+              Offboarding letter · English + Spanish
             </div>
             <div className="text-[12px] text-mute leading-[16px] mt-0.5">
               {letterSigned
                 ? "Signed · filed with homologação · routed to payroll."
-                : "TRCT-compliant bilingual letter · awaits HRBP signature at the approval step."}
+                : "NJ-compliant bilingual letter · awaits HRBP signature at the approval step."}
             </div>
           </div>
           <button
@@ -867,7 +867,7 @@ export function ExitPackageModal({
 }
 
 /* ─────────────────────────────────────────────────────────────────────
- * Termination letter — signable bilingual TRCT
+ * Termination letter — signable bilingual NJ final-pay acknowledgment
  * ──────────────────────────────────────────────────────────────────────*/
 
 export function TerminationLetterSignableModal({
@@ -978,9 +978,9 @@ export function TerminationLetterSignableModal({
     <PreviewModal
       open={open}
       onClose={onClose}
-      eyebrow="Valley Bank New Jersey · TRCT preview"
-      title="Offboarding letter · Portuguese + English"
-      sub="Termo de Rescisão do Contrato de Trabalho · Camila Souza · 27 June 2026"
+      eyebrow="Valley Bank New Jersey · NJ final-pay preview"
+      title="Offboarding letter · English + Spanish"
+      sub="Termo de Rescisão do Contrato de Trabalho · Carlos Ramirez · 27 June 2026"
       width={860}
       footer={
         submitted ? (
@@ -997,7 +997,7 @@ export function TerminationLetterSignableModal({
                 onChange={(e) => setAcknowledged(e.target.checked)}
                 className="w-3.5 h-3.5 accent-[var(--accent-green-deep)]"
               />
-              I confirm the TRCT figures and authorise homologação.
+              I confirm the NJ final-pay figures and authorise homologação.
             </label>
             <div className="flex items-center gap-2">
               <PillButton variant="secondary" size="md" onClick={onClose}>
@@ -1024,21 +1024,21 @@ export function TerminationLetterSignableModal({
     >
       <div className="px-7 py-5 space-y-4 text-ink">
         <div className="grid grid-cols-2 gap-5">
-          {/* Portuguese */}
+          {/* English */}
           <section className="space-y-2 text-[12px] leading-[18px]">
             <div className="text-[10px] tracking-[0.08em] uppercase text-mute font-bold">
               Português
             </div>
             <p className="font-bold">Carta de rescisão de contrato</p>
             <p>
-              Pela presente, a Valley Bank New Jersey Ltda. e a Sra. Camila Souza, portadora do
+              Pela presente, a Valley Bank New Jersey Ltda. e a Sra. Carlos Ramirez, portadora do
               CPF nº XXX.XXX.XXX-XX, formalizam a rescisão do contrato de trabalho por iniciativa
-              da empregada, com aviso prévio cumprido e último dia em 27 de junho de 2026.
+              da empregada, com two-week notice cumprido e último dia em 27 de junho de 2026.
             </p>
             <p>
-              A empresa pagará as verbas rescisórias previstas na CLT — saldo de salário, 13º
-              proporcional, férias proporcionais acrescidas de 1/3, aviso prévio indenizado, e
-              recolherá o FGTS com a multa correspondente, conforme TRCT anexo.
+              A empresa pagará as verbas rescisórias previstas na NJ wage-payment law — saldo de salário, 13º
+              proporcional, férias proporcionais acrescidas de 1/3, two-week notice indenizado, e
+              recolherá o FGTS com a multa correspondente, conforme NJ final-pay anexo.
             </p>
             <p>A rescisão será homologada perante o sindicato no prazo legal.</p>
           </section>
@@ -1050,15 +1050,15 @@ export function TerminationLetterSignableModal({
             </div>
             <p className="font-bold">Letter of separation</p>
             <p>
-              Valley Bank New Jersey Ltda. and Ms. Camila Souza (CPF XXX.XXX.XXX-XX) hereby
+              Valley Bank New Jersey Ltda. and Ms. Carlos Ramirez (CPF XXX.XXX.XXX-XX) hereby
               formalise the termination of the employment contract at the employee's initiative,
               with notice period served and last working day on 27 June 2026.
             </p>
             <p>
-              The company will pay all severance entitlements under the CLT — salary balance,
-              prorated 13th-month, prorated vacation plus the constitutional 1/3 bonus, notice
+              The company will pay all severance entitlements under the NJ wage-payment law — salary balance,
+              prorated annual bonus, prorated vacation plus the constitutional 1/3 bonus, notice
               period paid in lieu, and will remit FGTS with the corresponding fine, per the
-              attached TRCT.
+              attached NJ final-pay acknowledgment.
             </p>
             <p>The termination will be homologated with the labor union within the statutory window.</p>
           </section>

@@ -31,9 +31,9 @@ export function ComplianceRadar() {
               <div className="space-y-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="px-2 py-0.5 rounded-full bg-black text-ink-inverse text-[10px] tracking-[0.08em] uppercase font-medium">
-                    Germany
+                    New Jersey
                   </span>
-                  <span className="text-[12px] text-ink">Working Hours Act amendment</span>
+                  <span className="text-[12px] text-ink">Wage Transparency Act</span>
                 </div>
                 <h2 className="text-[18px] leading-[22px] font-bold text-ink">
                   Standard workweek moving from 40 hours to 37.5 hours
@@ -56,7 +56,7 @@ export function ComplianceRadar() {
                     AI rec
                   </span>
                 </span>
-                Move all Germany employees to the 37.5-hour workweek. Roll out in three phases
+                Move all New Jersey employees to the 37.5-hour workweek. Roll out in three phases
                 over 90 days so payroll and contract updates land smoothly.
               </p>
               <div className="flex items-center gap-2 shrink-0">
@@ -111,8 +111,8 @@ export function ComplianceRadar() {
         <div className="grid grid-cols-2 divide-x divide-divider">
           {[
             {
-              country: "Germany",
-              title: "Works council guidance updated",
+              country: "New Jersey",
+              title: "HR bulletin team guidance updated",
               note: "No change needed — your AI policy already meets the new quarterly review rule.",
             },
             {

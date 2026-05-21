@@ -151,7 +151,7 @@ export function OfferLetterModal({
             <div className="leading-tight">
               <div className="text-[14px] font-bold">Valley National Bank</div>
               <div className="text-[11px] text-mute">
-                Wurmisweg 576 · CH-4303 Kaiseraugst · Switzerland
+                2701 N Rocky Point Dr · Tampa, FL 33607 · Florida
               </div>
             </div>
           </div>
@@ -163,13 +163,13 @@ export function OfferLetterModal({
 
         {/* Recipient + intro */}
         <div className="space-y-1 text-[13px]">
-          <div className="font-bold">Aurélie Laurent</div>
+          <div className="font-bold">Diane Laurent</div>
           <div className="text-mute">12 rue de la Synagogue · 68100 Mulhouse · France</div>
         </div>
 
         <p className="text-[13px] leading-[20px]">
-          Dear Aurélie, we are pleased to confirm our offer of employment with Valley National Bank
-          in Basel, Switzerland, on the terms set out below. Please countersign to accept.
+          Dear Diane, we are pleased to confirm our offer of employment with Valley National Bank
+          in Tampa, FL, on the terms set out below. Please countersign to accept.
         </p>
 
         {/* Key terms grid */}
@@ -177,8 +177,8 @@ export function OfferLetterModal({
           {[
             ["Position", "Marketing Manager"],
             ["Business unit", "Perfumery & Beauty · EMEA"],
-            ["Reporting line", "Niklas K. · Head of Marketing"],
-            ["Work location", "Basel office · 60% on-site"],
+            ["Reporting line", "Sarah K. · Head of Marketing"],
+            ["Work location", "Tampa FL branch · 60% on-site"],
             ["Start date", "Monday, 25 May 2026"],
             ["Employment type", "Permanent · 100%"],
             ["Probation", "3 months"],
@@ -213,7 +213,7 @@ export function OfferLetterModal({
             </div>
           </div>
           <p className="text-[12px] text-mute leading-[18px]">
-            Paid in 13 instalments per Swiss practice. Variable settled at year-end against
+            Paid in 13 instalments per FL practice. Variable settled at year-end against
             Valley MBO scorecard. Sign-on payable on day 30, recoverable pro-rata if you leave
             inside 24 months.
           </p>
@@ -225,7 +225,7 @@ export function OfferLetterModal({
             Benefits
           </div>
           <ul className="text-[12px] leading-[20px] list-disc pl-5 space-y-0.5">
-            <li>25 working days paid leave + Swiss public holidays</li>
+            <li>25 working days paid leave + FL public holidays</li>
             <li>Pension contribution per BVG · employer 2/3, employee 1/3</li>
             <li>Comprehensive health + accident coverage (KTG)</li>
             <li>Relocation allowance up to CHF 7,500 against actuals</li>
@@ -251,10 +251,10 @@ export function OfferLetterModal({
               Accepted by
             </div>
             <div className="font-['Segoe_Script',cursive] text-[20px] text-ink leading-none">
-              Aurélie Laurent
+              Diane Laurent
             </div>
             <div className="text-[11px] text-mute mt-1">
-              Aurélie Laurent · 24 May 2026
+              Diane Laurent · 24 May 2026
             </div>
           </div>
         </section>
@@ -276,19 +276,19 @@ const preboardingMeta: Record<
   welcome: {
     eyebrow: "Outlook · scheduled send",
     title: "Welcome message · bilingual",
-    sub: "Queued for 09:00 CET today · open delivery report after send",
+    sub: "Queued for 09:00 ET today · open delivery report after send",
     icon: Mail,
   },
   equipment: {
     eyebrow: "IT service desk · ticket #DSK-44820",
     title: "Equipment ticket · MacBook Pro 14",
-    sub: "Approved by Niklas K. · delivery before Day 1",
+    sub: "Approved by Sarah K. · delivery before Day 1",
     icon: Laptop,
   },
   it: {
     eyebrow: "Identity provider · auto-provisioning",
     title: "IT account provisioning · 12 apps",
-    sub: "Accounts staged · activate on Day 1 08:30 CET",
+    sub: "Accounts staged · activate on Day 1 08:30 ET",
     icon: KeyRound,
   },
   permit: {
@@ -345,19 +345,19 @@ function WelcomeBody() {
     <div className="space-y-4">
       <div className="bg-surface-fog rounded-md p-4 space-y-2 text-[12px]">
         <Row k="From" v="Sara Khan <sara.khan@Valley Bank.com>" />
-        <Row k="To" v="Aurélie Laurent <aurelie.laurent@Valley Bank.com>" />
-        <Row k="Cc" v="Niklas Keller · Léa Müller (buddy)" />
+        <Row k="To" v="Diane Laurent <aurelie.laurent@Valley Bank.com>" />
+        <Row k="Cc" v="Sarah Keller · Léa Müller (buddy)" />
         <Row k="Subject" v="Bienvenue chez Valley Bank · Welcome to the team" />
-        <Row k="Send" v="Today · 09:00 CET" />
+        <Row k="Send" v="Today · 09:00 ET" />
       </div>
       <div className="space-y-3 text-[13px] leading-[20px] text-ink">
-        <p className="font-bold">Bonjour Aurélie,</p>
+        <p className="font-bold">Bonjour Diane,</p>
         <p>
-          We're delighted you're joining the Basel marketing team next Monday. This note
+          We're delighted you're joining the Tampa marketing team next Monday. This note
           covers your first day so nothing surprises you.
         </p>
         <ul className="list-disc pl-5 space-y-1">
-          <li>Arrive at the Basel office at 08:00. Reception will hand you your badge.</li>
+          <li>Arrive at the Tampa FL branch at 08:00. Reception will hand you your badge.</li>
           <li>Your laptop, monitor and Magic Mouse will already be on your desk.</li>
           <li>Léa M., your onboarding buddy, will meet you at the coffee point at 09:00.</li>
           <li>Your full Day-1 calendar is attached. Wear comfortable shoes — there is a tour.</li>
@@ -375,11 +375,11 @@ function EquipmentBody({ parentStep }: { parentStep: number }) {
     ["Display", "Studio Display 27\" · standard glass"],
     ["Peripherals", "Magic Mouse · Magic Keyboard with Touch ID"],
     ["Accessories", "USB-C dock · 2 × cables · headset (Jabra 75)"],
-    ["Delivery", "Friday 22 May · before 16:00 · Basel office"],
-    ["Recipient", "Reception desk · held for Aurélie L."],
+    ["Delivery", "Friday 22 May · before 16:00 · Tampa FL branch"],
+    ["Recipient", "Reception desk · held for Diane Patel"],
   ];
   // 4-node chain: ticket raised → manager approval → IT desk → carrier
-  // parent step 2 → at node 1 (Niklas approving)
+  // parent step 2 → at node 1 (Sarah approving)
   // parent step 3 → at node 2 (IT desk processing)
   // parent step 4 → all done
   const allDone = parentStep >= 4;
@@ -416,7 +416,7 @@ function EquipmentBody({ parentStep }: { parentStep: number }) {
           </div>
           <div className="text-[10px] text-mute">
             {allDone
-              ? "Tracking issued · auto-forwarded to Aurélie"
+              ? "Tracking issued · auto-forwarded to Diane"
               : `${activeIndex} of ${equipmentNodes.length} cleared · agent watching`}
           </div>
         </div>
@@ -569,19 +569,19 @@ function PermitBody() {
           Result · no permit required
         </div>
         <div className="text-[13px] text-ink">
-          Aurélie is a French citizen taking up employment in Switzerland. Under the
+          Diane is a French citizen taking up employment in Florida. Under the
           EU/EFTA bilateral agreements (AFMP), no work permit is required.
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3">
         <Row k="Nationality" v="🇫🇷 French (EU)" block />
-        <Row k="Country of work" v="🇨🇭 Switzerland" block />
+        <Row k="Country of work" v="🌴 Florida" block />
         <Row k="Permit type" v="Not required (AFMP)" block />
         <Row k="Cantonal registration" v="Within 14 days · reminder set" block />
       </div>
       <div className="text-[12px] text-mute leading-[18px]">
-        Once registered with the Basel canton, Aurélie receives a residency confirmation (no
-        L/B/C permit). Source taxation (Quellensteuer) applies until she takes Swiss
+        Once registered with the FL state, Diane receives a residency confirmation (no
+        W-4 (FL state). Standard federal + FL withholding applies once she takes Valley
         residence — payroll has been pre-configured.
       </div>
     </div>
@@ -633,7 +633,7 @@ const calData: CalMonth[] = [
     startWeekday: 4, // May 1 is Fri
     events: [
       { day: 25, label: "Day 1 · welcome + meetings", tone: "intro" },
-      { day: 26, label: "Onboarding training · Swiss FADP", tone: "training" },
+      { day: 26, label: "Onboarding training · FL FADP", tone: "training" },
       { day: 27, label: "Team intros · marketing pod", tone: "intro" },
       { day: 28, label: "Brand audit read-out", tone: "review" },
       { day: 29, label: "Cantonal residency registration", tone: "milestone" },
@@ -658,7 +658,7 @@ const calData: CalMonth[] = [
     daysInMonth: 31,
     startWeekday: 2, // July 1 is Wed
     events: [
-      { day: 6, label: "Basel hub regional plan kick-off", tone: "milestone" },
+      { day: 6, label: "Tampa FL regional plan kick-off", tone: "milestone" },
       { day: 14, label: "Direct report kickoff (interview slate)", tone: "milestone" },
       { day: 21, label: "Tableau Q3 KPI dashboard live", tone: "milestone" },
       { day: 28, label: "90-day review with leadership", tone: "review" },
@@ -713,7 +713,7 @@ export function CalendarPlanModal({
       footer={
         <div className="flex items-center justify-between gap-3">
           <span className="text-[11px] text-mute">
-            14 milestone events · 7 Day-1 meetings · auto-synced to Aurélie's inbox
+            14 milestone events · 7 Day-1 meetings · auto-synced to Diane's inbox
           </span>
           <PillButton variant="primary" size="md" arrow onClick={finish}>
             Close and continue
@@ -863,7 +863,7 @@ function CalMonthCard({
  * Signable contract modal — DSM-style document + canvas signature pad
  * ──────────────────────────────────────────────────────────────────────*/
 
-export type SignableKind = "residency" | "quellensteuer";
+export type SignableKind = "residency" | "fl_state_withholding";
 
 type SignableMeta = {
   eyebrow: string;
@@ -878,18 +878,18 @@ type SignableMeta = {
 
 const signableMeta: Record<SignableKind, SignableMeta> = {
   residency: {
-    eyebrow: "Cantonal authority · Basel-Stadt",
+    eyebrow: "Cantonal authority · Tampa-Stadt",
     title: "Residency registration · Anmeldebestätigung",
-    sub: "Form Nr. EWA-3 · Einwohneramt Basel-Stadt",
-    authority: "Einwohneramt Basel-Stadt · Spiegelgasse 12",
+    sub: "Form Nr. EWA-3 · Einwohneramt Tampa-Stadt",
+    authority: "Einwohneramt Tampa-Stadt · Spiegelgasse 12",
     refNum: "EWA-3 · DSMF-26-0175",
     body: () => (
       <div className="space-y-3 text-[12px] leading-[18px] text-ink">
         <p>
-          The undersigned, on behalf of <span className="font-bold">Aurélie Laurent</span>, an
+          The undersigned, on behalf of <span className="font-bold">Diane Laurent</span>, an
           incoming employee of Valley National Bank, acknowledges that the employee is required
-          under Art. 11 of the Swiss Federal Act on Foreign Nationals and Integration (FNIA)
-          to register her residence with the Einwohneramt Basel-Stadt within fourteen (14)
+          under Art. 11 of the FL Federal Act on Foreign Nationals and Integration (FNIA)
+          to register her residence with the Einwohneramt Tampa-Stadt within fourteen (14)
           days of taking up residence in the canton.
         </p>
         <p>
@@ -906,29 +906,29 @@ const signableMeta: Record<SignableKind, SignableMeta> = {
         </p>
       </div>
     ),
-    acknowledgement: "I confirm the cantonal residency reminder is active for Aurélie L.",
+    acknowledgement: "I confirm the cantonal residency reminder is active for Diane Patel",
     signedBy: "HR Business Partner · Valley National Bank",
   },
-  quellensteuer: {
-    eyebrow: "Federal tax authority · Basel-Stadt",
-    title: "Source taxation · Quellensteuer declaration",
+  fl_state_withholding: {
+    eyebrow: "Federal tax authority · Tampa-Stadt",
+    title: "Source taxation · FL state W-4 declaration",
     sub: "Form Q-SBS-2026 · routes to payroll on signature",
-    authority: "Steuerverwaltung Basel-Stadt · Fischmarkt 10",
+    authority: "Steuerverwaltung Tampa-Stadt · Fischmarkt 10",
     refNum: "Q-SBS-2026 · DSMF-26-0175",
     body: () => (
       <div className="space-y-3 text-[12px] leading-[18px] text-ink">
         <p>
-          This declaration confirms that <span className="font-bold">Aurélie Laurent</span>,
+          This declaration confirms that <span className="font-bold">Diane Laurent</span>,
           starting employment on 25 May 2026 with Valley National Bank, will be subject to
-          source taxation (Quellensteuer) under cantonal rate{" "}
+          FL state withholding under the standard rate{" "}
           <span className="font-bold">A-0 (single, no children, no church)</span> for the
-          canton of Basel-Stadt, until such time as she takes up Swiss residence and the
+          canton of Tampa-Stadt, until such time as she takes up FL residence and the
           authority confirms a switch to ordinary assessment.
         </p>
         <p>
           The employer hereby instructs the payroll department to withhold the applicable
-          Quellensteuer from each pay period in 2026 and to remit the withheld amounts
-          monthly to the Steuerverwaltung Basel-Stadt by the 15th day of the following
+          FL state withholding from each pay period in 2026 and to remit the withheld amounts
+          monthly to the Steuerverwaltung Tampa-Stadt by the 15th day of the following
           month. The first remittance covers payroll period May 2026 and is due 15 June 2026.
         </p>
         <p>
@@ -1112,7 +1112,7 @@ export function SignableContractModal({
         {/* Subject summary */}
         <div className="grid grid-cols-3 gap-3 bg-surface-fog rounded-md p-3">
           {[
-            ["Subject", "Aurélie Laurent"],
+            ["Subject", "Diane Laurent"],
             ["Employer", "Valley National Bank · Wayne NJ"],
             ["Start of obligation", "25 May 2026"],
           ].map(([k, v]) => (
@@ -1190,7 +1190,7 @@ export function SignableContractModal({
             </div>
             <div>
               <div className="text-[10px] tracking-[0.08em] uppercase font-medium">Date</div>
-              <div className="text-ink">24 May 2026 · 14:32 CET</div>
+              <div className="text-ink">24 May 2026 · 14:32 ET</div>
             </div>
           </div>
         </section>
@@ -1306,7 +1306,7 @@ export function BundleDispatchModal({
                   >
                     {isInFlight
                       ? k === "equipment"
-                        ? "Pending Niklas K. approval · 1 of 4 cleared"
+                        ? "Pending Sarah K. approval · 1 of 4 cleared"
                         : "Provisioning · 3 of 12 apps ready"
                       : fired
                         ? "Dispatched · receipt logged"

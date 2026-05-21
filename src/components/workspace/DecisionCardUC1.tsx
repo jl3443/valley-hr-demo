@@ -34,10 +34,10 @@ export function DecisionCardUC1({
             Approved · audit logged
           </div>
           <h3 className="text-[22px] font-bold text-ink leading-[28px]">
-            Offboarding under way · Camila Souza
+            Offboarding under way · Carlos Ramirez
           </h3>
           <p className="text-[14px] text-ink">
-            KT sessions scheduled with Rafael F. and Beatriz O. · 23 SaaS accesses armed for
+            KT sessions scheduled with Brian S. and Beatriz O. · 23 SaaS accesses armed for
             17:00 BRT on Friday 27 June · exit interview booked · offboarding letter filed with
             homologação. Everything is logged.
           </p>
@@ -73,7 +73,7 @@ export function DecisionCardUC1({
               {letterSigned ? "Ready to approve" : "Decision card · 1 item to sign"}
             </div>
             <h3 className="text-[22px] font-bold text-ink leading-[28px] mt-1">
-              Approve Camila Souza's offboarding package
+              Approve Carlos Ramirez's offboarding package
             </h3>
             <p className="text-[13px] text-mute mt-1.5 max-w-[640px]">
               Four blocks below summarize what the agent built. Open any block to inspect or
@@ -81,7 +81,7 @@ export function DecisionCardUC1({
             </p>
           </div>
           <div className="text-right text-[11px] text-mute leading-tight shrink-0">
-            <div>HR-0178 · Brazil</div>
+            <div>HR-0178 · New Jersey</div>
             <div>Tenure 4y 3m · last day 27 Jun</div>
           </div>
         </header>

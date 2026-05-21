@@ -16,13 +16,13 @@ export function EmploymentVerification() {
             <div>
               <div className="text-[15px] font-bold text-ink">People team</div>
               <div className="text-[11px] uppercase tracking-[0.06em] text-mute">
-                Global HR · Kaiseraugst HQ
+                Global HR · Wayne NJ HQ
               </div>
             </div>
           </div>
           <div className="text-[12px] text-mute leading-snug text-right">
             <div>Wurmisweg 576</div>
-            <div>4303 Kaiseraugst, Switzerland</div>
+            <div>Tampa, FL 33607</div>
             <div>people@company.com · +41 61 815 8000</div>
           </div>
         </header>
@@ -93,7 +93,7 @@ export function EmploymentVerification() {
             <div className="w-24 h-24 rounded-full border-2 border-surface-deep text-surface-deep flex flex-col items-center justify-center text-[10px] font-bold tracking-[0.08em] uppercase leading-tight">
               <div>Verified</div>
               <div className="mt-1">19 May 2026</div>
-              <div>17:24 CET</div>
+              <div>17:24 ET</div>
             </div>
             <div className="text-[11px] text-mute mt-2">E-signed via secure HR system</div>
           </div>

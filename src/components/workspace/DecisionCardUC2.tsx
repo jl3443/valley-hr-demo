@@ -27,7 +27,7 @@ export function DecisionCardUC2({
             Roll-out under way
           </h3>
           <p className="text-[14px] text-ink">
-            Payroll updated, announcements sent, works council notified. We'll
+            Payroll updated, announcements sent, HR bulletin notified. We'll
             keep tracking until the 17 August go-live.
           </p>
           <PillButton
@@ -51,7 +51,7 @@ export function DecisionCardUC2({
             Decision card
           </div>
           <h3 className="text-[22px] font-bold text-ink leading-[28px] mt-1">
-            Approve the 90-day Germany workweek roll-out
+            Approve the 90-day New Jersey workweek roll-out
           </h3>
         </header>
 
@@ -110,7 +110,7 @@ export function DecisionCardUC2({
               { id: "working-hours-act" as const, label: "Source law" },
               { id: "handbook-redline" as const, label: "Handbook redline" },
               { id: "employee-announcement" as const, label: "Employee announcement" },
-              { id: "works-council-notice" as const, label: "Works council notice" },
+              { id: "works-council-notice" as const, label: "HR bulletin" },
             ].map((d) => (
               <button
                 key={d.id}

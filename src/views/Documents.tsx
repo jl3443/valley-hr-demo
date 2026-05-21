@@ -27,9 +27,9 @@ type Doc = {
 const documents: Doc[] = [
   {
     id: "working-hours-act",
-    title: "German Working Hours Act amendment",
+    title: "NJ Wage Transparency Act",
     sub: "Source law · §3 ArbZG · workweek 40h → 37.5h",
-    country: "Germany",
+    country: "New Jersey",
     flag: "🇩🇪",
     category: "policy",
     status: "Filed",
@@ -40,7 +40,7 @@ const documents: Doc[] = [
     id: "handbook-redline",
     title: "Employee handbook · Section 4 redline",
     sub: "Working hours clause updated to match the new ArbZG amendment",
-    country: "Germany",
+    country: "New Jersey",
     flag: "🇩🇪",
     category: "policy",
     status: "Draft",
@@ -49,9 +49,9 @@ const documents: Doc[] = [
   },
   {
     id: "works-council-notice",
-    title: "Works council notice · §87 (1) Nr. 2 BetrVG",
-    sub: "Required Betriebsrat notification for the workweek change",
-    country: "Germany",
+    title: "HR bulletin · §87 (1) Nr. 2 BetrVG",
+    sub: "Required HR Bulletin team notification for the workweek change",
+    country: "New Jersey",
     flag: "🇩🇪",
     category: "policy",
     status: "Filed",
@@ -61,8 +61,8 @@ const documents: Doc[] = [
   {
     id: "employee-announcement",
     title: "Workweek change · employee announcement",
-    sub: "Bilingual letter · German + English · 147 recipients",
-    country: "Germany",
+    sub: "Bilingual letter · English + Spanish · 147 recipients",
+    country: "New Jersey",
     flag: "🇩🇪",
     category: "announcement",
     status: "Sent",
@@ -72,9 +72,9 @@ const documents: Doc[] = [
   },
   {
     id: "termination-letter",
-    title: "Offboarding letter · Sabine H.",
-    sub: "Senior R&D · Heidelberg · final day 23 May · German + English",
-    country: "Germany",
+    title: "Offboarding letter · Carlos H.",
+    sub: "Senior R&D · Wayne NJ · final day 23 May · English + Spanish",
+    country: "New Jersey",
     flag: "🇩🇪",
     category: "letter",
     status: "Draft",
@@ -106,7 +106,7 @@ const documents: Doc[] = [
   },
   {
     id: "coverage-plan",
-    title: "Parental leave coverage plan · Aurélie L.",
+    title: "Parental leave coverage plan · Diane Patel",
     sub: "France · 12-week plan with handover map and re-onboarding checklist",
     country: "France",
     flag: "🇫🇷",
@@ -138,7 +138,7 @@ const tabs: {
     Icon: ShieldCheck,
     match: ["policy"],
     blurb:
-      "Source-of-truth compliance artifacts the agent maintains — labor-law sources, handbook redlines, works council notices.",
+      "Source-of-truth compliance artifacts the agent maintains — labor-law sources, handbook redlines, HR bulletins.",
   },
 ];
 
@@ -405,7 +405,7 @@ export function Documents({ tab }: { tab: "letters" | "policies" }) {
                     "Section-by-section diff against the source law · every change traceable to a paragraph in the original text.",
                 },
                 {
-                  title: "File with the works council",
+                  title: "File with the HR bulletin",
                   body:
                     "Where co-determination applies, the agent writes the notice, attaches the redline, and tracks the response window.",
                 },

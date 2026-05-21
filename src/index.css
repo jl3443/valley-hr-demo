@@ -73,11 +73,14 @@
   --mute: #5c646c;                   /* Valley ink-soft */
   --divider: #dee2e6;                /* Valley divider */
 
-  /* Brand surfaces — re-mapped to Valley palette */
-  --surface-mint: #e6eaed;           /* was mint #c3e6e1 — now Valley light-navy */
-  --surface-sage: #f3d01c;           /* was sage #44b4a1 — now Valley brand yellow */
-  --surface-rose: #fefae8;           /* was rose #ccbcb8 — now Valley cream */
-  --surface-fog:  #f2f3f4;           /* was fog #f7f7f7 — now Valley surface */
+  /* Brand surfaces — Valley product-card aesthetic.
+   * Per user: "用黄色为底色，深蓝为点缀" — yellow IS the hero canvas, navy is accent.
+   * Matches valley.com's product-card pattern: bold yellow bg + navy headings.
+   * Components that need a SOFTER warm-tone surface fall back to cream (rose). */
+  --surface-mint: #f3d01c;           /* hero panel / banner / KPI strip — Valley bold yellow */
+  --surface-sage: #f3d01c;           /* alt accent panel — also yellow (paired with navy text) */
+  --surface-rose: #fefae8;           /* softer cream surface — when bold yellow is too much */
+  --surface-fog:  #f2f3f4;           /* neutral grey background */
 
   /* Brand accents — Valley navy is the new "green" */
   --accent-green:      #002c4e;      /* was #277e6e — now Valley navy (primary brand) */

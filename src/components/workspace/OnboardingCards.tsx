@@ -34,9 +34,9 @@ export function SignedOfferCard() {
         </header>
         <div className="grid grid-cols-4 gap-4">
           {[
-            { label: "Candidate", value: "Aurélie L." },
+            { label: "Candidate", value: "Diane Patel" },
             { label: "Role", value: "Marketing Manager" },
-            { label: "Location", value: "🇨🇭 Basel" },
+            { label: "Location", value: "🌴 Tampa, FL" },
             { label: "Start date", value: "Mon 25 May" },
           ].map((f) => (
             <div key={f.label}>
@@ -48,7 +48,7 @@ export function SignedOfferCard() {
           ))}
         </div>
         <div className="text-[12px] text-mute pt-2 border-t border-divider/80">
-          Role template loaded · 30/60/90 baseline available · hiring manager: Niklas K.
+          Role template loaded · 30/60/90 baseline available · hiring manager: Sarah K.
         </div>
       </article>
     </SpringIn>
@@ -72,7 +72,7 @@ const bundleItems: BundleItem[] = [
     kind: "welcome",
     Icon: Mail,
     label: "Welcome message",
-    sub: "Bilingual · French + English · queued for 09:00 CET today",
+    sub: "Bilingual · French + English · queued for 09:00 ET today",
     source: "Outlook",
   },
   {
@@ -206,7 +206,7 @@ export function PreboardingBundleCard({
 
 function pendingDetail(kind: PreboardingKind, parentStep: number): string {
   if (kind === "equipment") {
-    if (parentStep <= 2) return "Awaiting Niklas K. one-tap approval…";
+    if (parentStep <= 2) return "Awaiting Sarah K. one-tap approval…";
     if (parentStep === 3) return "Cleared by manager · with IT service desk now";
     return "Carrier confirmed · delivery by Fri 16:00";
   }
@@ -240,7 +240,7 @@ export function DayPlanReadyCard({ onReopen }: { onReopen: () => void }) {
           <div className="text-[14px] text-ink mt-1.5">
             <span className="font-bold">7 meetings</span> on Day 1 ·{" "}
             <span className="font-bold">14 milestones</span> across May, June, July · auto-synced
-            to Aurélie's inbox and Niklas's calendar.
+            to Diane's inbox and Sarah's calendar.
           </div>
         </div>
         <button
@@ -262,7 +262,7 @@ export function DayPlanReadyCard({ onReopen }: { onReopen: () => void }) {
  * - The card itself becomes the approval surface
  * ──────────────────────────────────────────────────────────────────────*/
 
-export type ComplianceSignId = "residency" | "quellensteuer";
+export type ComplianceSignId = "residency" | "fl_state_withholding";
 
 type ComplianceItem = {
   Icon: LucideIcon;
@@ -275,8 +275,8 @@ type ComplianceItem = {
 const complianceItems: ComplianceItem[] = [
   {
     Icon: ShieldCheck,
-    label: "Works council notification",
-    sub: "Switzerland has no Betriebsrat equivalent · not required",
+    label: "HR bulletin team notification",
+    sub: "Florida has no HR Bulletin team equivalent · not required",
     baseState: "satisfied",
   },
   {
@@ -288,7 +288,7 @@ const complianceItems: ComplianceItem[] = [
   {
     Icon: GraduationCap,
     label: "Mandatory training · data protection (DSG)",
-    sub: "Swiss FADP module · enrolled · Day 1 afternoon",
+    sub: "FL FADP module · enrolled · Day 1 afternoon",
     baseState: "queued",
   },
   {
@@ -300,16 +300,16 @@ const complianceItems: ComplianceItem[] = [
   {
     Icon: AlertTriangle,
     label: "Cantonal residency registration",
-    sub: "Aurélie must register within 14 days · sign reminder file",
+    sub: "Diane must register within 14 days · sign reminder file",
     baseState: "queued",
     signId: "residency",
   },
   {
     Icon: AlertTriangle,
     label: "Source taxation form",
-    sub: "Quellensteuer · payroll routes to BS canton · drafted, awaiting signature",
+    sub: "FL state W-4 · payroll routes to FL DOR · drafted, awaiting signature",
     baseState: "queued",
-    signId: "quellensteuer",
+    signId: "fl_state_withholding",
   },
 ];
 
@@ -346,7 +346,7 @@ export function CountryComplianceCard({
           <div className="flex items-center gap-2">
             <AIDot size={6} tone="deep" pulse={!allSigned} />
             <span className="text-[11px] tracking-[0.08em] uppercase text-surface-deep font-medium">
-              Switzerland · compliance scan
+              Florida · compliance scan
             </span>
           </div>
           <div className="flex items-center gap-2 text-[11px]">

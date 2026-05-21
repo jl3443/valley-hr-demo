@@ -29,12 +29,12 @@ const copy: Record<FlowId, FlowCopy> = {
   uc1: {
     title: "Offboarding queued",
     sub: "Approval logged · homologação filed",
-    pill: "HR-0178 · Camila S.",
+    pill: "HR-0178 · Carlos S.",
     rows: [
       {
         Icon: Users,
         label: "KT plan",
-        value: "Rafael F. + Beatriz O. · 8 sessions auto-booked",
+        value: "Brian S. + Beatriz O. · 8 sessions auto-booked",
       },
       {
         Icon: CalendarDays,
@@ -44,14 +44,14 @@ const copy: Record<FlowId, FlowCopy> = {
       {
         Icon: ShieldCheck,
         label: "Exit package filed",
-        value: "BRL 119,033 gross · TRCT homologated · audit logged",
+        value: "USD 119,033 gross · NJ final-pay homologated · audit logged",
       },
     ],
   },
   uc2: {
     title: "Compliance live",
     sub: "Roll-out under way · risk cleared",
-    pill: "HR-0184 · Germany",
+    pill: "HR-0184 · New Jersey",
     rows: [
       {
         Icon: ScrollText,
@@ -60,7 +60,7 @@ const copy: Record<FlowId, FlowCopy> = {
       },
       {
         Icon: FileText,
-        label: "Works council",
+        label: "HR bulletin team",
         value: "Notice filed · acknowledgement pending",
       },
       {
@@ -73,7 +73,7 @@ const copy: Record<FlowId, FlowCopy> = {
   uc4: {
     title: "Onboarding live",
     sub: "Bundle dispatched · Day 1 booked",
-    pill: "HR-0175 · Aurélie L.",
+    pill: "HR-0175 · Diane Patel",
     rows: [
       {
         Icon: Mail,
@@ -88,7 +88,7 @@ const copy: Record<FlowId, FlowCopy> = {
       {
         Icon: ShieldCheck,
         label: "Confidence restored",
-        value: "Swiss compliance scheduled · audit logged",
+        value: "FL compliance scheduled · audit logged",
       },
     ],
   },

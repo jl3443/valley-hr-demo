@@ -41,7 +41,7 @@ const analysisLines: AnalysisLine[] = [
     tone: "insight",
     label: "Probable trigger",
     body:
-      "Glassdoor mentions + 11 internal #careers Slack visits in the past 30 days suggest external offer rather than internal dissatisfaction. Confidence 78%.",
+      "Glassdoor mentions + 11 internal #careers Slack visits in the past 14 days suggest external offer rather than internal dissatisfaction. Confidence 78%.",
   },
   {
     Icon: Heart,
@@ -73,8 +73,8 @@ export function ResignationParsedCard() {
         </header>
         <div className="grid grid-cols-4 gap-4">
           {[
-            { label: "Employee", value: "Camila Souza" },
-            { label: "Role", value: "Senior R&D · São Paulo" },
+            { label: "Employee", value: "Carlos Ramirez" },
+            { label: "Role", value: "Senior Commercial Lender · Wayne NJ" },
             { label: "Tenure", value: "4 yrs 3 mo" },
             { label: "Last working day", value: "Fri 27 Jun" },
           ].map((f) => (
@@ -118,7 +118,7 @@ export function ResignationParsedCard() {
             ))}
           </div>
           <div className="text-[11px] text-mute pt-1">
-            Aviso prévio CLT detected · 30 days · base BRL 24,800/mo · manager Rafael F. notified.
+            Two-week notice NJ wage-payment law detected · 14 days · base USD 24,800/mo · manager Brian S. notified.
           </div>
         </section>
       </article>
@@ -184,7 +184,7 @@ export function KTPlanReadyCard({ onView }: { onView: () => void }) {
         <div className="grid grid-cols-2 gap-3 pt-2 border-t border-divider/80">
           <SuccessorPill
             initials="RF"
-            name="Rafael F."
+            name="Brian S."
             role="Senior Engineer · same pod"
             areas={8}
             color="bg-surface-deep text-ink-inverse"
@@ -286,7 +286,7 @@ export function ExitPackageReadyCard({ onView }: { onView: () => void }) {
           <div className="flex items-center gap-2">
             <AIDot size={6} tone="deep" />
             <span className="text-[11px] tracking-[0.08em] uppercase text-surface-deep font-medium">
-              Exit package ready · BRL 119,033.33 gross
+              Exit package ready · $14,820 gross
             </span>
           </div>
           <button
@@ -300,7 +300,7 @@ export function ExitPackageReadyCard({ onView }: { onView: () => void }) {
         <div className="grid grid-cols-4 gap-3">
           {[
             { label: "Base + prorata", value: "22.3K" },
-            { label: "13th-month 6/12", value: "12.4K" },
+            { label: "annual bonus 6/12", value: "12.4K" },
             { label: "Vacation + 1/3", value: "19.8K" },
             { label: "FGTS + 40%", value: "39.7K" },
           ].map((f) => (
@@ -309,14 +309,14 @@ export function ExitPackageReadyCard({ onView }: { onView: () => void }) {
                 {f.label}
               </div>
               <div className="text-[14px] font-bold text-ink mt-0.5 tabular-nums">
-                BRL {f.value}
+                USD {f.value}
               </div>
             </div>
           ))}
         </div>
         <div className="flex items-center gap-2 text-[12px] text-mute pt-2 border-t border-divider/80">
           <Wallet size={13} strokeWidth={1.8} className="text-surface-deep" />
-          Offboarding letter (PT + EN) drafted · awaits HRBP signature at approval step.
+          Offboarding letter (EN + ES) drafted · awaits HRBP signature at approval step.
         </div>
       </article>
     </SpringIn>
@@ -358,12 +358,12 @@ export function FinalSummaryBlocks({
       <Block
         Icon={Wallet}
         title="Exit package"
-        meta="BRL 119,033.33 gross · TRCT-compliant"
+        meta="$14,820 gross · NJ-compliant"
         onClick={onOpenExit}
       />
       <Block
         Icon={Mail}
-        title="Offboarding letter · PT + EN"
+        title="Offboarding letter · EN + ES"
         meta={letterSigned ? "Signed · routed to homologação" : "Awaiting signature"}
         onClick={onOpenLetter}
         accent={!letterSigned}

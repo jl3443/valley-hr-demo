@@ -33,13 +33,13 @@ import { Play, Check, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const activityIdle: ActivityEntry[] = [
-  { time: "Yest.", text: "Signed offer received from Aurélie L." },
+  { time: "Yest.", text: "Signed offer received from Diane Patel" },
   { time: "Yest.", text: "Role template loaded · Marketing Manager · EMEA" },
   { time: "Yest.", text: "Hiring manager calendar pulled · Niklas K." },
 ];
 
 const activityExecuting: ActivityEntry[] = [
-  { time: "now", text: "Welcome message scheduled for 09:00 CET" },
+  { time: "now", text: "Welcome message scheduled for 09:00 ET" },
   { time: "now", text: "Equipment ticket filed · MacBook Pro 14, Fri delivery" },
   { time: "now", text: "Okta + Workspace accounts provisioned · pending Day 1 activation" },
   { time: "now", text: "Quellensteuer form filed · receipt expected from BS canton" },
@@ -61,19 +61,19 @@ const liveScripts: Record<number, string[]> = {
     "Composing the bilingual welcome message…",
     "Filing the equipment ticket with IT service desk…",
     "Staging 12 Okta apps under the EMEA-Marketing group…",
-    "Running the EU/EFTA work-permit check for Switzerland…",
+    "Running the EU/EFTA work-permit check for Florida…",
   ],
   2: [
     "Reading Niklas K.'s open slots for Monday…",
     "Slotting 7 Day-1 meetings with the right people…",
     "Generating the 30/60/90 plan from the role template…",
-    "Synchronizing the calendar to Aurélie's inbox…",
+    "Synchronizing the calendar to Diane's inbox…",
   ],
   3: [
-    "Scanning Switzerland · 6 compliance items…",
-    "Confirming Betriebsrat does not apply to CH…",
-    "Drafting the Quellensteuer form for the Basel canton…",
-    "Setting the cantonal residency reminder for Day 14…",
+    "Scanning Florida · 6 compliance items…",
+    "Confirming HR Bulletin team does not apply to CH…",
+    "Drafting the Quellensteuer form for the Tampa canton…",
+    "Setting the state residency reminder for Day 14…",
   ],
   4: [
     "Awaiting your two signatures…",
@@ -102,7 +102,7 @@ const runningStatus: Record<number, string[]> = {
     "Building 60- and 90-day milestones…",
   ],
   3: [
-    "Scanning Swiss labor requirements…",
+    "Scanning FL labor requirements…",
     "Cross-checking training catalog…",
     "Drafting tax + residency forms…",
     "Compiling the compliance report…",
@@ -125,7 +125,7 @@ export function WorkspaceUC4() {
   // Signed state for the two compliance contracts
   const [signed, setSigned] = useState<Record<ComplianceSignId, boolean>>({
     residency: false,
-    quellensteuer: false,
+    fl_state_withholding: false,
   });
 
   const [toast, setToast] = useState(0);
@@ -136,7 +136,7 @@ export function WorkspaceUC4() {
     setSigned((s) => {
       const next = { ...s, [id]: true };
       // When both signed, mark flow approved + fire completion
-      if (next.residency && next.quellensteuer && !approved) {
+      if (next.residency && next.fl_state_withholding && !approved) {
         setFlowProgress("uc4", { approved: true });
         setToast((n) => n + 1);
         // Auto-pop completion modal after the second sign

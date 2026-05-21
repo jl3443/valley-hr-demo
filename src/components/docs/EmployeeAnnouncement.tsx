@@ -5,11 +5,13 @@ function LangColumn({
   subject,
   body,
   signoff,
+  recipientLine,
 }: {
   lang: string;
   subject: string;
   body: string[];
   signoff: string[];
+  recipientLine: string;
 }) {
   return (
     <article className="bg-white border border-divider rounded-md p-10 space-y-4">
@@ -17,9 +19,9 @@ function LangColumn({
         {lang}
       </span>
       <div className="text-[12px] text-mute">
-        From: People team · 19 May 2026
+        From: Valley People team · May 19, 2026
         <br />
-        To: All employees on German contracts (147)
+        To: {recipientLine}
       </div>
       <h2 className="text-[20px] font-bold leading-[26px] text-ink">{subject}</h2>
       {body.map((p, i) => (
@@ -37,32 +39,34 @@ function LangColumn({
 export function EmployeeAnnouncement() {
   return (
     <DocChrome
-      title="Document · Employee announcement · German + English"
+      title="Document · Employee bulletin · English + Spanish"
       secondary={{ label: "Edit translation" }}
-      primary={{ label: "Send to 147 employees" }}
+      primary={{ label: "Send to 147 hiring teams" }}
     >
       <div className="grid grid-cols-2 gap-4 col-span-1">
         <LangColumn
-          lang="DE · German"
-          subject="Bevorstehende Änderungen Ihrer Arbeitszeit"
+          lang="EN · English"
+          subject="New Jersey pay-range disclosure starts June 1"
+          recipientLine="All managers, recruiters, and hiring partners (147)"
           body={[
-            "Hallo,",
-            "wir möchten Sie über eine wichtige Änderung Ihrer Arbeitszeit informieren. Ab dem 17. August 2026 wird die regelmäßige Wochenarbeitszeit von 40 auf 37 Stunden und 30 Minuten reduziert, in Übereinstimmung mit der neuen Änderung des Arbeitszeitgesetzes.",
-            "Ihr Arbeitsvertrag wird automatisch angepasst, Ihr Grundgehalt bleibt unverändert. Ihre Führungskraft wird sich in den nächsten zwei Wochen mit Ihnen in Verbindung setzen, um Ihren neuen Zeitplan zu besprechen.",
-            "Bei Fragen können Sie auf diese E-Mail antworten oder jederzeit mit dem HR concierge sprechen.",
+            "Hi team,",
+            "New Jersey's Wage Transparency Act takes effect on June 1, 2025. Starting that day, every job posting and promotion announcement we publish in New Jersey — or for NJ-eligible remote roles — must include the salary range (a real lower and upper bound) plus a general description of benefits. Open-ended ranges (\"$60k and up\") are no longer permitted.",
+            "Our ATS, careers page, and posting templates have already been updated by HR. Your job is to review the range your team approved and pick the right one when you create a new requisition. The default ranges are pulled from the latest comp band review.",
+            "If you have any questions, reply to this email or chat with HR Concierge any time.",
           ]}
-          signoff={["Mit freundlichen Grüßen,", "People-Team"]}
+          signoff={["Best,", "Valley People team"]}
         />
         <LangColumn
-          lang="EN · English"
-          subject="Upcoming changes to your working hours"
+          lang="ES · Español"
+          subject="Divulgación de salario en Nueva Jersey · entra en vigor el 1 de junio"
+          recipientLine="Todos los gerentes, reclutadores y socios de contratación (147)"
           body={[
-            "Hi,",
-            "We're writing to let you know about an important change to your working hours. Starting 17 August 2026, the standard working week is moving from 40 hours to 37 hours and 30 minutes, in line with the new German Working Hours Act amendment.",
-            "Your contract will be updated automatically, and your base salary stays the same. Your manager will reach out within the next two weeks to walk through your new schedule.",
-            "If you have any questions, you can reply to this email or chat with HR concierge any time.",
+            "Hola equipo:",
+            "La Ley de Transparencia Salarial de Nueva Jersey entra en vigor el 1 de junio de 2025. A partir de esa fecha, cada anuncio de empleo o promoción que publiquemos en Nueva Jersey — o para puestos remotos elegibles en NJ — debe incluir el rango salarial (un límite inferior y superior reales) más una descripción general de los beneficios. Los rangos abiertos (\"$60,000 en adelante\") ya no se permiten.",
+            "Nuestro ATS, la página de carreras y las plantillas de publicación ya fueron actualizadas por Recursos Humanos. Su tarea es revisar el rango aprobado por su equipo y seleccionar el correcto al crear una nueva requisición. Los rangos predeterminados provienen de la revisión más reciente de bandas salariales.",
+            "Si tienen preguntas, respondan a este correo o consulten con HR Concierge en cualquier momento.",
           ]}
-          signoff={["Best,", "People team"]}
+          signoff={["Saludos,", "Equipo de Personas de Valley"]}
         />
       </div>
 
@@ -71,7 +75,7 @@ export function EmployeeAnnouncement() {
           <div className="text-[14px] font-bold text-ink">Translation quality</div>
           {[
             ["Length match", "98%"],
-            ["Tone match", "Friendly + formal"],
+            ["Tone match", "Professional + clear"],
             ["Reading level", "Grade 8 · clear"],
             ["Legal accuracy", "Reviewed by AI"],
           ].map(([k, v]) => (
@@ -85,10 +89,10 @@ export function EmployeeAnnouncement() {
         <div className="bg-white border border-divider rounded-md p-5 space-y-2">
           <div className="text-[14px] font-bold text-ink">Audience</div>
           {[
-            ["Berlin office", "62"],
-            ["Munich office", "48"],
-            ["Hamburg office", "21"],
-            ["Remote (Germany)", "16"],
+            ["Wayne NJ HQ", "62"],
+            ["Branch network (NJ + NY)", "48"],
+            ["FL · AL · CA back-office", "21"],
+            ["NJ-eligible remote", "16"],
           ].map(([k, v]) => (
             <div key={k} className="flex items-center justify-between text-[13px]">
               <span className="text-ink">{k}</span>

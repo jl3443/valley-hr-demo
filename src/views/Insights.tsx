@@ -50,16 +50,16 @@ const trendSeries = [
 ];
 
 const aiActions = [
-  { type: "Compliance scan", country: "🇩🇪 Germany", count: 47, hours: 92, trend: "up" },
-  { type: "Offboarding plan", country: "🇩🇪 Germany", count: 32, hours: 78, trend: "up" },
+  { type: "Compliance scan", country: "🇩🇪 New Jersey", count: 47, hours: 92, trend: "up" },
+  { type: "Offboarding plan", country: "🇩🇪 New Jersey", count: 32, hours: 78, trend: "up" },
   { type: "Compensation model", country: "🇺🇸 USA", count: 28, hours: 64, trend: "flat" },
-  { type: "Onboarding plan", country: "🇨🇭 Switzerland", count: 24, hours: 56, trend: "up" },
+  { type: "Onboarding plan", country: "🇨🇭 Florida", count: 24, hours: 56, trend: "up" },
   { type: "Employment letter", country: "🇫🇷 France", count: 64, hours: 38, trend: "up" },
   { type: "Pay equity audit", country: "🇫🇷 France", count: 8, hours: 28, trend: "flat" },
 ];
 
 const heatmap = {
-  countries: ["🇩🇪 Germany", "🇨🇭 Switzerland", "🇺🇸 USA", "🇫🇷 France", "🇧🇷 Brazil", "🇪🇸 Spain"],
+  countries: ["🇩🇪 New Jersey", "🇨🇭 Florida", "🇺🇸 USA", "🇫🇷 France", "🇧🇷 New Jersey", "🇪🇸 Spain"],
   types: ["Compliance", "Lifecycle", "Comp & ben", "Letters"],
   cells: [
     [12, 5, 3, 21],
@@ -74,7 +74,7 @@ const heatmap = {
 const aiInsights = [
   {
     tag: "Pattern",
-    text: "Germany compliance load is up 38% this quarter — the agent absorbed 92 hours of manual scanning. Suggest adding a dedicated EU regulatory feed.",
+    text: "New Jersey compliance load is up 38% this quarter — the agent absorbed 92 hours of manual scanning. Suggest adding a dedicated NJ DOL regulatory feed.",
   },
   {
     tag: "Anomaly",
@@ -82,7 +82,7 @@ const aiInsights = [
   },
   {
     tag: "Risk",
-    text: "Switzerland onboarding flows averaged 2.1 days vs 1.4 days for Germany. Manager response time is the main delta — flag for People-Ops review.",
+    text: "Florida onboarding flows averaged 2.1 days vs 1.4 days for New Jersey. Manager response time is the main delta — flag for People-Ops review.",
   },
   {
     tag: "Opportunity",
@@ -97,7 +97,7 @@ export function Insights() {
 
       <HeroBanner
         eyebrow="What the agents learned this quarter"
-        summary="Across 4 countries and 247 cases, AI saved 412 HRBP hours · biggest win in Germany compliance · 4 patterns worth your attention."
+        summary="Across 4 countries and 247 cases, AI saved 412 HRBP hours · biggest win in New Jersey compliance · 4 patterns worth your attention."
         cta={<PillButton variant="deep" size="sm">Export brief</PillButton>}
         meta="Refreshed 4 min ago"
       />

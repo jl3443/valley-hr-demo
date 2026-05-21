@@ -10,7 +10,7 @@ export type RunStep = {
   title: string;
   /** Single-line description shown next to the title. */
   sub: string;
-  /** Optional source tag (e.g. "EU regulatory feed", "HR record"). */
+  /** Optional source tag (e.g. "NJ DOL regulatory feed", "HR record"). */
   source?: string;
   /** Optional timestamp shown on the right. */
   time?: string;

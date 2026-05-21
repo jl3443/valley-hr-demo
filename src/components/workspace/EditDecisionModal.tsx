@@ -72,12 +72,12 @@ type FlowConfig = {
 
 const configs: Record<FlowId, FlowConfig> = {
   uc1: {
-    title: "Edit offboarding package · Camila Souza",
+    title: "Edit offboarding package · Carlos Ramirez",
     intro:
       "Adjust any field. The agent will re-cost severance and re-route homologação before sign-off.",
     primaryCta: "Save & continue",
     aiInsight:
-      "Revoking high-risk access (AWS, PagerDuty, Lever) 30+ minutes before cutoff aligns with 96% of past CLT offboardings · 0 incidents in last 22 cases.",
+      "Revoking high-risk access (AWS, PagerDuty, SAP SuccessFactors) 30+ minutes before cutoff aligns with 96% of past NJ offboardings · 0 incidents in last 22 cases.",
     sections: [
       {
         title: "Knowledge transfer",
@@ -88,7 +88,7 @@ const configs: Record<FlowId, FlowConfig> = {
             kind: "text",
             id: "succ1",
             label: "Successor #1",
-            value: "Rafael F.",
+            value: "Brian S.",
             hint: "8 areas · 4 transfer sessions",
           },
           {
@@ -103,13 +103,13 @@ const configs: Record<FlowId, FlowConfig> = {
             id: "exitInt",
             label: "Exit interview",
             value: "2026-06-26",
-            hint: "Thu 15:00 BRT · São Paulo office",
+            hint: "Thu 15:00 BRT · Wayne NJ office",
           },
         ],
       },
       {
         title: "Access revocation",
-        sub: "23 SaaS systems · CLT cut-off Fri 27 Jun",
+        sub: "23 SaaS systems · last-day cut-off Fri 27 Jun",
         badge: "23 systems queued",
         fields: [
           { kind: "date", id: "lastDay", label: "Last working day", value: "2026-06-27" },
@@ -128,16 +128,16 @@ const configs: Record<FlowId, FlowConfig> = {
               "Slack #alumni",
               "Confluence (read-only)",
               "Workday (self-service)",
-              "Personal email forwarding · 30 days",
+              "Personal email forwarding · 14 days",
             ],
-            value: ["Personal email forwarding · 30 days"],
+            value: ["Personal email forwarding · 14 days"],
           },
         ],
       },
       {
-        title: "Exit package · TRCT-format",
-        sub: "Brazilian payroll · auto-priced from Workday",
-        badge: "BRL · PT + EN",
+        title: "Exit package · NJ-final-pay format",
+        sub: "NJ payroll · auto-priced from Workday",
+        badge: "USD · EN + ES",
         fields: [
           {
             kind: "number",
@@ -145,15 +145,15 @@ const configs: Record<FlowId, FlowConfig> = {
             label: "Base salary · prorated",
             value: 22313,
             step: 50,
-            prefix: "BRL",
+            prefix: "USD",
           },
           {
             kind: "number",
             id: "thirteenth",
-            label: "13th-month proration (6/12)",
+            label: "prorated annual bonus (6/12)",
             value: 12400,
             step: 50,
-            prefix: "BRL",
+            prefix: "USD",
           },
           {
             kind: "number",
@@ -161,22 +161,22 @@ const configs: Record<FlowId, FlowConfig> = {
             label: "Vacation + 1/3 constitutional bonus",
             value: 19840,
             step: 50,
-            prefix: "BRL",
+            prefix: "USD",
           },
           {
             kind: "number",
-            id: "aviso",
-            label: "Aviso prévio · paid in lieu",
+            id: "notice",
+            label: "Two-week notice · paid in lieu",
             value: 24800,
             step: 50,
-            prefix: "BRL",
+            prefix: "USD",
           },
           {
             kind: "select",
             id: "lang",
             label: "Offboarding letter language",
-            value: "Portuguese + English",
-            options: ["Portuguese + English", "Portuguese only", "English only"],
+            value: "English + Spanish",
+            options: ["English + Spanish", "English only", "English only"],
           },
           {
             kind: "select",
@@ -190,7 +190,7 @@ const configs: Record<FlowId, FlowConfig> = {
     ],
   },
   uc2: {
-    title: "Edit compliance roll-out · German Working Hours Act",
+    title: "Edit compliance roll-out · NJ Wage Transparency Act",
     intro: "Tune the phase plan, payroll scope, and works-council message before sign-off.",
     primaryCta: "Save & continue",
     aiInsight:
@@ -203,12 +203,12 @@ const configs: Record<FlowId, FlowConfig> = {
         fields: [
           { kind: "date", id: "phase1", label: "Phase 1 · pilot start", value: "2026-06-01", hint: "Engineering + R&D (47 employees)" },
           { kind: "date", id: "phase2", label: "Phase 2 · go-live", value: "2026-07-01", hint: "Operations + Sales (62 employees)" },
-          { kind: "date", id: "phase3", label: "Phase 3 · complete", value: "2026-08-01", hint: "Remaining German contracts (38 employees)" },
+          { kind: "date", id: "phase3", label: "Phase 3 · complete", value: "2026-08-01", hint: "Remaining NJ employment agreements (38 employees)" },
         ],
       },
       {
         title: "Payroll scope",
-        sub: "4 German cost centres",
+        sub: "4 NJ cost centers",
         badge: "Workday auto-push",
         fields: [
           {
@@ -216,16 +216,16 @@ const configs: Record<FlowId, FlowConfig> = {
             id: "costCentres",
             label: "Cost centres to update",
             options: [
-              "DE-001 · Heidelberg HQ",
+              "DE-001 · Wayne NJ HQ",
               "DE-002 · Frankfurt office",
-              "DE-003 · Berlin lab",
-              "DE-004 · Munich plant",
+              "NJ-001 · Wayne NJ HQ",
+              "FL-002 · Tampa FL branch",
             ],
             value: [
-              "DE-001 · Heidelberg HQ",
+              "DE-001 · Wayne NJ HQ",
               "DE-002 · Frankfurt office",
-              "DE-003 · Berlin lab",
-              "DE-004 · Munich plant",
+              "NJ-001 · Wayne NJ HQ",
+              "FL-002 · Tampa FL branch",
             ],
           },
           {
@@ -239,7 +239,7 @@ const configs: Record<FlowId, FlowConfig> = {
       },
       {
         title: "Employee announcement",
-        sub: "Bilingual letter · German + English",
+        sub: "Bilingual letter · English + Spanish",
         badge: "147 recipients",
         fields: [
           {
@@ -254,13 +254,13 @@ const configs: Record<FlowId, FlowConfig> = {
             id: "preamble",
             label: "Opening line (HRBP voice)",
             value:
-              "Following the latest amendment to the German Working Hours Act, your weekly hours will be adjusted in three phases over the next 90 days.",
+              "Following the latest amendment to the NJ Wage Transparency Act, your weekly hours will be adjusted in three phases over the next 90 days.",
             rows: 3,
           },
         ],
       },
       {
-        title: "Works council notice",
+        title: "HR bulletin",
         sub: "§87 (1) Nr. 2 BetrVG",
         badge: "Filed before launch",
         fields: [
@@ -269,30 +269,30 @@ const configs: Record<FlowId, FlowConfig> = {
             kind: "select",
             id: "ackChannel",
             label: "Acknowledgement channel",
-            value: "Works council portal",
-            options: ["Works council portal", "Signed PDF", "In-person meeting"],
+            value: "HR bulletin team portal",
+            options: ["HR bulletin team portal", "Signed PDF", "In-person meeting"],
           },
         ],
       },
     ],
   },
   uc4: {
-    title: "Edit onboarding package · Aurélie L.",
+    title: "Edit onboarding package · Diane Patel",
     intro:
       "Adjust the Day-1 calendar, buddy assignment, 30/60/90 plan, and compliance items before sign-off.",
     primaryCta: "Save & continue",
     aiInsight:
-      "Day-1 calendars with at least one 1:1 with the hiring manager + a buddy lunch hit 92% \"great first day\" rating in past Basel hires.",
+      "Day-1 calendars with at least one 1:1 with the hiring manager + a buddy lunch hit 92% \"great first day\" rating in past Tampa branch hires.",
     sections: [
       {
         title: "Start details",
         sub: "Pulled from the signed offer",
         badge: "Mon 25 May",
         fields: [
-          { kind: "text", id: "candidate", label: "Candidate", value: "Aurélie L.", hint: "From signed offer" },
+          { kind: "text", id: "candidate", label: "Candidate", value: "Diane Patel", hint: "From signed offer" },
           { kind: "text", id: "role", label: "Role", value: "Marketing Manager" },
           { kind: "date", id: "start", label: "Start date", value: "2026-05-25" },
-          { kind: "text", id: "manager", label: "Hiring manager", value: "Niklas K." },
+          { kind: "text", id: "manager", label: "Hiring manager", value: "Sarah K." },
           { kind: "text", id: "buddy", label: "Buddy", value: "Léa M.", hint: "Auto-picked from team · same level, EMEA marketing" },
         ],
       },
@@ -330,7 +330,7 @@ const configs: Record<FlowId, FlowConfig> = {
       },
       {
         title: "Day-1 calendar",
-        sub: "Auto-built from Niklas's calendar",
+        sub: "Auto-built from Sarah's calendar",
         badge: "7 meetings",
         fields: [
           {
@@ -348,11 +348,11 @@ const configs: Record<FlowId, FlowConfig> = {
             kind: "select",
             id: "managerSlot",
             label: "1:1 with hiring manager",
-            value: "13:00 · 90 min · Niklas K.",
+            value: "13:00 · 90 min · Sarah K.",
             options: [
-              "11:00 · 60 min · Niklas K.",
-              "13:00 · 90 min · Niklas K.",
-              "14:30 · 60 min · Niklas K.",
+              "11:00 · 60 min · Sarah K.",
+              "13:00 · 90 min · Sarah K.",
+              "14:30 · 60 min · Sarah K.",
             ],
           },
           {
@@ -372,7 +372,7 @@ const configs: Record<FlowId, FlowConfig> = {
           {
             kind: "textarea",
             id: "thirty",
-            label: "First 30 days · headline",
+            label: "First 14 days · headline",
             value:
               "Land · learn the brand. Meet every EMEA marketing team (12). Shadow 3 active campaigns. Read Q1 brand audit + competitive scan.",
             rows: 3,
@@ -390,29 +390,29 @@ const configs: Record<FlowId, FlowConfig> = {
             id: "ninety",
             label: "First 90 days · headline",
             value:
-              "Ship & scale. Launch Basel hub regional plan. Hire one direct report (BC funded). Q3 KPI dashboard live in Tableau.",
+              "Ship & scale. Launch Tampa FL regional plan. Hire one direct report (BC funded). Q3 KPI dashboard live in Tableau.",
             rows: 3,
           },
         ],
       },
       {
-        title: "Switzerland compliance",
+        title: "Florida compliance",
         sub: "Items needing your signature",
         badge: "2 to sign",
         fields: [
           {
             kind: "checklist",
             id: "complianceSign",
-            label: "Sign off on Aurélie's behalf",
+            label: "Sign off on Diane's behalf",
             options: [
-              "Quellensteuer form (Basel canton)",
-              "Cantonal residency registration reminder",
+              "FL state W-4 form (FL state)",
+              "FL state residency registration reminder",
               "Mandatory training enrollment (ART)",
-              "Mandatory training enrollment (Swiss FADP)",
+              "Mandatory training enrollment (FL FADP)",
             ],
             value: [
-              "Quellensteuer form (Basel canton)",
-              "Cantonal residency registration reminder",
+              "FL state W-4 form (FL state)",
+              "FL state residency registration reminder",
             ],
           },
         ],

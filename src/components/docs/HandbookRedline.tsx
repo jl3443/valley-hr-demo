@@ -1,10 +1,15 @@
 import { DocChrome, Paper, SideRail } from "./DocChrome";
 import { AIDot } from "@/components/ai/AIDot";
 
+/**
+ * Employee handbook redline — Section 6 (Recruitment & Pay Disclosure),
+ * proposed update to comply with the NJ Wage Transparency Act.
+ * Component name kept as `HandbookRedline` for back-compat.
+ */
 export function HandbookRedline() {
   return (
     <DocChrome
-      title="Document · Employee handbook · Germany section · proposed update"
+      title="Document · Employee handbook · NJ Wage Transparency · proposed update"
       secondary={{ label: "Reject" }}
       primary={{ label: "Accept all changes" }}
     >
@@ -13,56 +18,61 @@ export function HandbookRedline() {
           <div className="text-[11px] tracking-[0.08em] uppercase text-mute font-medium">
             Employee handbook · v2.4 → v2.5 proposed
           </div>
-          <h1 className="text-[28px] font-bold tracking-[-0.01em]">Section 4. Working hours</h1>
+          <h1 className="text-[28px] font-bold tracking-[-0.01em]">Section 6. Recruitment & pay disclosure</h1>
           <p className="text-[13px] text-mute">
-            Germany · applies to all employees on German contracts
+            New Jersey · applies to all employees in NJ-posted roles + NJ-eligible remote
           </p>
         </header>
 
         <section className="space-y-2">
-          <h3 className="text-[15px] font-bold">4.1  Standard working hours</h3>
+          <h3 className="text-[15px] font-bold">6.1  Job postings · scope</h3>
           <p className="text-[14px] leading-[22px]">
-            Full-time employees are expected to work a standard week as defined by the German
-            Arbeitszeitgesetz and the applicable collective bargaining agreement.
+            Every internal or external job posting for new employment or promotion in New Jersey shall
+            include the disclosures defined in 6.2 in accordance with the NJ Wage Transparency Act
+            (P.L. 2024, Ch. 91).
           </p>
         </section>
 
         <section className="space-y-2">
-          <h3 className="text-[15px] font-bold">4.2  Maximum weekly hours</h3>
+          <h3 className="text-[15px] font-bold">6.2  Required pay disclosure</h3>
           <div className="bg-surface-fog rounded p-4 space-y-3">
             <p className="text-[14px] leading-[22px] text-mark-red line-through">
-              The standard working week for full-time employees in Germany is 40 hours per week,
-              distributed Monday through Friday.
+              Job postings should reference Valley's competitive compensation philosophy and refer
+              candidates to a recruiter for salary information.
             </p>
             <div className="bg-surface-mint rounded px-4 py-3">
               <p className="text-[14px] leading-[22px] text-ink">
-                The standard working week for full-time employees in Germany is 37 hours and 30 minutes
-                per week, distributed Monday through Friday. This applies from 17 August 2026 in
-                accordance with the new German Working Hours Act amendment.
+                Job postings shall include the hourly wage or salary range (lower bound and upper
+                bound) and a general description of benefits and other compensation programs.
+                Open-ended ranges are not permitted. Applies from June 1, 2025 in accordance with
+                the NJ Wage Transparency Act.
               </p>
             </div>
             <div className="flex items-center gap-2">
               <AIDot size={6} tone="deep" />
               <span className="text-[12px] tracking-[0.04em] text-surface-deep">
-                AI drafted change · reason: new German labor law · effective 17 Aug 2026
+                AI drafted change · reason: NJ Wage Transparency Act · effective Jun 1, 2025
               </span>
             </div>
           </div>
         </section>
 
         <section className="space-y-2">
-          <h3 className="text-[15px] font-bold">4.3  Overtime</h3>
+          <h3 className="text-[15px] font-bold">6.3  Promotion opportunities</h3>
           <p className="text-[14px] leading-[22px]">
-            Any hours worked beyond the standard weekly hours defined in 4.2 are considered overtime
-            and compensated according to the applicable collective bargaining agreement.
+            Promotion opportunities shall be made known to all current employees in the affected
+            department(s) prior to making a promotion decision, with the same pay disclosure required
+            by Section 6.2.
           </p>
         </section>
 
         <section className="space-y-2">
-          <h3 className="text-[15px] font-bold">4.4  Annual averaging</h3>
+          <h3 className="text-[15px] font-bold">6.4  Cross-state postings</h3>
           <p className="text-[14px] leading-[22px]">
-            Weekly hours may be averaged over the calendar year as long as the annual total does
-            not exceed the equivalent of 37.5 hours per week.
+            Remote roles open to NJ residents are treated as NJ postings for the purposes of this
+            policy. NY metro and other multi-state postings follow the disclosure rules of the most
+            restrictive jurisdiction in scope (currently NJ for in-NJ candidates; NY State Pay
+            Transparency for in-NY candidates).
           </p>
         </section>
       </Paper>
@@ -71,9 +81,9 @@ export function HandbookRedline() {
         <div className="bg-white border border-divider rounded-md p-5 space-y-3">
           <div className="text-[14px] font-bold text-ink">Changes in this update</div>
           {[
-            { lbl: "4.2  Weekly hours", badge: "Major change", bg: "bg-mark-red" },
-            { lbl: "4.4  Annual averaging", badge: "Cross-ref update", bg: "bg-surface-deep" },
-            { lbl: "Sections 4.1, 4.3", badge: "No change", bg: "bg-mute" },
+            { lbl: "6.2  Pay disclosure",     badge: "Major change",     bg: "bg-mark-red" },
+            { lbl: "6.4  Cross-state postings", badge: "Cross-ref update", bg: "bg-surface-deep" },
+            { lbl: "Sections 6.1, 6.3",       badge: "No change",        bg: "bg-mute" },
           ].map((r) => (
             <div key={r.lbl} className="flex items-center justify-between gap-3">
               <span className="text-[13px] text-ink">{r.lbl}</span>
@@ -91,10 +101,10 @@ export function HandbookRedline() {
             Approval flow
           </div>
           {[
-            { ic: "✓", lbl: "AI drafted change", who: "Done" },
-            { ic: "○", lbl: "HRBP review", who: "You" },
-            { ic: "○", lbl: "Legal review", who: "auto-routed" },
-            { ic: "○", lbl: "Publish to handbook", who: "after legal" },
+            { ic: "✓", lbl: "AI drafted change",     who: "Done" },
+            { ic: "○", lbl: "HRBP review",            who: "You" },
+            { ic: "○", lbl: "Legal review",           who: "auto-routed" },
+            { ic: "○", lbl: "Publish to handbook",    who: "after legal" },
           ].map((r) => (
             <div key={r.lbl} className="flex items-center justify-between gap-3">
               <span className="flex items-center gap-2 text-[13px] text-ink">

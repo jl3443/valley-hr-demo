@@ -21,20 +21,20 @@ import { AgentLiveStrip } from "@/components/ai/AgentLiveStrip";
 // so the audience sees real activity even while UC2 auto-advances.
 const liveScripts: Record<number, string[]> = {
   0: [
-    "Reading the EU regulatory feed (23 jurisdictions)…",
+    "Reading the NJ DOL regulatory feed (23 jurisdictions)…",
     "Picked up Bundesgesetzblatt · ArbZG amendment · 13 min after publication…",
     "Confidence 99% · workweek 40h → 37.5h confirmed…",
   ],
   1: [
-    "Querying Workday for all German contracts…",
+    "Querying Workday for all NJ employment agreements…",
     "Matching against 4 payroll cost centres…",
-    "Computing per-region exposure · Heidelberg, Berlin, Frankfurt, Munich…",
+    "Computing per-region exposure · Wayne NJ, Wayne NJ, Frankfurt, Tampa FL…",
     "147 employees · 12 contracts · 4 payroll systems impacted…",
   ],
   2: [
     "Pulling the relevant handbook sections (§4 Working hours)…",
     "Drafting the bilingual employee announcement (DE + EN)…",
-    "Composing the §87 (1) Nr. 2 BetrVG notice for the works council…",
+    "Composing the §87 (1) Nr. 2 BetrVG notice for the HR bulletin…",
     "Building the Workday payroll-change request across 4 cost centres…",
   ],
   3: [
@@ -51,16 +51,16 @@ const liveScripts: Record<number, string[]> = {
 };
 
 const activityIdle: ActivityEntry[] = [
-  { time: "7:17", text: "Announcement drafted in German and English" },
-  { time: "7:16", text: "Works council notice prepared" },
+  { time: "7:17", text: "Announcement drafted in NJ and English" },
+  { time: "7:16", text: "HR bulletin prepared" },
   { time: "7:15", text: "Impact calculated · 147 employees, 12 contracts" },
-  { time: "7:14", text: "New German labor law detected from EU regulatory feed" },
+  { time: "7:14", text: "New NJ employment law detected from NJ DOL regulatory feed" },
 ];
 
 const activityExecuting: ActivityEntry[] = [
-  { time: "now", text: "Payroll change pushed to all 4 German cost centres" },
-  { time: "now", text: "Announcement sent to 147 employees in German + English" },
-  { time: "now", text: "Works council notification filed · receipt confirmed" },
+  { time: "now", text: "Payroll change pushed to all 4 NJ cost centres" },
+  { time: "now", text: "Announcement sent to 147 employees in English + Spanish" },
+  { time: "now", text: "HR bulletin team notification filed · receipt confirmed" },
   { time: "now", text: "Audit entry written · approver: HRBP" },
 ];
 
@@ -86,12 +86,12 @@ export function WorkspaceUC2() {
   const runSteps: RunStep[] = [
     {
       title: "Detect law change",
-      sub: "Picked up the German Working Hours Act amendment 13 minutes after publication",
-      source: "EU regulatory feed",
+      sub: "Picked up the NJ Wage Transparency Act 13 minutes after publication",
+      source: "NJ DOL regulatory feed",
       time: "7:14 AM",
       expanded: (
         <FeedDetectorCard
-          source="EU regulatory feed"
+          source="NJ DOL regulatory feed"
           detail="Reading Bundesgesetzblatt · DE · confidence 99% · workweek 40h → 37.5h."
         />
       ),
@@ -103,7 +103,7 @@ export function WorkspaceUC2() {
       time: "7:15 AM",
       expanded: (
         <ImpactBarsCard
-          title="147 employees affected across Germany"
+          title="147 employees affected across New Jersey"
           rows={[
             { label: "Employees affected", value: 147 },
             { label: "Contracts to update", value: 12 },
@@ -115,15 +115,15 @@ export function WorkspaceUC2() {
     },
     {
       title: "Draft all required documents",
-      sub: "Handbook · announcement · works council notice · payroll",
+      sub: "Handbook · announcement · HR bulletin · payroll",
       source: "Policy library",
       time: "7:16 AM",
       expanded: (
         <DraftingArtifactsCard
           rows={[
             { label: "Handbook redline", sub: "Section 4. Working hours", source: "Policy library" },
-            { label: "Employee announcement", sub: "German + English", source: "Templates" },
-            { label: "Works council notice", sub: "§87 (1) Nr. 2 BetrVG", source: "Legal templates" },
+            { label: "Employee announcement", sub: "English + Spanish", source: "Templates" },
+            { label: "HR bulletin", sub: "§87 (1) Nr. 2 BetrVG", source: "Legal templates" },
             { label: "Payroll change request", sub: "4 cost centres", source: "Workday" },
           ]}
         />
@@ -136,7 +136,7 @@ export function WorkspaceUC2() {
     },
     {
       title: "Execute across systems",
-      sub: "Payroll · employee comms · works council · audit log",
+      sub: "Payroll · employee comms · HR bulletin · audit log",
       time: advance.finished ? "now" : "—",
     },
   ];
@@ -203,9 +203,9 @@ export function WorkspaceUC2() {
             <div className="grid grid-cols-2 gap-3 items-stretch">
               <AutoActions
                 items={[
-                  { label: "Update payroll in Germany" },
-                  { label: "Send employee announcement (German + English)" },
-                  { label: "Notify works council" },
+                  { label: "Update payroll in New Jersey" },
+                  { label: "Send employee announcement (English + Spanish)" },
+                  { label: "Notify HR bulletin" },
                   { label: "Log the decision" },
                 ]}
                 executing={!advance.awaitingApproval && step > 3}

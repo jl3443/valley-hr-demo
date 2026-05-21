@@ -24,11 +24,11 @@ export function DecisionCardUC4({
             Approved · onboarding live
           </div>
           <h3 className="text-[22px] font-bold text-ink leading-[28px]">
-            Aurélie arrives to a working laptop
+            Diane arrives to a working laptop
           </h3>
           <p className="text-[14px] text-ink">
             Preboarding bundle dispatched, Day-1 calendar booked, 30/60/90 plan in her inbox,
-            Swiss compliance items scheduled. Buddy assigned. Audit logged.
+            FL compliance items scheduled. Buddy assigned. Audit logged.
           </p>
           <PillButton
             variant="primary"
@@ -51,7 +51,7 @@ export function DecisionCardUC4({
             Decision card
           </div>
           <h3 className="text-[22px] font-bold text-ink leading-[28px] mt-1">
-            Approve Aurélie L.'s onboarding package
+            Approve Diane Patel's onboarding package
           </h3>
           <p className="text-[13px] text-mute mt-1.5">
             Everything the agent set up · review the four blocks below or open Edit to tune any field.
@@ -68,7 +68,7 @@ export function DecisionCardUC4({
           </div>
           <div className="grid grid-cols-4 gap-3">
             {[
-              { Icon: Mail, label: "Welcome message", sub: "Bilingual · 09:00 CET" },
+              { Icon: Mail, label: "Welcome message", sub: "Bilingual · 09:00 ET" },
               { Icon: Laptop, label: "Equipment", sub: "MacBook Pro 14 · Fri" },
               { Icon: KeyRound, label: "IT accounts", sub: "Okta · Workspace · Slack" },
               { Icon: ShieldCheck, label: "Work permit", sub: "EU/EEA · not required" },
@@ -117,7 +117,7 @@ export function DecisionCardUC4({
         {/* Compliance summary */}
         <section className="bg-surface-fog rounded p-4 space-y-2">
           <div className="flex items-center justify-between">
-            <h4 className="text-[14px] font-bold text-ink">Switzerland compliance</h4>
+            <h4 className="text-[14px] font-bold text-ink">Florida compliance</h4>
             <span className="px-2 py-0.5 rounded-full bg-mark-red text-ink-inverse text-[11px] font-medium">
               2 items need your signature
             </span>
@@ -126,13 +126,13 @@ export function DecisionCardUC4({
             <li className="flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-surface-deep mt-1.5 shrink-0" />
               <span className="text-ink">
-                Cantonal residency registration · Aurélie has 14 days from arrival
+                Cantonal residency registration · Diane has 14 days from arrival
               </span>
             </li>
             <li className="flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-surface-deep mt-1.5 shrink-0" />
               <span className="text-ink">
-                Quellensteuer form drafted · routes to BS canton on your sign-off
+                FL state W-4 drafted · routes to FL DOR on your sign-off
               </span>
             </li>
             <li className="flex items-start gap-2">

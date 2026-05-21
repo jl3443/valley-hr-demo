@@ -191,7 +191,7 @@ export function CoveragePlan() {
             Wellness benefits applied
           </div>
           {[
-            "EUR 200 wellness credit",
+            "$200 wellness credit",
             "Headspace 3-month subscription",
             "Family travel discount unlocked",
           ].map((line) => (
