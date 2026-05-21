@@ -18,13 +18,15 @@ export function HeroCard({ eyebrow, title, body, cta, rightMeta, className }: Pr
     <SpringIn>
       <section
         className={cn(
-          "bg-surface-mint rounded-md p-9 flex items-start justify-between gap-6",
+          /* Yellow LEFT accent bar — 4px stripe before the panel, signature
+             Valley brand-yellow detail on the light-navy cool surface. */
+          "relative bg-surface-mint rounded-md p-9 flex items-start justify-between gap-6 border-l-4 border-l-[var(--surface-sage)] overflow-hidden",
           className,
         )}
       >
         <div className="space-y-2.5 max-w-[680px]">
           <div className="flex items-center gap-2">
-            <AIDot size={6} tone="deep" />
+            <AIDot size={6} tone="yellow" />
             <span className="text-[12px] font-medium tracking-[0.08em] uppercase text-surface-deep">
               {eyebrow}
             </span>

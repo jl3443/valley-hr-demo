@@ -96,12 +96,12 @@ export function WorkingHoursAct() {
       <SideRail>
         <div className="bg-surface-deep text-ink-inverse rounded-md p-5 space-y-3">
           <div className="flex items-center gap-2">
-            <span className="bg-surface-mint text-surface-deep text-[12px] font-bold rounded-md w-7 h-7 flex items-center justify-center">
+            <span className="bg-surface-sage text-surface-deep text-[12px] font-bold rounded-md w-7 h-7 flex items-center justify-center">
               AI
             </span>
             <div className="text-[15px] font-bold">Plain-English summary</div>
           </div>
-          <p className="text-[13px] leading-[20px] text-surface-mint">
+          <p className="text-[13px] leading-[20px] text-surface-sage">
             New Jersey requires every job posting and promotion announcement to show the pay range plus a benefits
             summary. Open-ended ranges aren't allowed. Effective June 1, 2025. Civil penalties per violation
             posting. Promotions must also be announced internally.

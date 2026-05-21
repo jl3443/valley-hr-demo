@@ -6,7 +6,7 @@ export function AlertBanner({ title, sub }: { title: string; sub: string }) {
       <AIDot size={8} tone="mint" pulse className="mt-1" />
       <div className="leading-tight">
         <div className="text-[15px] font-bold text-ink-inverse">{title}</div>
-        <div className="text-[13px] text-surface-mint mt-1">{sub}</div>
+        <div className="text-[13px] text-surface-sage mt-1">{sub}</div>
       </div>
     </section>
   );

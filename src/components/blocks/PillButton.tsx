@@ -5,11 +5,14 @@ type Variant = "primary" | "secondary" | "ghost" | "deep" | "mint";
 type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-black text-ink-inverse hover:bg-surface-deep",
-  secondary: "bg-white text-ink border border-ink/80 hover:bg-surface-fog",
-  ghost: "bg-transparent text-ink hover:bg-surface-fog",
-  deep: "bg-surface-deep text-ink-inverse hover:bg-accent-green",
-  mint: "bg-surface-mint text-surface-deep hover:bg-accent-green hover:text-ink-inverse",
+  /* Primary = navy (Valley brand); yellow ring appears on focus-visible to
+     match the captured 4px-transparent-border focus expansion pattern. */
+  primary: "bg-accent-green text-ink-inverse hover:bg-accent-green-deep focus-visible:ring-2 focus-visible:ring-[var(--surface-sage)] focus-visible:ring-offset-1 outline-none",
+  secondary: "bg-white text-ink border border-ink/80 hover:bg-surface-fog hover:border-accent-green",
+  ghost: "bg-transparent text-ink hover:bg-surface-fog hover:text-accent-green",
+  deep: "bg-surface-deep text-ink-inverse hover:bg-accent-green focus-visible:ring-2 focus-visible:ring-[var(--surface-sage)] outline-none",
+  /* mint variant repurposed as the yellow-CTA highlight — bold yellow with navy text */
+  mint: "bg-surface-sage text-surface-deep hover:bg-accent-green hover:text-ink-inverse",
 };
 
 const sizes: Record<Size, string> = {

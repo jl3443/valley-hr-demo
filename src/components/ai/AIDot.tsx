@@ -4,7 +4,7 @@ type Props = {
   className?: string;
   size?: number;
   pulse?: boolean;
-  tone?: "deep" | "green" | "mint" | "red" | "mute" | "ink-inverse";
+  tone?: "deep" | "green" | "mint" | "red" | "mute" | "ink-inverse" | "yellow";
 };
 
 const toneClass: Record<NonNullable<Props["tone"]>, string> = {
@@ -14,6 +14,7 @@ const toneClass: Record<NonNullable<Props["tone"]>, string> = {
   red: "bg-mark-red",
   mute: "bg-mute",
   "ink-inverse": "bg-ink-inverse",
+  yellow: "bg-surface-sage",
 };
 
 /**

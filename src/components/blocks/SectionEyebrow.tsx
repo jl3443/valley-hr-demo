@@ -16,7 +16,9 @@ export function SectionEyebrow({ title, sub, rightBadge, className }: Props) {
   return (
     <div className={cn("flex items-center justify-between gap-4 pt-2", className)}>
       <div className="flex items-center gap-2.5">
-        <AIDot size={6} tone="deep" />
+        {/* Yellow accent dot — the universal "Valley accent" marker.
+            Pairs with navy section titles for the navy-main + yellow-accent vibe. */}
+        <AIDot size={6} tone="yellow" />
         <span className="text-[12px] font-medium tracking-[0.08em] uppercase text-surface-deep">
           {title}
         </span>
