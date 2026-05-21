@@ -1,0 +1,174 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;700&family=Roboto:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+/*
+ * Valley HR Concierge — re-skinned from the HR Concierge demo.
+ * Tokens captured from valley.com (see ../design-system/docs/capture/valley-evidence.md).
+ *
+ * Variable NAMES preserved from DSM-F build so component code stays untouched —
+ * only the VALUES change. Semantic mapping:
+ *   DSM-F mint hero surface → Valley light-navy cool surface
+ *   DSM-F sage accent      → Valley brand yellow
+ *   DSM-F rose             → Valley cream
+ *   DSM-F fog              → Valley surface
+ *   DSM-F accent-green*    → Valley navy / navy-deep (primary brand)
+ *   DSM-F mark-red         → Valley error red
+ *   DM Sans font           → kept (Valley uses DM Sans as Autor substitute)
+ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface-mint: var(--surface-mint);
+  --color-surface-sage: var(--surface-sage);
+  --color-surface-rose: var(--surface-rose);
+  --color-surface-fog: var(--surface-fog);
+  --color-surface-deep: var(--accent-green-deep);
+  --color-surface-navy: var(--accent-navy);
+
+  --color-ink: var(--ink);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-mute: var(--mute);
+  --color-divider: var(--divider);
+
+  --color-accent-green: var(--accent-green);
+  --color-accent-green-deep: var(--accent-green-deep);
+  --color-accent-sage: var(--surface-sage);
+  --color-accent-navy: var(--accent-navy);
+  --color-mark-red: var(--mark-red);
+
+  --color-valley-yellow: var(--valley-yellow);
+  --color-valley-cream: var(--valley-cream);
+
+  --font-sans: "DM Sans", sans-serif;
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-prose: "Roboto", arial, sans-serif;
+
+  --spacing-section: var(--section-pad-y);
+
+  --radius-flat: 0px;
+  --radius-pill: 9999px;
+  --radius-dot: 50%;
+
+  --duration-hover: var(--motion-duration-hover);
+  --duration-menu: var(--motion-duration-menu);
+  --duration-slideshow: var(--motion-duration-slideshow);
+  --duration-stream: var(--motion-duration-stream);
+  --duration-spring: var(--motion-duration-spring);
+  --duration-pulse: var(--motion-duration-pulse);
+  --ease-hover: var(--motion-ease-hover);
+  --ease-menu: var(--motion-ease-menu);
+  --ease-slideshow: var(--motion-ease-slideshow);
+  --ease-spring: var(--motion-ease-spring);
+}
+
+:root {
+  /* Foundation neutrals — Valley captured */
+  --background: #ffffff;
+  --foreground: #323a3f;             /* Valley ink */
+
+  --ink: #323a3f;                    /* Valley --fg-main-color */
+  --ink-inverse: #ffffff;
+  --mute: #5c646c;                   /* Valley ink-soft */
+  --divider: #dee2e6;                /* Valley divider */
+
+  /* Brand surfaces — re-mapped to Valley palette */
+  --surface-mint: #e6eaed;           /* was mint #c3e6e1 — now Valley light-navy */
+  --surface-sage: #f3d01c;           /* was sage #44b4a1 — now Valley brand yellow */
+  --surface-rose: #fefae8;           /* was rose #ccbcb8 — now Valley cream */
+  --surface-fog:  #f2f3f4;           /* was fog #f7f7f7 — now Valley surface */
+
+  /* Brand accents — Valley navy is the new "green" */
+  --accent-green:      #002c4e;      /* was #277e6e — now Valley navy (primary brand) */
+  --accent-green-deep: #112e44;      /* was #084337 — now Valley navy-deep */
+  --accent-navy:       #002c4e;      /* was #123456 — now Valley navy */
+  --mark-red:          #b8232f;      /* was #a6192e — now Valley error border */
+
+  /* Direct Valley aliases (additive) */
+  --valley-yellow: #f3d01c;
+  --valley-cream:  #fefae8;
+  --valley-slate:  #788995;
+  --valley-blue:   #0042a5;
+
+  /* Section rhythm — unchanged */
+  --section-pad-y: 80px;
+
+  /* Motion — Valley captured */
+  --motion-duration-hover: 150ms;
+  --motion-duration-menu: 300ms;
+  --motion-duration-slideshow: 500ms;
+  --motion-ease-hover: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-menu: ease-in-out;
+  --motion-ease-slideshow: linear;
+
+  --motion-duration-stream: 80ms;
+  --motion-duration-spring: 420ms;
+  --motion-duration-pulse: 1800ms;
+  --motion-ease-spring: cubic-bezier(0.34, 1.32, 0.64, 1);
+
+  /* Pill-CTA tokens — Valley captured (navy bg, white text, 600 weight) */
+  --cta-radius: 100px;
+  --cta-padding-y-default: 6px;
+  --cta-padding-y-lg: 10px;
+  --cta-padding-x-primary: 20px;
+  --cta-padding-x-secondary: 16px;
+  --cta-padding-x-lg: 24px;
+  --cta-font-size-primary: 16px;
+  --cta-font-size-secondary: 14px;
+  --cta-font-weight: 600;
+  --cta-letter-spacing: normal;
+  --cta-text-transform: none;
+}
+
+.brand-valley {
+  /* Default scope */
+}
+
+/* Reveal-on-scroll */
+[data-reveal] {
+  opacity: 0;
+  transition: opacity var(--motion-duration-menu) var(--motion-ease-menu);
+}
+[data-reveal][data-revealed="true"] {
+  opacity: 1;
+}
+
+/* AI pulse */
+@keyframes hr-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.15); opacity: 0.7; }
+}
+.hr-pulse {
+  animation: hr-pulse var(--motion-duration-pulse) ease-in-out infinite;
+}
+
+/* Streaming caret */
+@keyframes hr-caret {
+  0%, 50%   { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+.hr-caret { animation: hr-caret 600ms steps(1, end) infinite; }
+
+/* Shimmer */
+@keyframes hr-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.hr-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 44, 78, 0.08) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: hr-shimmer 1800ms linear infinite;
+}
+
+html, body {
+  background: var(--background);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
