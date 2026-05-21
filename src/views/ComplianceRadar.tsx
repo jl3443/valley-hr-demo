@@ -6,6 +6,15 @@ import { CountUp } from "@/components/ai/CountUp";
 import { AIDot } from "@/components/ai/AIDot";
 import { StaggerList } from "@/components/ai/StaggerList";
 
+/**
+ * Compliance Radar — Valley Bank (US banking) jurisdictions only.
+ *
+ * Active alert: the live NJ Wage Transparency Act remediation (matches UC2).
+ * Recent: 2 items the agent already cleared, both bank-relevant.
+ * Upcoming: 3 audits in the next 90 days — all US banking regulators:
+ *   FINRA license renewals · FDIC compliance exam · NY DFS Part 500 attestation
+ * Yellow accents on the primary CTA + active eyebrow per Valley brand.
+ */
 export function ComplianceRadar() {
   const { go } = useApp();
 
@@ -17,26 +26,28 @@ export function ComplianceRadar() {
       <section className="bg-white border border-divider rounded-md overflow-hidden">
         <header className="flex items-center justify-between px-4 py-2.5 border-b border-divider">
           <div className="flex items-center gap-2">
-            <AIDot size={6} tone="deep" pulse />
+            <AIDot size={6} tone="yellow" pulse />
             <span className="text-[12px] tracking-[0.08em] uppercase text-surface-deep font-medium">
               Active · needs your decision
             </span>
           </div>
-          <span className="text-[11px] text-mute">Monitoring 23 countries · synced 2 min ago</span>
+          <span className="text-[11px] text-mute">
+            Monitoring 6 US regulators · synced 2 min ago
+          </span>
         </header>
 
         <SpringIn>
-          <article className="bg-surface-mint m-3 rounded-md px-4 py-3 space-y-3">
+          <article className="bg-surface-mint m-3 rounded-md px-4 py-3 space-y-3 border-l-4 border-l-surface-sage">
             <div className="flex items-start justify-between gap-4">
               <div className="space-y-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded-full bg-black text-ink-inverse text-[10px] tracking-[0.08em] uppercase font-medium">
+                  <span className="px-2 py-0.5 rounded-full bg-surface-deep text-ink-inverse text-[10px] tracking-[0.08em] uppercase font-medium">
                     New Jersey
                   </span>
-                  <span className="text-[12px] text-ink">Wage Transparency Act</span>
+                  <span className="text-[12px] text-ink">NJ Wage Transparency Act (S.2310 / A.4151)</span>
                 </div>
                 <h2 className="text-[18px] leading-[22px] font-bold text-ink">
-                  Standard workweek moving from 40 hours to 37.5 hours
+                  Every job posting must show a real pay range
                 </h2>
                 <div className="text-[12px] text-mute">
                   Effective in 90 days · detected at 7:14 AM today
@@ -44,24 +55,26 @@ export function ComplianceRadar() {
               </div>
               <div className="bg-surface-deep text-ink-inverse text-center px-3 py-1.5 rounded shrink-0">
                 <div className="text-[18px] leading-none font-bold">90</div>
-                <div className="text-[9px] tracking-[0.08em] uppercase mt-0.5">Days</div>
+                <div className="text-[9px] tracking-[0.08em] uppercase mt-0.5 text-surface-sage">Days</div>
               </div>
             </div>
 
             <div className="grid grid-cols-[1fr_auto] gap-x-5 gap-y-2 items-center">
               <p className="text-[13px] text-ink leading-[19px]">
                 <span className="inline-flex items-center gap-1.5 align-middle mr-1.5">
-                  <AIDot size={5} tone="deep" />
+                  <AIDot size={5} tone="yellow" />
                   <span className="text-[11px] font-bold tracking-[0.06em] uppercase text-surface-deep">
                     AI rec
                   </span>
                 </span>
-                Move all New Jersey employees to the 37.5-hour workweek. Roll out in three phases
-                over 90 days so payroll and contract updates land smoothly.
+                Update 147 open postings + careers-page templates with lower-bound
+                and upper-bound salary ranges. Roll out in three phases over 90 days
+                so the ATS and recruiter workflows land smoothly.
               </p>
               <div className="flex items-center gap-2 shrink-0">
+                {/* Yellow primary CTA — high-attention click target per Valley brand. */}
                 <PillButton
-                  variant="primary"
+                  variant="mint"
                   size="sm"
                   arrow
                   onClick={() => go({ kind: "workspace", flow: "uc2" })}
@@ -80,10 +93,10 @@ export function ComplianceRadar() {
 
             <div className="flex items-center gap-6 pt-2 border-t border-surface-deep/15">
               {[
-                { label: "Impact", value: <><CountUp to={147} delay={200} /> employees</> },
-                { label: "Contracts", value: <><CountUp to={12} delay={280} /> to update</> },
+                { label: "Impact", value: <><CountUp to={147} delay={200} /> postings</> },
+                { label: "Templates", value: <><CountUp to={12} delay={280} /> to update</> },
                 { label: "Risk", value: "Medium" },
-                { label: "Cost", value: "€420K/yr" },
+                { label: "Cost", value: "$78K/yr" },
               ].map((m) => (
                 <div key={m.label} className="flex items-baseline gap-1.5">
                   <span className="text-[10px] tracking-[0.08em] uppercase text-mute font-medium">
@@ -101,7 +114,7 @@ export function ComplianceRadar() {
       <section className="bg-white border border-divider rounded-md overflow-hidden">
         <header className="flex items-center justify-between px-4 py-2.5 border-b border-divider">
           <div className="flex items-center gap-2">
-            <AIDot size={6} tone="deep" />
+            <AIDot size={6} tone="yellow" />
             <span className="text-[12px] tracking-[0.08em] uppercase text-surface-deep font-medium">
               Recent · handled silently by the agent
             </span>
@@ -111,28 +124,28 @@ export function ComplianceRadar() {
         <div className="grid grid-cols-2 divide-x divide-divider">
           {[
             {
-              country: "New Jersey",
-              title: "HR bulletin team guidance updated",
-              note: "No change needed — your AI policy already meets the new quarterly review rule.",
+              tag: "New York",
+              title: "NY DFS Part 500 cybersecurity attestation",
+              note: "Annual attestation pre-filled from system inventory. Reviewed and submitted to NYDFS portal on May 18.",
             },
             {
-              country: "France",
-              title: "Q2 pay transparency report",
-              note: "Audit ran 12 May. All bands within tolerance. Filed for you on 15 May.",
+              tag: "Federal",
+              title: "Q2 federal pay-equity audit",
+              note: "Audit ran May 12. All bands within tolerance. EEO-1 report packaged and filed for you on May 15.",
             },
           ].map((r) => (
             <article
-              key={r.country + r.title}
+              key={r.tag + r.title}
               className="px-4 py-3 space-y-2 hover:bg-surface-mint/40 transition-colors"
             >
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 rounded-full bg-accent-green text-ink-inverse text-[10px] font-medium uppercase tracking-[0.06em]">
-                  {r.country}
+                  {r.tag}
                 </span>
                 <span className="text-[13px] text-ink">{r.title}</span>
               </div>
               <div className="flex items-start gap-2">
-                <AIDot size={6} tone="deep" className="mt-1.5" />
+                <AIDot size={6} tone="yellow" className="mt-1.5" />
                 <p className="text-[13px] text-ink leading-[19px]">{r.note}</p>
               </div>
               <button className="ui-pill text-[12px] text-surface-deep font-medium hover:underline">
@@ -147,7 +160,7 @@ export function ComplianceRadar() {
       <section className="bg-white border border-divider rounded-md overflow-hidden">
         <header className="flex items-center justify-between px-4 py-2.5 border-b border-divider">
           <div className="flex items-center gap-2">
-            <AIDot size={6} tone="deep" />
+            <AIDot size={6} tone="yellow" />
             <span className="text-[12px] tracking-[0.08em] uppercase text-surface-deep font-medium">
               Upcoming · scheduled audits
             </span>
@@ -156,15 +169,17 @@ export function ComplianceRadar() {
         </header>
         <StaggerList step={70}>
           {[
-            { title: "EU AI Act compliance audit", due: "Due Aug 2, 2026", days: "75 days", country: "🇪🇺 EU" },
-            { title: "EU pay transparency annual report", due: "Due Jul 1, 2026", days: "43 days", country: "🇪🇺 EU" },
-            { title: "California pay disclosure update", due: "Due Jun 15, 2026", days: "27 days", country: "🇺🇸 USA" },
+            { title: "FINRA license renewals · quarterly cohort", due: "Due Aug 2, 2026", days: "75 days", tag: "FINRA" },
+            { title: "FDIC compliance exam · consumer protection",  due: "Due Jul 1, 2026", days: "43 days", tag: "FDIC"  },
+            { title: "FL Branch Manager NMLS renewal cohort",       due: "Due Jun 15, 2026", days: "27 days", tag: "NMLS"  },
           ].map((u) => (
             <div
               key={u.title}
-              className="grid grid-cols-[60px_1fr_auto_auto] items-center gap-4 px-4 py-2.5 border-t border-divider first:border-t-0 hover:bg-surface-mint/40 transition-colors"
+              className="grid grid-cols-[80px_1fr_auto_auto] items-center gap-4 px-4 py-2.5 border-t border-divider first:border-t-0 hover:bg-surface-mint/40 transition-colors"
             >
-              <span className="text-[14px]">{u.country}</span>
+              <span className="text-[10px] font-bold tracking-[0.08em] uppercase px-2 py-1 rounded bg-surface-deep text-ink-inverse text-center">
+                {u.tag}
+              </span>
               <span className="text-[14px] text-ink">{u.title}</span>
               <span className="text-[12px] text-mute">{u.due}</span>
               <span className="text-[12px] font-bold text-surface-deep w-16 text-right">{u.days}</span>
