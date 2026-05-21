@@ -26,7 +26,7 @@ export function ComplianceRadar() {
       <section className="bg-white border border-divider rounded-md overflow-hidden">
         <header className="flex items-center justify-between px-4 py-2.5 border-b border-divider">
           <div className="flex items-center gap-2">
-            <AIDot size={6} tone="yellow" pulse />
+            <AIDot size={6} tone="deep" pulse />
             <span className="text-[12px] tracking-[0.08em] uppercase text-surface-deep font-medium">
               Active · needs your decision
             </span>
@@ -37,11 +37,11 @@ export function ComplianceRadar() {
         </header>
 
         <SpringIn>
-          <article className="bg-surface-mint m-3 rounded-md px-4 py-3 space-y-3 border-l-4 border-l-surface-sage">
+          <article className="bg-surface-mint m-3 rounded-md px-4 py-3 space-y-3">
             <div className="flex items-start justify-between gap-4">
               <div className="space-y-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded-full bg-surface-deep text-ink-inverse text-[10px] tracking-[0.08em] uppercase font-medium">
+                  <span className="px-2 py-0.5 rounded-full bg-black text-ink-inverse text-[10px] tracking-[0.08em] uppercase font-medium">
                     New Jersey
                   </span>
                   <span className="text-[12px] text-ink">NJ Wage Transparency Act (S.2310 / A.4151)</span>
@@ -55,14 +55,14 @@ export function ComplianceRadar() {
               </div>
               <div className="bg-surface-deep text-ink-inverse text-center px-3 py-1.5 rounded shrink-0">
                 <div className="text-[18px] leading-none font-bold">90</div>
-                <div className="text-[9px] tracking-[0.08em] uppercase mt-0.5 text-surface-sage">Days</div>
+                <div className="text-[9px] tracking-[0.08em] uppercase mt-0.5">Days</div>
               </div>
             </div>
 
             <div className="grid grid-cols-[1fr_auto] gap-x-5 gap-y-2 items-center">
               <p className="text-[13px] text-ink leading-[19px]">
                 <span className="inline-flex items-center gap-1.5 align-middle mr-1.5">
-                  <AIDot size={5} tone="yellow" />
+                  <AIDot size={5} tone="deep" />
                   <span className="text-[11px] font-bold tracking-[0.06em] uppercase text-surface-deep">
                     AI rec
                   </span>
@@ -114,7 +114,7 @@ export function ComplianceRadar() {
       <section className="bg-white border border-divider rounded-md overflow-hidden">
         <header className="flex items-center justify-between px-4 py-2.5 border-b border-divider">
           <div className="flex items-center gap-2">
-            <AIDot size={6} tone="yellow" />
+            <AIDot size={6} tone="deep" />
             <span className="text-[12px] tracking-[0.08em] uppercase text-surface-deep font-medium">
               Recent · handled silently by the agent
             </span>
@@ -145,7 +145,7 @@ export function ComplianceRadar() {
                 <span className="text-[13px] text-ink">{r.title}</span>
               </div>
               <div className="flex items-start gap-2">
-                <AIDot size={6} tone="yellow" className="mt-1.5" />
+                <AIDot size={6} tone="deep" className="mt-1.5" />
                 <p className="text-[13px] text-ink leading-[19px]">{r.note}</p>
               </div>
               <button className="ui-pill text-[12px] text-surface-deep font-medium hover:underline">
@@ -160,7 +160,7 @@ export function ComplianceRadar() {
       <section className="bg-white border border-divider rounded-md overflow-hidden">
         <header className="flex items-center justify-between px-4 py-2.5 border-b border-divider">
           <div className="flex items-center gap-2">
-            <AIDot size={6} tone="yellow" />
+            <AIDot size={6} tone="deep" />
             <span className="text-[12px] tracking-[0.08em] uppercase text-surface-deep font-medium">
               Upcoming · scheduled audits
             </span>
@@ -175,11 +175,9 @@ export function ComplianceRadar() {
           ].map((u) => (
             <div
               key={u.title}
-              className="grid grid-cols-[80px_1fr_auto_auto] items-center gap-4 px-4 py-2.5 border-t border-divider first:border-t-0 hover:bg-surface-mint/40 transition-colors"
+              className="grid grid-cols-[60px_1fr_auto_auto] items-center gap-4 px-4 py-2.5 border-t border-divider first:border-t-0 hover:bg-surface-mint/40 transition-colors"
             >
-              <span className="text-[10px] font-bold tracking-[0.08em] uppercase px-2 py-1 rounded bg-surface-deep text-ink-inverse text-center">
-                {u.tag}
-              </span>
+              <span className="text-[14px] font-semibold text-surface-deep">{u.tag}</span>
               <span className="text-[14px] text-ink">{u.title}</span>
               <span className="text-[12px] text-mute">{u.due}</span>
               <span className="text-[12px] font-bold text-surface-deep w-16 text-right">{u.days}</span>
