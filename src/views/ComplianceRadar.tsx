@@ -64,9 +64,8 @@ export function ComplianceRadar() {
                     AI rec
                   </span>
                 </span>
-                Update 147 open postings + careers-page templates with lower-bound
-                and upper-bound salary ranges. Roll out in three phases over 90 days
-                so the ATS and recruiter workflows land smoothly.
+                Update 147 job postings to show real pay ranges. Roll out in three
+                phases over 90 days.
               </p>
               <div className="flex items-center gap-2 shrink-0">
                 {/* Yellow primary CTA — high-attention click target per Valley brand. */}
