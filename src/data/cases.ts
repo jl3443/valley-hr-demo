@@ -117,15 +117,16 @@ export type CountryRow = {
   statusKind: "ok" | "active" | "alert";
 };
 
-// Valley Bank footprint — Wayne NJ HQ + NY/NJ/FL/AL/CA branches and back-office
+// Valley National Bank's real US footprint — NJ HQ + NY metro + FL + AL,
+// no CA/PR (Valley has no branches there). Region labels kept short so each
+// row stays on one line in the table.
 export const countries: CountryRow[] = [
-  { country: "New Jersey · Wayne HQ + branches",  flag: "🗽", employees: "2,184", cases: "3", activity: "Wage Transparency Act · offboarding", status: "Needs decision", statusKind: "alert" },
-  { country: "New York · NYC metro",                flag: "🗽", employees: "642",   cases: "2", activity: "Retention review · NYC pay law prep", status: "Active", statusKind: "active" },
-  { country: "Florida · Tampa + Miami",             flag: "🌴", employees: "812",   cases: "2", activity: "Branch onboarding · annual reviews", status: "On track", statusKind: "ok" },
-  { country: "Alabama · Birmingham (legacy CB)",    flag: "🌾", employees: "518",   cases: "1", activity: "Title-VII training cycle",            status: "On track", statusKind: "ok" },
-  { country: "California · Hudson Valley admin",    flag: "🌉", employees: "324",   cases: "1", activity: "CCPA data-rights review",             status: "On track", statusKind: "ok" },
-  { country: "Remote · multi-state",                flag: "💻", employees: "486",   cases: "1", activity: "State-tax nexus check",               status: "On track", statusKind: "ok" },
-  { country: "Puerto Rico · San Juan",              flag: "🏝️", employees: "218",   cases: "—", activity: "All clear",                            status: "Quiet",    statusKind: "ok" },
+  { country: "New Jersey · Wayne HQ",          flag: "🏛️", employees: "1,842", cases: "3", activity: "Wage Transparency Act · offboarding", status: "Needs decision", statusKind: "alert" },
+  { country: "New Jersey · branch network",    flag: "🗽", employees: "412",   cases: "1", activity: "Branch onboarding · NMLS renewals",   status: "Active",         statusKind: "active" },
+  { country: "New York · NYC metro",            flag: "🗽", employees: "642",   cases: "2", activity: "Retention review · NY pay law prep",  status: "Active",         statusKind: "active" },
+  { country: "Florida · Tampa + Miami",         flag: "🌴", employees: "812",   cases: "2", activity: "Branch onboarding · annual reviews",  status: "On track",       statusKind: "ok"    },
+  { country: "Alabama · Birmingham",            flag: "🏦", employees: "518",   cases: "1", activity: "BSA / AML training cycle",            status: "On track",       statusKind: "ok"    },
+  { country: "Remote · multi-state",            flag: "💻", employees: "486",   cases: "1", activity: "State-tax nexus check",               status: "On track",       statusKind: "ok"    },
 ];
 
 export type PendingDecision = {
