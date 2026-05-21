@@ -13,6 +13,7 @@
  * No Kanban — Kanban is HRBP daily-ops, not CXO control tower.
  */
 
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useApp } from "@/state";
 import { TopRow } from "@/components/blocks/TopRow";
@@ -32,6 +33,7 @@ import {
   headcountTrend,
   complianceHealth,
   type Branch,
+  type Stage,
   type StatusKind,
 } from "@/data/lifecycle";
 
@@ -71,6 +73,9 @@ const statusTone: Record<StatusKind, { dot: string; chip: string; label: string 
 export function PeopleLifecycle() {
   const { go } = useApp();
   const kpis = useLifecycleKpis();
+  /* Stage filter selected from LifecycleFlowChart. When set, ExceptionsList
+     narrows to that stage's at-risk employees. Toggle off by clicking again. */
+  const [stageFilter, setStageFilter] = useState<Stage | null>(null);
   return (
     <div className="pl-5 pr-6 pt-4 pb-8 space-y-3 min-h-screen bg-[color-mix(in_srgb,var(--surface-mint)_18%,var(--surface-fog))]">
       <TopRow breadcrumb={{ label: "People lifecycle", chip: "HR Ops · control tower" }} />
@@ -92,14 +97,17 @@ export function PeopleLifecycle() {
 
       <KPIStrip items={kpis} cols={5} />
 
-      <div className="grid grid-cols-[2fr_1fr] gap-3 items-start">
+      <div className="grid grid-cols-[2fr_1fr] gap-3 items-stretch">
         <DecisionsHero />
-        <ExceptionsList />
+        <ExceptionsList stageFilter={stageFilter} onClear={() => setStageFilter(null)} />
       </div>
 
-      <LifecycleFlowChart />
+      <LifecycleFlowChart
+        activeStage={stageFilter}
+        onSelectStage={(s) => setStageFilter((curr) => (curr === s ? null : s))}
+      />
 
-      <div className="grid grid-cols-[2fr_1fr] gap-3 items-start">
+      <div className="grid grid-cols-[2fr_1fr] gap-3 items-stretch">
         <HeadcountTrendChart />
         <ComplianceHealthPanel />
       </div>
@@ -122,9 +130,11 @@ function Panel({
   children: React.ReactNode;
   className?: string;
 }) {
+  /* h-full + flex-col so 2fr|1fr grid siblings stretch to identical heights.
+     Body content fills remaining vertical space via the children wrapper. */
   return (
-    <section className={cn("bg-white border border-divider rounded-md overflow-hidden", className)}>
-      <header className="flex items-center justify-between px-4 py-2.5 border-b border-divider">
+    <section className={cn("bg-white border border-divider rounded-md overflow-hidden h-full flex flex-col", className)}>
+      <header className="flex items-center justify-between px-4 py-2.5 border-b border-divider shrink-0">
         <div className="flex items-center gap-3">
           <AIDot size={6} tone="yellow" />
           <span className="text-[12px] tracking-[0.08em] uppercase text-surface-deep font-medium">
@@ -133,7 +143,7 @@ function Panel({
         </div>
         {rightMeta}
       </header>
-      {children}
+      <div className="flex-1 flex flex-col">{children}</div>
     </section>
   );
 }
@@ -157,10 +167,12 @@ function DecisionsHero() {
         </span>
       }
     >
-      <div className="divide-y divide-divider">
+      <div className="flex-1 flex flex-col divide-y divide-divider">
         {lifecycleDecisions.map((d, i) => (
           <SpringIn key={d.cardId} delay={i * 90}>
-            <article className="px-5 py-4 grid grid-cols-[1fr_auto] gap-5 items-center">
+            {/* Uniform row height — line-clamps + min-h pin each row to the
+                same vertical extent, so 3 stacked decisions read as a clean grid. */}
+            <article className="px-5 py-4 grid grid-cols-[1fr_auto] gap-5 items-center min-h-[124px]">
               <div className="min-w-0 space-y-1.5">
                 <div className="flex items-center gap-2.5">
                   <span className={cn("text-[10px] font-bold tracking-[0.08em] uppercase px-2 py-0.5 rounded", urgencyChip[d.urgency])}>
@@ -170,8 +182,12 @@ function DecisionsHero() {
                     {d.dueLabel} <span className="text-surface-deep font-semibold">{d.dueWhen}</span>
                   </span>
                 </div>
-                <h3 className="text-[15px] font-bold leading-[20px] text-ink truncate">{d.title}</h3>
-                <p className="text-[13px] leading-[18px] text-mute line-clamp-2">{d.sub}</p>
+                <h3 className="text-[15px] font-bold leading-[20px] text-ink line-clamp-1 min-h-[20px]">
+                  {d.title}
+                </h3>
+                <p className="text-[13px] leading-[18px] text-mute line-clamp-2 min-h-[36px]">
+                  {d.sub}
+                </p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 {d.secondary && (
@@ -201,19 +217,43 @@ function DecisionsHero() {
 
 /* ════════════════════════ Exceptions list ═══════════════════════════════ */
 
-function ExceptionsList() {
+function ExceptionsList({
+  stageFilter,
+  onClear,
+}: {
+  stageFilter: Stage | null;
+  onClear: () => void;
+}) {
   const { go } = useApp();
-  const exceptions = lifecycleCards.filter((c) => c.status !== "on-track");
+  const allExceptions = lifecycleCards.filter((c) => c.status !== "on-track");
+  const exceptions = stageFilter
+    ? allExceptions.filter((c) => c.stage === stageFilter)
+    : allExceptions;
   return (
     <Panel
       eyebrow="Exceptions · needs action"
       rightMeta={
-        <span className="text-[11px] text-mute">
-          <span className="text-mark-red font-semibold">{exceptions.length}</span> open
-        </span>
+        stageFilter ? (
+          <button
+            type="button"
+            onClick={onClear}
+            className="px-2 py-0.5 rounded-full bg-surface-sage/30 text-surface-deep text-[11px] font-semibold hover:bg-surface-sage/50 transition-colors"
+          >
+            {stageFilter.replace("-", " ")} · clear ×
+          </button>
+        ) : (
+          <span className="text-[11px] text-mute">
+            <span className="text-mark-red font-semibold">{exceptions.length}</span> open
+          </span>
+        )
       }
     >
-      <div className="divide-y divide-divider">
+      <div className="flex-1 flex flex-col divide-y divide-divider">
+        {exceptions.length === 0 && (
+          <div className="flex-1 flex items-center justify-center px-4 py-8 text-[12px] text-mute">
+            No exceptions in this stage · all on track
+          </div>
+        )}
         {exceptions.map((c) => {
           const tone = statusTone[c.status];
           const clickable = !!c.target;
@@ -224,7 +264,7 @@ function ExceptionsList() {
               onClick={() => c.target && go(c.target)}
               disabled={!clickable}
               className={cn(
-                "w-full px-4 py-3 text-left flex items-center gap-3 transition-colors",
+                "w-full px-4 py-3 text-left flex items-center gap-3 transition-colors min-h-[64px]",
                 clickable && "hover:bg-surface-mint/40 cursor-pointer",
               )}
             >
@@ -251,7 +291,13 @@ function ExceptionsList() {
    5 horizontal stages. Each shows count + WoW delta + trend sparkline.
    This is the CXO's throughput view — replaces the Kanban entirely. */
 
-function LifecycleFlowChart() {
+function LifecycleFlowChart({
+  activeStage,
+  onSelectStage,
+}: {
+  activeStage: Stage | null;
+  onSelectStage: (s: Stage) => void;
+}) {
   // Total throughput for the flow-volume bar at the bottom
   const total = stageVolumes.reduce((a, b) => a + b.count, 0);
   return (
@@ -259,7 +305,9 @@ function LifecycleFlowChart() {
       eyebrow="Lifecycle throughput · 8-week view"
       rightMeta={
         <span className="text-[11px] text-mute">
-          <span className="text-surface-deep font-semibold">{total.toLocaleString()}</span> in flight
+          {activeStage
+            ? <>filtering exceptions · <span className="text-surface-deep font-semibold">{activeStage.replace("-", " ")}</span></>
+            : <><span className="text-surface-deep font-semibold">{total.toLocaleString()}</span> in flight · click a stage to filter</>}
         </span>
       }
     >
@@ -267,8 +315,17 @@ function LifecycleFlowChart() {
         {stageVolumes.map((s, i) => {
           const up = s.delta > 0;
           const down = s.delta < 0;
+          const isActive = activeStage === s.id;
           return (
-            <div key={s.id} className="px-4 py-4 flex flex-col gap-2">
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => onSelectStage(s.id)}
+              className={cn(
+                "px-4 py-4 flex flex-col gap-2 text-left transition-colors cursor-pointer",
+                isActive ? "bg-surface-sage/15" : "hover:bg-surface-mint/30",
+              )}
+            >
               <div className="text-[11px] uppercase tracking-[0.08em] text-mute font-semibold">
                 {s.title}
               </div>
@@ -287,8 +344,8 @@ function LifecycleFlowChart() {
                   {up ? "↑" : down ? "↓" : "·"} {Math.abs(s.delta)}
                 </span>
               </div>
-              <Sparkline points={s.spark} filled stroke="var(--accent-green-deep)" width={180} height={28} />
-            </div>
+              <Sparkline points={s.spark} filled stroke={isActive ? "var(--accent-green-deep)" : "var(--accent-green-deep)"} width={180} height={28} />
+            </button>
           );
         })}
       </div>
@@ -379,7 +436,7 @@ function HeadcountTrendChart() {
         </div>
       }
     >
-      <div className="px-2 py-3">
+      <div className="flex-1 px-2 py-3 flex items-center">
         <svg viewBox={`0 0 ${w} ${h}`} className="w-full">
           <defs>
             <linearGradient id="lifecycle-area-fade" x1="0" x2="0" y1="0" y2="1">
@@ -446,12 +503,13 @@ function HeadcountTrendChart() {
    The one currently being remediated renders yellow — the others green. */
 
 function ComplianceHealthPanel() {
+  const { go } = useApp();
   return (
     <Panel
       eyebrow="Compliance health"
       rightMeta={<span className="text-[11px] text-mute">Updated 4 min ago</span>}
     >
-      <div className="px-4 py-3 space-y-4">
+      <div className="flex-1 px-4 py-4 flex flex-col justify-around gap-4">
         {complianceHealth.map((m) => {
           const pct = (m.current / m.total) * 100;
           const tone =
@@ -460,10 +518,20 @@ function ComplianceHealthPanel() {
               : m.status === "warning"
                 ? "bg-surface-sage"
                 : "bg-mark-red";
+          /* Each metric is clickable → routes to Compliance Radar.
+             Yellow-status metrics get a stronger hover hint (they're the
+             remediable ones the CXO can act on). */
           return (
-            <div key={m.label}>
+            <button
+              key={m.label}
+              type="button"
+              onClick={() => go({ kind: "compliance-radar" })}
+              className="w-full text-left group cursor-pointer"
+            >
               <div className="flex items-baseline justify-between mb-1.5">
-                <span className="text-[13px] font-semibold text-ink">{m.label}</span>
+                <span className="text-[13px] font-semibold text-ink group-hover:text-surface-deep transition-colors">
+                  {m.label}
+                </span>
                 <span className="font-mono text-[12px] tabular-nums text-surface-deep font-semibold">
                   {m.current.toLocaleString()} / {m.total.toLocaleString()}
                   <span className="text-mute font-normal ml-2">{pct.toFixed(1)}%</span>
@@ -475,8 +543,10 @@ function ComplianceHealthPanel() {
                   style={{ width: `${pct}%` }}
                 />
               </div>
-              <div className="text-[11px] text-mute mt-1">{m.note}</div>
-            </div>
+              <div className="text-[11px] text-mute mt-1 group-hover:text-surface-deep transition-colors">
+                {m.note}
+              </div>
+            </button>
           );
         })}
       </div>
