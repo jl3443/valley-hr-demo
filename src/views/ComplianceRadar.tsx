@@ -44,14 +44,11 @@ export function ComplianceRadar() {
                   <span className="px-2 py-0.5 rounded-full bg-black text-ink-inverse text-[10px] tracking-[0.08em] uppercase font-medium">
                     New Jersey
                   </span>
-                  <span className="text-[12px] text-ink">NJ Wage Transparency Act (S.2310 / A.4151)</span>
+                  <span className="text-[12px] text-ink">NJ Wage Transparency Act</span>
                 </div>
                 <h2 className="text-[18px] leading-[22px] font-bold text-ink">
                   Every job posting must show a real pay range
                 </h2>
-                <div className="text-[12px] text-mute">
-                  Effective in 90 days · detected at 7:14 AM today
-                </div>
               </div>
               <div className="bg-surface-deep text-ink-inverse text-center px-3 py-1.5 rounded shrink-0">
                 <div className="text-[18px] leading-none font-bold">90</div>
