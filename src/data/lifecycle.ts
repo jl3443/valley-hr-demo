@@ -266,6 +266,64 @@ export const activeStats = {
   thisQuarterReviews: 41,
 };
 
+// ── Lifecycle flow stage volumes — drives the horizontal flow chart ──────
+// Each stage shows current count + WoW delta + 8-point trend sparkline.
+export type StageVolume = {
+  id: Stage;
+  title: string;
+  count: number;
+  delta: number;       // signed: +ve = up vs last week, -ve = down
+  spark: number[];     // 8 weekly points
+};
+
+export const stageVolumes: StageVolume[] = [
+  { id: "offer-accepted", title: "Offer accepted",  count: 3,   delta: +1, spark: [2, 2, 3, 2, 4, 3, 2, 3]   },
+  { id: "onboarding",     title: "Onboarding",      count: 4,   delta:  0, spark: [3, 4, 4, 5, 4, 4, 3, 4]   },
+  { id: "active",         title: "Active",          count: 184, delta: +6, spark: [172, 174, 176, 178, 178, 180, 182, 184] },
+  { id: "transitioning",  title: "Transitioning",   count: 3,   delta: +1, spark: [1, 2, 2, 3, 2, 3, 2, 3]   },
+  { id: "offboarding",    title: "Offboarding",     count: 2,   delta: -1, spark: [3, 4, 3, 3, 4, 3, 3, 2]   },
+];
+
+// ── 12-month headcount + attrition trend — bank ops standard CXO chart ──
+export type TrendPoint = {
+  month: string;
+  headcount: number;
+  hires: number;
+  exits: number;
+};
+
+export const headcountTrend: TrendPoint[] = [
+  { month: "Jun", headcount: 3088, hires: 24, exits: 19 },
+  { month: "Jul", headcount: 3104, hires: 28, exits: 12 },
+  { month: "Aug", headcount: 3128, hires: 31, exits: 7  },
+  { month: "Sep", headcount: 3146, hires: 26, exits: 8  },
+  { month: "Oct", headcount: 3162, hires: 22, exits: 6  },
+  { month: "Nov", headcount: 3178, hires: 24, exits: 8  },
+  { month: "Dec", headcount: 3195, hires: 25, exits: 8  },
+  { month: "Jan", headcount: 3208, hires: 21, exits: 8  },
+  { month: "Feb", headcount: 3221, hires: 23, exits: 10 },
+  { month: "Mar", headcount: 3232, hires: 19, exits: 8  },
+  { month: "Apr", headcount: 3241, hires: 18, exits: 9  },
+  { month: "May", headcount: 3247, hires: 14, exits: 8  },
+];
+
+// ── Compliance health · banking-specific certifications + filings ────────
+// Single yellow-highlight bar communicates "this is the one being remediated".
+export type ComplianceMetric = {
+  label: string;
+  current: number;       // numerator (employees / postings compliant)
+  total: number;         // denominator
+  status: "good" | "warning" | "critical";
+  note: string;
+};
+
+export const complianceHealth: ComplianceMetric[] = [
+  { label: "FINRA license coverage",     current: 142, total: 147, status: "warning",  note: "5 renewals due ≤30 days" },
+  { label: "NJ Wage Transparency Act",   current: 132, total: 147, status: "warning",  note: "15 postings being updated" },
+  { label: "BSA / AML certifications",   current: 3245,total: 3247,status: "good",     note: "2 grace-period extensions" },
+  { label: "OFAC list screening",        current: 3247,total: 3247,status: "good",     note: "All clear" },
+];
+
 // ── AI Pending lifecycle decisions ────────────────────────────────────────
 export type LifecycleDecision = {
   urgency: "critical" | "high" | "medium";
