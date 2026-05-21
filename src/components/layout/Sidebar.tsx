@@ -6,10 +6,7 @@ import {
   TrendingUp,
   Radar,
   Users,
-  Briefcase,
-  Inbox,
   FileText,
-  BookOpen,
   ClipboardList,
   Settings,
 } from "lucide-react";
@@ -46,15 +43,14 @@ const sections: Section[] = [
     items: [
       { label: "Compliance radar", icon: Radar, view: { kind: "compliance-radar" }, badge: { kind: "star" } },
       { label: "People lifecycle", icon: Users, view: { kind: "people-lifecycle" }, badge: { kind: "count", value: 5 } },
-      { label: "Workforce", icon: Briefcase, comingSoon: true },
-      { label: "Cases", icon: Inbox, badge: { kind: "count", value: 12 }, comingSoon: true },
     ],
   },
   {
     title: "Documents",
     items: [
-      { label: "Letters", icon: FileText, view: { kind: "documents", tab: "letters" } },
-      { label: "Policies", icon: BookOpen, view: { kind: "documents", tab: "policies" } },
+      /* Letters + Policies merged into a single 'Documents' entry — the
+         /documents view still has internal tabs to switch between them. */
+      { label: "Documents", icon: FileText, view: { kind: "documents", tab: "letters" } },
       { label: "Audit log", icon: ClipboardList },
     ],
   },
@@ -92,14 +88,13 @@ export function Sidebar() {
             </div>
             <ul>
               {section.items.map((item) => {
+                /* Documents merged into one entry — active when ANY documents tab is open. */
                 const isActive =
                   (item.view?.kind === "dashboard" && activeKind === "dashboard") ||
                   (item.view?.kind === "insights" && activeKind === "insights") ||
                   (item.view?.kind === "compliance-radar" && activeKind === "compliance-radar") ||
                   (item.view?.kind === "people-lifecycle" && activeKind === "people-lifecycle") ||
-                  (item.view?.kind === "documents" &&
-                    activeKind === "documents" &&
-                    (view as { kind: "documents"; tab: string }).tab === item.view.tab);
+                  (item.view?.kind === "documents" && activeKind === "documents");
                 const Icon = item.icon;
                 return (
                   <li key={item.label}>
