@@ -47,12 +47,12 @@ export type LifecycleCard = {
   target?: View;
 };
 
-export const stages: { id: Stage; title: string; sub: string }[] = [
-  { id: "offer-accepted", title: "Offer accepted",  sub: "Pre-Day-1"     },
-  { id: "onboarding",     title: "Onboarding",      sub: "Day 1 → Day 90" },
-  { id: "active",         title: "Active",          sub: "Post-probation" },
-  { id: "transitioning",  title: "Transitioning",   sub: "Internal moves" },
-  { id: "offboarding",    title: "Offboarding",     sub: "Notice → last day" },
+export const stages: { id: Stage; title: string }[] = [
+  { id: "offer-accepted", title: "Offer accepted"  },
+  { id: "onboarding",     title: "Onboarding"      },
+  { id: "active",         title: "Active"          },
+  { id: "transitioning",  title: "Transitioning"   },
+  { id: "offboarding",    title: "Offboarding"     },
 ];
 
 export const lifecycleCards: LifecycleCard[] = [
