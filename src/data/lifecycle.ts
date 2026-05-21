@@ -70,7 +70,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 12,
     status: "on-track",
     statusLabel: "On track",
-    ai: "Background check pending — FINRA fingerprinting appointment booked for Wed AM in Tampa.",
+    ai: "FINRA fingerprinting · Wed AM, Tampa branch",
     /* UC4 = Tampa Branch Manager onboarding workspace — exact match */
     target: { kind: "workspace", flow: "uc4" },
   },
@@ -87,7 +87,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 10,
     status: "on-track",
     statusLabel: "On track",
-    ai: "Offer signed yesterday · preboarding bundle ready · NYC reporting line confirmed.",
+    ai: "Preboarding bundle ready · NYC reporting line confirmed",
     /* UC3 = NYC Senior FP&A retention/comp workspace — adjacent context */
     target: { kind: "workspace", flow: "uc3" },
   },
@@ -104,7 +104,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 14,
     status: "action",
     statusLabel: "Action needed",
-    ai: "Series 7 transfer from prior broker-dealer still pending FINRA registry update — need by Jun 9 for Day 1.",
+    ai: "Series 7 FINRA transfer pending · needed by Jun 9",
   },
 
   // ── Onboarding (4) ────────────────────────────────────────────────────
@@ -121,7 +121,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 12,
     status: "on-track",
     statusLabel: "On track",
-    ai: "5/12 steps auto-completed. Remaining: NJ anti-discrimination training + IT setup (Q2 console + Salesforce).",
+    ai: "Remaining: NJ anti-discrim training + Q2 + Salesforce",
   },
   {
     id: "LC-202",
@@ -136,7 +136,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 12,
     status: "on-track",
     statusLabel: "On track",
-    ai: "Bloomberg Terminal access cleared yesterday · 30-day check-in scheduled for Jun 6.",
+    ai: "Bloomberg cleared · 30-day check-in Jun 6",
   },
   {
     id: "LC-203",
@@ -151,7 +151,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 12,
     status: "action",
     statusLabel: "Action needed",
-    ai: "Stuck on OFAC clearance — vendor SLA returns in 18h · escalate if no response by 6 PM.",
+    ai: "OFAC clearance stuck · vendor SLA 18h",
   },
   {
     id: "LC-204",
@@ -166,7 +166,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 12,
     status: "on-track",
     statusLabel: "On track",
-    ai: "Probation review scheduled for Jun 25 · BSA/AML certification posted to file.",
+    ai: "Probation review Jun 25 · BSA/AML certified",
   },
 
   // ── Active (aggregate only — see ActiveTile component) ────────────────
@@ -186,7 +186,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 8,
     status: "action",
     statusLabel: "Action needed",
-    ai: "Salary range needs re-disclosure per NJ Wage Transparency Act — promotion posting waiting on HRBP.",
+    ai: "NJ WTA re-disclosure · awaiting HRBP sign-off",
     /* UC2 = NJ Wage Transparency compliance workspace — adjacent context */
     target: { kind: "workspace", flow: "uc2" },
   },
@@ -204,7 +204,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 8,
     status: "on-track",
     statusLabel: "On track",
-    ai: "FINRA registration update filed · NJ relocation stipend pre-approved.",
+    ai: "FINRA update filed · NJ relocation stipend approved",
   },
   {
     id: "LC-403",
@@ -220,7 +220,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 8,
     status: "on-track",
     statusLabel: "On track",
-    ai: "Series 6 → Series 7 license upgrade complete · ready for promotion sign-off.",
+    ai: "Series 7 upgrade complete · awaiting promotion sign-off",
   },
 
   // ── Offboarding (2) ───────────────────────────────────────────────────
@@ -237,7 +237,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 14,
     status: "action",
     statusLabel: "Action needed",
-    ai: "23 system access revocations queued (nCino · Salesforce · FIS Profile · Q2 · Bloomberg) · final pay $14,820 ready for approval.",
+    ai: "23 revocations queued · $14,820 final pay ready",
     /* UC1 = Senior Commercial Lender Wayne NJ offboarding — exact match */
     target: { kind: "workspace", flow: "uc1" },
   },
@@ -254,7 +254,7 @@ export const lifecycleCards: LifecycleCard[] = [
     stepsTotal: 14,
     status: "blocked",
     statusLabel: "Blocked",
-    ai: "Portfolio handoff blocked — 18 active loans need reassignment before access cut-off.",
+    ai: "Portfolio blocked · 18 loans need reassignment",
   },
 ];
 

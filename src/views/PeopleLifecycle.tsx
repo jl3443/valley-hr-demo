@@ -35,19 +35,19 @@ import {
   type Branch,
 } from "@/data/lifecycle";
 
-// KPI strip — 5 tiles. Compliance-hold tile (yellow) routes to Compliance Radar.
-// onClick is wired inside the component since it depends on `go`.
+// KPI strip — 5 tiles. CXO-clean: number + label only, no trend mini-text below
+// the big number (per user: "any big text doesn't need small text underneath").
+// Compliance-hold tile (yellow) routes to Compliance Radar.
 function useLifecycleKpis(): KPI[] {
   const { go } = useApp();
   return [
-    { label: "Onboarded · this month",  value: 4, trend: { delta: "1", direction: "up" }   },
-    { label: "Offboarded · this month", value: 2, trend: { delta: "1", direction: "down" } },
-    { label: "In probation",            value: 7, trend: { delta: "0", direction: "flat" } },
-    { label: "Internal transfers",      value: 3, trend: { delta: "2", direction: "up" }   },
+    { label: "Onboarded this month",  value: 4 },
+    { label: "Offboarded this month", value: 2 },
+    { label: "In probation",          value: 7 },
+    { label: "Internal transfers",    value: 3 },
     {
       label: "Compliance hold",
       value: 1,
-      trend: { delta: "1", direction: "up" },
       highlight: "yellow",
       onClick: () => go({ kind: "compliance-radar" }),
     },
@@ -137,17 +137,14 @@ function KanbanBoard() {
           const isActive = stage.id === "active";
           return (
             <div key={stage.id} className="flex flex-col bg-surface-fog/30 min-h-[560px]">
-              {/* Column header */}
-              <div className="px-3 pt-3 pb-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold uppercase tracking-[0.06em] text-surface-deep">
-                    {stage.title}
-                  </span>
-                  <span className="text-[11px] font-bold text-surface-deep bg-white border border-divider rounded-full px-2 py-0.5 leading-none">
-                    {isActive ? activeStats.total : cards.length}
-                  </span>
-                </div>
-                <div className="text-[10px] text-mute mt-0.5">{stage.sub}</div>
+              {/* Column header — title + count on one line, no sub-text explanation */}
+              <div className="px-3 pt-3 pb-2 flex items-center justify-between">
+                <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-surface-deep">
+                  {stage.title}
+                </span>
+                <span className="text-[11px] font-bold text-surface-deep bg-white border border-divider rounded-full px-2 py-0.5 leading-none">
+                  {isActive ? activeStats.total : cards.length}
+                </span>
               </div>
 
               <div className="flex-1 px-2 pb-3 space-y-2">
@@ -162,24 +159,17 @@ function KanbanBoard() {
 }
 
 function ActiveAggregateTile() {
+  /* CXO-clean: single big number, no explanatory small text, no dead "Filter
+     by branch / role →" link. The column header already says "ACTIVE · 184". */
   return (
     <SpringIn>
-      <div className="rounded-md bg-white border border-divider p-3 flex flex-col items-center text-center">
-        <div className="text-[10px] uppercase tracking-[0.08em] text-mute font-medium">
-          Total active
-        </div>
-        <div className="text-[34px] leading-none font-bold tracking-[-0.02em] text-surface-deep mt-1">
+      <div className="rounded-md bg-white border border-divider px-4 py-8 flex items-center justify-center">
+        <div
+          className="text-[44px] leading-none font-light tracking-[-0.02em] text-surface-deep"
+          style={{ fontFamily: "var(--font-display, inherit)" }}
+        >
           <CountUp to={activeStats.total} duration={900} grouped />
         </div>
-        <div className="text-[11px] text-mute mt-1.5 leading-[15px]">
-          {activeStats.inProbation} in probation · {activeStats.thisQuarterReviews} reviews this quarter
-        </div>
-        <button
-          type="button"
-          className="mt-3 text-[11px] font-semibold text-surface-deep hover:underline"
-        >
-          Filter by branch / role →
-        </button>
       </div>
     </SpringIn>
   );
@@ -211,67 +201,75 @@ function KanbanCard({ card, delay }: { card: LifecycleCard; delay: number }) {
         animation: `lifecycleIn 360ms cubic-bezier(0.34, 1.32, 0.64, 1) ${delay}ms backwards`,
       }}
     >
-      {/* Branch chip corner */}
-      <div className="absolute top-2 right-2 flex items-center gap-1">
-        {card.transferFrom && card.transferFrom !== card.branch && (
-          <>
-            <span className="text-[9px] font-bold tracking-[0.06em] px-1.5 py-0.5 rounded bg-surface-fog text-mute">
-              {card.transferFrom}
-            </span>
-            <span className="text-[9px] text-surface-sage">→</span>
-          </>
-        )}
-        <span className={cn("text-[9px] font-bold tracking-[0.06em] px-1.5 py-0.5 rounded leading-none", branchTone[card.branch])}>
-          {card.branch}
+      {/* ── Row 1: Identity ─────────────────────────────────────────────
+          Avatar + name + role, with branch chip(s) anchored top-right.
+          Role is the ONE allowed sub-line under the name — it's a discrete
+          attribute (job title), not a small-text "explanation" of the name. */}
+      <div className="flex items-center gap-2.5">
+        <div className="w-9 h-9 rounded-full bg-surface-mint flex items-center justify-center text-[12px] font-bold text-surface-deep shrink-0">
+          {card.initials}
+        </div>
+        <div className="min-w-0 flex-1 leading-tight">
+          <div className="text-[13.5px] font-semibold text-ink truncate">{card.name}</div>
+          <div className="text-[11.5px] text-mute truncate">{card.role}</div>
+        </div>
+        <div className="flex items-center gap-1 shrink-0">
+          {card.transferFrom && card.transferFrom !== card.branch && (
+            <>
+              <span className="text-[10px] font-bold tracking-[0.04em] px-1.5 py-0.5 rounded bg-surface-fog text-mute">
+                {card.transferFrom}
+              </span>
+              <span className="text-[10px] text-surface-sage">→</span>
+            </>
+          )}
+          <span className={cn("text-[10px] font-bold tracking-[0.04em] px-1.5 py-0.5 rounded leading-none", branchTone[card.branch])}>
+            {card.branch}
+          </span>
+        </div>
+      </div>
+
+      {/* ── Row 2: Key date ─────────────────────────────────────────────
+          Single right-aligned date, no "5/12 steps" caption above the bar.
+          Date label + date on one line, big-enough to be glanceable. */}
+      <div className="mt-3.5 flex items-baseline justify-between">
+        <span className="text-[10.5px] uppercase tracking-[0.08em] text-mute font-semibold">
+          {card.dateLabel}
+        </span>
+        <span className="text-[13.5px] font-semibold text-surface-deep">
+          {card.date}
         </span>
       </div>
 
-      {/* Avatar + name + role */}
-      <div className="flex items-start gap-2.5 pr-14">
-        <div className="w-8 h-8 rounded-full bg-surface-mint flex items-center justify-center text-[11px] font-bold text-surface-deep shrink-0">
-          {card.initials}
-        </div>
-        <div className="min-w-0 leading-tight">
-          <div className="text-[12.5px] font-bold text-ink truncate">{card.name}</div>
-          <div className="text-[10.5px] text-mute truncate">{card.role}</div>
-        </div>
+      {/* ── Row 3: Progress bar (no caption) ───────────────────────────── */}
+      <div className="mt-1.5 h-1.5 w-full bg-surface-fog rounded-full overflow-hidden">
+        <div
+          className={cn("h-full rounded-full transition-all", tone.dot)}
+          style={{ width: `${Math.max(pct, 4)}%` }}
+        />
       </div>
 
-      {/* Progress + key date */}
-      <div className="mt-3 space-y-1">
-        <div className="flex items-center justify-between text-[10.5px]">
-          <span className="text-mute font-medium">
-            {card.stepsDone}/{card.stepsTotal} steps
-          </span>
-          <span className="text-surface-deep font-semibold">
-            {card.dateLabel}: <span className="font-normal text-ink">{card.date}</span>
-          </span>
-        </div>
-        <div className="h-1.5 w-full bg-surface-fog rounded-full overflow-hidden">
-          <div
-            className={cn("h-full rounded-full transition-all", tone.dot)}
-            style={{ width: `${Math.max(pct, 4)}%` }}
-          />
-        </div>
-      </div>
-
-      {/* Status chip + "Open →" link when card is wired to a workspace */}
-      <div className="mt-2.5 flex items-center justify-between gap-2">
-        <span className={cn("inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-semibold", tone.chip)}>
+      {/* ── Row 4: Status + hover-only "Open workspace" cue ─────────────── */}
+      <div className="mt-3 flex items-center justify-between gap-2">
+        <span className={cn("inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10.5px] font-semibold", tone.chip)}>
           <span className={cn("w-1.5 h-1.5 rounded-full", tone.dot)} />
           {card.statusLabel}
         </span>
         {clickable && (
-          <span className="text-[10px] font-semibold text-surface-deep opacity-0 group-hover:opacity-100 transition-opacity">
-            Open workspace →
+          <span className="text-[10.5px] font-semibold text-surface-deep opacity-0 group-hover:opacity-100 transition-opacity">
+            Open →
           </span>
         )}
       </div>
 
-      {/* AI line */}
-      <div className="mt-2.5 pt-2.5 border-t border-divider flex items-start gap-2">
-        <AIDot size={6} tone="yellow" className="mt-1 shrink-0" />
-        <p className="text-[11px] leading-[15px] text-mute">{card.ai}</p>
+      {/* ── Row 5: AI insight ────────────────────────────────────────────
+          Single line, ellipsis truncation. Full text available on hover via
+          title attribute. The Sparkles dot signals "this is agent voice",
+          not a label-explanation. */}
+      <div className="mt-3 pt-2.5 border-t border-divider flex items-start gap-1.5">
+        <AIDot size={6} tone="yellow" className="mt-[5px] shrink-0" />
+        <p className="text-[11px] leading-[15px] text-mute truncate" title={card.ai}>
+          {card.ai}
+        </p>
       </div>
     </div>
   );
