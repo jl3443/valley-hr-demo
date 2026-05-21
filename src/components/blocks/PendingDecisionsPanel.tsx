@@ -6,7 +6,9 @@ import { AIDot } from "@/components/ai/AIDot";
 
 const urgencyChip: Record<"critical" | "high" | "medium", string> = {
   critical: "bg-mark-red text-ink-inverse",
-  high: "bg-surface-deep text-ink-inverse",
+  /* HIGH renders as Valley yellow on navy text — brand-accent attention
+     signal short of red 'critical'. */
+  high: "bg-surface-sage text-surface-deep",
   medium: "bg-surface-fog text-ink",
 };
 
@@ -30,9 +32,9 @@ export function PendingDecisionsPanel({ className }: { className?: string }) {
         </div>
         <span
           className={cn(
-            "px-2.5 py-0.5 rounded-full text-[11px] font-medium",
+            "px-2.5 py-0.5 rounded-full text-[11px] font-semibold",
             awaitingCount > 0
-              ? "bg-mark-red text-ink-inverse"
+              ? "bg-surface-sage text-surface-deep"
               : "bg-surface-mint text-surface-deep",
           )}
         >

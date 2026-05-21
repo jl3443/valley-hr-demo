@@ -24,7 +24,7 @@ export function AlertsPanel({ className }: { className?: string }) {
             Live alerts
           </span>
         </div>
-        <span className="px-2 py-0.5 rounded-full bg-surface-rose text-mark-red text-[11px] font-medium">
+        <span className="px-2 py-0.5 rounded-full bg-surface-sage text-surface-deep text-[11px] font-semibold">
           3 active
         </span>
       </header>
