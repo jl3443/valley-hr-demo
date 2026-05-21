@@ -180,11 +180,15 @@ function KanbanCard({ card, delay }: { card: LifecycleCard; delay: number }) {
   const tone = statusTone[card.status];
   const pct = (card.stepsDone / card.stepsTotal) * 100;
   const clickable = !!card.target;
+  /* Native tooltip surfaces the dropped detail (role + status + AI line + full
+     date label) so CXO can hover any card for the long story. */
+  const tooltip = `${card.role}\n${card.dateLabel}: ${card.date}\n${card.statusLabel}\n\n${card.ai}`;
   return (
     <div
       onClick={() => card.target && go(card.target)}
       role={clickable ? "button" : undefined}
       tabIndex={clickable ? 0 : undefined}
+      title={tooltip}
       onKeyDown={(e) => {
         if (clickable && (e.key === "Enter" || e.key === " ")) {
           e.preventDefault();
@@ -192,7 +196,7 @@ function KanbanCard({ card, delay }: { card: LifecycleCard; delay: number }) {
         }
       }}
       className={cn(
-        "relative rounded-md bg-white border border-divider p-3 transition-all group",
+        "relative rounded-md bg-white border border-divider px-3 py-3 transition-all group",
         clickable
           ? "cursor-pointer hover:border-surface-deep hover:shadow-md hover:-translate-y-0.5"
           : "cursor-default",
@@ -201,22 +205,27 @@ function KanbanCard({ card, delay }: { card: LifecycleCard; delay: number }) {
         animation: `lifecycleIn 360ms cubic-bezier(0.34, 1.32, 0.64, 1) ${delay}ms backwards`,
       }}
     >
-      {/* ── Row 1: Identity ─────────────────────────────────────────────
-          Avatar + name + role, with branch chip(s) anchored top-right.
-          Role is the ONE allowed sub-line under the name — it's a discrete
-          attribute (job title), not a small-text "explanation" of the name. */}
-      <div className="flex items-center gap-2.5">
-        <div className="w-9 h-9 rounded-full bg-surface-mint flex items-center justify-center text-[12px] font-bold text-surface-deep shrink-0">
-          {card.initials}
-        </div>
-        <div className="min-w-0 flex-1 leading-tight">
-          <div className="text-[13.5px] font-semibold text-ink truncate">{card.name}</div>
-          <div className="text-[11.5px] text-mute truncate">{card.role}</div>
-        </div>
-        <div className="flex items-center gap-1 shrink-0">
+      {/*
+        CXO-Kanban card · ruthlessly minimal.
+        Two text rows + one visual progress bar at the bottom.
+
+        Row 1   ● <name>                          [BRANCH]
+        Row 2   <date>
+        bar     ▰▰▰▰▰▰▰▱▱▱▱▱  (color = status, no text caption)
+
+        Everything else (role, AI commentary, % progress, status label,
+        full date range) moves to the native browser tooltip via `title`.
+        CXOs scan: name + color + date. Hover for detail. Click to drill in.
+      */}
+      <div className="flex items-center gap-2 min-w-0">
+        <span className={cn("w-2 h-2 rounded-full shrink-0", tone.dot)} aria-label={card.statusLabel} />
+        <span className="text-[13.5px] font-semibold text-ink truncate flex-1">
+          {card.name}
+        </span>
+        <span className="flex items-center gap-0.5 shrink-0">
           {card.transferFrom && card.transferFrom !== card.branch && (
             <>
-              <span className="text-[10px] font-bold tracking-[0.04em] px-1.5 py-0.5 rounded bg-surface-fog text-mute">
+              <span className="text-[10px] font-bold tracking-[0.04em] px-1.5 py-0.5 rounded bg-surface-fog text-mute leading-none">
                 {card.transferFrom}
               </span>
               <span className="text-[10px] text-surface-sage">→</span>
@@ -225,51 +234,18 @@ function KanbanCard({ card, delay }: { card: LifecycleCard; delay: number }) {
           <span className={cn("text-[10px] font-bold tracking-[0.04em] px-1.5 py-0.5 rounded leading-none", branchTone[card.branch])}>
             {card.branch}
           </span>
-        </div>
-      </div>
-
-      {/* ── Row 2: Key date ─────────────────────────────────────────────
-          Single right-aligned date, no "5/12 steps" caption above the bar.
-          Date label + date on one line, big-enough to be glanceable. */}
-      <div className="mt-3.5 flex items-baseline justify-between">
-        <span className="text-[10.5px] uppercase tracking-[0.08em] text-mute font-semibold">
-          {card.dateLabel}
-        </span>
-        <span className="text-[13.5px] font-semibold text-surface-deep">
-          {card.date}
         </span>
       </div>
 
-      {/* ── Row 3: Progress bar (no caption) ───────────────────────────── */}
-      <div className="mt-1.5 h-1.5 w-full bg-surface-fog rounded-full overflow-hidden">
+      <div className="mt-1.5 text-[12px] text-mute">
+        {card.date}
+      </div>
+
+      <div className="mt-3 h-[3px] w-full bg-surface-fog rounded-full overflow-hidden">
         <div
           className={cn("h-full rounded-full transition-all", tone.dot)}
           style={{ width: `${Math.max(pct, 4)}%` }}
         />
-      </div>
-
-      {/* ── Row 4: Status + hover-only "Open workspace" cue ─────────────── */}
-      <div className="mt-3 flex items-center justify-between gap-2">
-        <span className={cn("inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10.5px] font-semibold", tone.chip)}>
-          <span className={cn("w-1.5 h-1.5 rounded-full", tone.dot)} />
-          {card.statusLabel}
-        </span>
-        {clickable && (
-          <span className="text-[10.5px] font-semibold text-surface-deep opacity-0 group-hover:opacity-100 transition-opacity">
-            Open →
-          </span>
-        )}
-      </div>
-
-      {/* ── Row 5: AI insight ────────────────────────────────────────────
-          Single line, ellipsis truncation. Full text available on hover via
-          title attribute. The Sparkles dot signals "this is agent voice",
-          not a label-explanation. */}
-      <div className="mt-3 pt-2.5 border-t border-divider flex items-start gap-1.5">
-        <AIDot size={6} tone="yellow" className="mt-[5px] shrink-0" />
-        <p className="text-[11px] leading-[15px] text-mute truncate" title={card.ai}>
-          {card.ai}
-        </p>
       </div>
     </div>
   );
