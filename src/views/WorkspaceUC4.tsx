@@ -42,7 +42,7 @@ const activityExecuting: ActivityEntry[] = [
   { time: "now", text: "Welcome message scheduled for 09:00 ET" },
   { time: "now", text: "Equipment ticket filed · MacBook Pro 14, Fri delivery" },
   { time: "now", text: "Okta + Workspace accounts provisioned · pending Day 1 activation" },
-  { time: "now", text: "Quellensteuer form filed · receipt expected from BS canton" },
+  { time: "now", text: "FL state W-4 filed · receipt expected from FL DOR" },
   { time: "now", text: "Audit entry written · approver: HRBP" },
 ];
 
@@ -72,7 +72,7 @@ const liveScripts: Record<number, string[]> = {
   3: [
     "Scanning Florida · 6 compliance items…",
     "Confirming HR Bulletin team does not apply to CH…",
-    "Drafting the Quellensteuer form for the Tampa canton…",
+    "Drafting the FL state W-4 for Tampa branch payroll…",
     "Setting the state residency reminder for Day 14…",
   ],
   4: [
@@ -258,7 +258,7 @@ export function WorkspaceUC4() {
                 items={[
                   { label: "Dispatch preboarding bundle" },
                   { label: "Confirm Day-1 calendar with manager" },
-                  { label: "File Quellensteuer + residency reminder" },
+                  { label: "File FL state W-4 + residency reminder" },
                   { label: "Assign buddy + send 30/60/90 plan" },
                 ]}
                 executing={finished}
