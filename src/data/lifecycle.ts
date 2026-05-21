@@ -43,6 +43,8 @@ export type LifecycleCard = {
   ai: string;
   /** For transfers: source branch (renders as PAT → WYN chip). */
   transferFrom?: Branch;
+  /** Optional cross-page link — when set, card becomes clickable and routes to that view. */
+  target?: View;
 };
 
 export const stages: { id: Stage; title: string; sub: string }[] = [
@@ -69,6 +71,8 @@ export const lifecycleCards: LifecycleCard[] = [
     status: "on-track",
     statusLabel: "On track",
     ai: "Background check pending — FINRA fingerprinting appointment booked for Wed AM in Tampa.",
+    /* UC4 = Tampa Branch Manager onboarding workspace — exact match */
+    target: { kind: "workspace", flow: "uc4" },
   },
   {
     id: "LC-102",
@@ -84,6 +88,8 @@ export const lifecycleCards: LifecycleCard[] = [
     status: "on-track",
     statusLabel: "On track",
     ai: "Offer signed yesterday · preboarding bundle ready · NYC reporting line confirmed.",
+    /* UC3 = NYC Senior FP&A retention/comp workspace — adjacent context */
+    target: { kind: "workspace", flow: "uc3" },
   },
   {
     id: "LC-103",
@@ -181,6 +187,8 @@ export const lifecycleCards: LifecycleCard[] = [
     status: "action",
     statusLabel: "Action needed",
     ai: "Salary range needs re-disclosure per NJ Wage Transparency Act — promotion posting waiting on HRBP.",
+    /* UC2 = NJ Wage Transparency compliance workspace — adjacent context */
+    target: { kind: "workspace", flow: "uc2" },
   },
   {
     id: "LC-402",
@@ -230,6 +238,8 @@ export const lifecycleCards: LifecycleCard[] = [
     status: "action",
     statusLabel: "Action needed",
     ai: "23 system access revocations queued (nCino · Salesforce · FIS Profile · Q2 · Bloomberg) · final pay $14,820 ready for approval.",
+    /* UC1 = Senior Commercial Lender Wayne NJ offboarding — exact match */
+    target: { kind: "workspace", flow: "uc1" },
   },
   {
     id: "LC-502",
@@ -309,17 +319,24 @@ export type LifecycleActivity = {
   who?: string;
   branch?: Branch;
   highlight?: boolean; // yellow accent for important lines
+  /** Cross-page link — when set, entry becomes clickable. */
+  target?: View;
 };
 
 export const lifecycleActivity: LifecycleActivity[] = [
-  { at: "7:14 AM",       actor: "Agent",  what: "Detected NJ Wage Transparency Act amendment — 147 open postings flagged for re-disclosure.", highlight: true },
+  { at: "7:14 AM",       actor: "Agent",  what: "Detected NJ Wage Transparency Act amendment — 147 open postings flagged for re-disclosure.", highlight: true,
+    target: { kind: "workspace", flow: "uc2" } },
   { at: "6:42 AM",       actor: "Agent",  what: "Bloomberg Terminal access provisioned",                          who: "Brian Sullivan",   branch: "WYN" },
   { at: "5:28 AM",       actor: "Agent",  what: "Series 6 → Series 7 license upgrade marked complete with FINRA registry", who: "Anouk Visser", branch: "NWK" },
-  { at: "Yest. 11:42 PM",actor: "Agent",  what: "Offboarding letter drafted in EN + ES",                          who: "Carlos Ramirez",   branch: "WYN" },
+  { at: "Yest. 11:42 PM",actor: "Agent",  what: "Offboarding letter drafted in EN + ES",                          who: "Carlos Ramirez",   branch: "WYN",
+    target: { kind: "doc", id: "termination-letter" } },
   { at: "Yest.  9:15 PM",actor: "System", what: "OFAC clearance request submitted to vendor (SLA: 24h)",         who: "Priya Suresh",     branch: "NYC" },
-  { at: "Yest.  6:00 PM",actor: "Agent",  what: "Internal transfer initiated · NJ Wage Transparency re-disclosure queued", who: "Sarah Park", branch: "WYN", highlight: true },
-  { at: "Yest.  3:22 PM",actor: "Agent",  what: "FINRA fingerprinting appointment booked",                       who: "Diane Patel",      branch: "TPA" },
+  { at: "Yest.  6:00 PM",actor: "Agent",  what: "Internal transfer initiated · NJ Wage Transparency re-disclosure queued", who: "Sarah Park", branch: "WYN", highlight: true,
+    target: { kind: "workspace", flow: "uc2" } },
+  { at: "Yest.  3:22 PM",actor: "Agent",  what: "FINRA fingerprinting appointment booked",                       who: "Diane Patel",      branch: "TPA",
+    target: { kind: "workspace", flow: "uc4" } },
   { at: "Yest.  1:08 PM",actor: "Agent",  what: "Probation review scheduled for Jun 25",                         who: "Tomás Aguilar",    branch: "NWK" },
   { at: "Yest. 11:00 AM",actor: "Agent",  what: "Offboarding initiated · portfolio handoff blocked (18 active loans)", who: "Anna Chen",   branch: "TPA" },
-  { at: "Yest.  9:48 AM",actor: "Agent",  what: "Internal transfer audit run · 0 violations across 23 active transitions",                       branch: "WYN" },
+  { at: "Yest.  9:48 AM",actor: "Agent",  what: "Internal transfer audit run · 0 violations across 23 active transitions",                       branch: "WYN",
+    target: { kind: "compliance-radar" } },
 ];

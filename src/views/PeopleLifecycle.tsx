@@ -17,12 +17,12 @@
 import { cn } from "@/lib/utils";
 import { useApp } from "@/state";
 import { TopRow } from "@/components/blocks/TopRow";
+import { HeroBanner } from "@/components/blocks/HeroBanner";
 import { KPIStrip, type KPI } from "@/components/blocks/KPIStrip";
 import { PillButton } from "@/components/blocks/PillButton";
 import { AIDot } from "@/components/ai/AIDot";
 import { SpringIn } from "@/components/ai/SpringIn";
 import { StaggerList } from "@/components/ai/StaggerList";
-import { StreamingText } from "@/components/ai/StreamingText";
 import { CountUp } from "@/components/ai/CountUp";
 import {
   stages,
@@ -35,14 +35,24 @@ import {
   type Branch,
 } from "@/data/lifecycle";
 
-// ── KPI strip — 5 tiles · last one yellow-highlighted for compliance ─────
-const kpis: KPI[] = [
-  { label: "Onboarded · this month",  value: 4, trend: { delta: "1", direction: "up" }   },
-  { label: "Offboarded · this month", value: 2, trend: { delta: "1", direction: "down" } },
-  { label: "In probation",            value: 7, trend: { delta: "0", direction: "flat" } },
-  { label: "Internal transfers",      value: 3, trend: { delta: "2", direction: "up" }   },
-  { label: "Compliance hold",         value: 1, trend: { delta: "1", direction: "up" }, highlight: "yellow" },
-];
+// KPI strip — 5 tiles. Compliance-hold tile (yellow) routes to Compliance Radar.
+// onClick is wired inside the component since it depends on `go`.
+function useLifecycleKpis(): KPI[] {
+  const { go } = useApp();
+  return [
+    { label: "Onboarded · this month",  value: 4, trend: { delta: "1", direction: "up" }   },
+    { label: "Offboarded · this month", value: 2, trend: { delta: "1", direction: "down" } },
+    { label: "In probation",            value: 7, trend: { delta: "0", direction: "flat" } },
+    { label: "Internal transfers",      value: 3, trend: { delta: "2", direction: "up" }   },
+    {
+      label: "Compliance hold",
+      value: 1,
+      trend: { delta: "1", direction: "up" },
+      highlight: "yellow",
+      onClick: () => go({ kind: "compliance-radar" }),
+    },
+  ];
+}
 
 // Branch chip color — navy-deep is the default; transfer chips use yellow accent
 const branchTone: Record<Branch, string> = {
@@ -61,39 +71,28 @@ const statusTone: Record<StatusKind, { dot: string; chip: string; label: string 
 };
 
 export function PeopleLifecycle() {
+  const { go } = useApp();
+  const kpis = useLifecycleKpis();
   return (
     <div className="pl-5 pr-6 pt-4 pb-8 space-y-3 min-h-screen bg-[color-mix(in_srgb,var(--surface-mint)_18%,var(--surface-fog))]">
       <TopRow breadcrumb={{ label: "People lifecycle", chip: "HR Ops · control tower" }} />
 
-      {/* ── Banner — navy + yellow accent, real-time ──────────────────── */}
-      <SpringIn>
-        <section className="bg-surface-deep text-ink-inverse rounded-md px-5 py-3 flex items-center justify-between gap-5 border-l-4 border-l-[var(--surface-sage)]">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="w-9 h-9 rounded-lg bg-surface-sage flex items-center justify-center shrink-0">
-              <span className="text-surface-deep text-[14px] font-bold">✦</span>
-            </div>
-            <div className="min-w-0 leading-tight">
-              <div className="flex items-center gap-2 mb-0.5">
-                <AIDot size={6} tone="yellow" pulse />
-                <span className="text-[11px] tracking-[0.08em] uppercase text-surface-sage font-medium">
-                  Lifecycle agent · live
-                </span>
-              </div>
-              <div className="text-[14px] text-ink-inverse">
-                <StreamingText
-                  text="14 employees in motion · 3 need your decision · agent handled 27 lifecycle steps in the past 24h."
-                  cps={75}
-                  caret={false}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <span className="text-[12px] text-ink-inverse/70">Auto-refresh · 30s</span>
-            <PillButton variant="mint" size="sm">+ Start new lifecycle event</PillButton>
-          </div>
-        </section>
-      </SpringIn>
+      {/* Banner — reuses the same HeroBanner pattern as Dashboard for visual consistency.
+          CTA routes to Compliance Radar (the most actionable "new lifecycle event" target). */}
+      <HeroBanner
+        eyebrow="Lifecycle agent · live"
+        summary="14 employees in motion · 3 need your decision · agent handled 27 lifecycle steps in the past 24h."
+        meta="Auto-refresh · 30s"
+        cta={
+          <PillButton
+            variant="mint"
+            size="sm"
+            onClick={() => go({ kind: "compliance-radar" })}
+          >
+            + Start new lifecycle event
+          </PillButton>
+        }
+      />
 
       {/* ── KPI strip · 5 tiles ──────────────────────────────────────── */}
       <KPIStrip items={kpis} cols={5} />
@@ -187,11 +186,27 @@ function ActiveAggregateTile() {
 }
 
 function KanbanCard({ card, delay }: { card: LifecycleCard; delay: number }) {
+  const { go } = useApp();
   const tone = statusTone[card.status];
   const pct = (card.stepsDone / card.stepsTotal) * 100;
+  const clickable = !!card.target;
   return (
     <div
-      className="relative rounded-md bg-white border border-divider p-3 hover:border-surface-deep hover:shadow-sm transition-all cursor-pointer group"
+      onClick={() => card.target && go(card.target)}
+      role={clickable ? "button" : undefined}
+      tabIndex={clickable ? 0 : undefined}
+      onKeyDown={(e) => {
+        if (clickable && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          card.target && go(card.target);
+        }
+      }}
+      className={cn(
+        "relative rounded-md bg-white border border-divider p-3 transition-all group",
+        clickable
+          ? "cursor-pointer hover:border-surface-deep hover:shadow-md hover:-translate-y-0.5"
+          : "cursor-default",
+      )}
       style={{
         animation: `lifecycleIn 360ms cubic-bezier(0.34, 1.32, 0.64, 1) ${delay}ms backwards`,
       }}
@@ -240,12 +255,17 @@ function KanbanCard({ card, delay }: { card: LifecycleCard; delay: number }) {
         </div>
       </div>
 
-      {/* Status chip */}
+      {/* Status chip + "Open →" link when card is wired to a workspace */}
       <div className="mt-2.5 flex items-center justify-between gap-2">
         <span className={cn("inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-semibold", tone.chip)}>
           <span className={cn("w-1.5 h-1.5 rounded-full", tone.dot)} />
           {card.statusLabel}
         </span>
+        {clickable && (
+          <span className="text-[10px] font-semibold text-surface-deep opacity-0 group-hover:opacity-100 transition-opacity">
+            Open workspace →
+          </span>
+        )}
       </div>
 
       {/* AI line */}
@@ -324,6 +344,7 @@ function DecisionsPanel() {
 /* ════════════════════════ Activity stream ══════════════════════════ */
 
 function ActivityStream() {
+  const { go } = useApp();
   return (
     <section className="bg-white border border-divider rounded-md overflow-hidden">
       <header className="flex items-center justify-between px-4 py-2.5 border-b border-divider">
@@ -342,9 +363,15 @@ function ActivityStream() {
           {lifecycleActivity.map((a, i) => (
             <div
               key={i}
+              onClick={() => a.target && go(a.target)}
+              role={a.target ? "button" : undefined}
+              tabIndex={a.target ? 0 : undefined}
               className={cn(
-                "px-3 py-2 rounded-md flex items-start gap-3 hover:bg-surface-mint/40 transition-colors",
+                "px-3 py-2 rounded-md flex items-start gap-3 transition-colors",
                 a.highlight && "bg-surface-sage/15",
+                a.target
+                  ? "cursor-pointer hover:bg-surface-mint/60"
+                  : "hover:bg-surface-mint/30",
               )}
             >
               <span className="w-16 shrink-0 text-[11px] tabular-nums text-mute font-medium pt-[1px]">

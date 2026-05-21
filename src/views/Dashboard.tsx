@@ -1,3 +1,4 @@
+import { useApp } from "@/state";
 import { TopRow } from "@/components/blocks/TopRow";
 import { HeroBanner } from "@/components/blocks/HeroBanner";
 import { KPIStrip, type KPI } from "@/components/blocks/KPIStrip";
@@ -36,6 +37,7 @@ const kpis: KPI[] = [
 ];
 
 export function Dashboard() {
+  const { go } = useApp();
   return (
     <div className="pl-5 pr-6 pt-4 pb-8 space-y-3 min-h-screen bg-[color-mix(in_srgb,var(--surface-mint)_18%,var(--surface-fog))]">
       <TopRow breadcrumb={{ label: "HR dashboard", chip: "HR Ops" }} />
@@ -43,7 +45,15 @@ export function Dashboard() {
       <HeroBanner
         eyebrow="AI-powered HR operations"
         summary="3 cases need your decision today · 5 lifecycle events in flight · agent has resolved 47 cases this month."
-        cta={<PillButton variant="mint" size="sm">+ New HR request</PillButton>}
+        cta={
+          <PillButton
+            variant="mint"
+            size="sm"
+            onClick={() => go({ kind: "people-lifecycle" })}
+          >
+            + New HR request
+          </PillButton>
+        }
         meta="Updated 2 min ago"
       />
 

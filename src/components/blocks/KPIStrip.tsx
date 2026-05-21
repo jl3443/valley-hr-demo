@@ -14,6 +14,8 @@ export type KPI = {
   spark?: number[];
   /** Optional yellow accent — surfaces high-priority tiles (e.g. compliance hold). */
   highlight?: "yellow";
+  /** Optional click handler — when set, tile reads as actionable + hover lifts. */
+  onClick?: () => void;
 };
 
 const trendTone = {
@@ -43,11 +45,15 @@ export function KPIStrip({
       {items.map((k, i) => (
         <article
           key={k.label}
+          onClick={k.onClick}
+          role={k.onClick ? "button" : undefined}
+          tabIndex={k.onClick ? 0 : undefined}
           className={cn(
-            "rounded-md px-4 py-3 flex flex-col justify-between h-[92px] transition-colors",
+            "rounded-md px-4 py-3 flex flex-col justify-between h-[92px] transition-all",
             k.highlight === "yellow"
               ? "bg-surface-sage border border-surface-sage text-surface-deep"
               : "bg-white border border-divider",
+            k.onClick && "cursor-pointer hover:shadow-md hover:-translate-y-0.5",
           )}
         >
           <div

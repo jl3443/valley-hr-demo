@@ -1,12 +1,22 @@
 import * as React from "react";
-import { AIDot } from "@/components/ai/AIDot";
+import { Sparkles } from "lucide-react";
 import { StreamingText } from "@/components/ai/StreamingText";
 import { SpringIn } from "@/components/ai/SpringIn";
 
 /**
- * Compact AI status banner — replaces the heavy Marketing-hero card on
- * the dashboard. ~80 px tall, single line of streaming summary, one
- * primary CTA on the right.
+ * Compact AI status banner — single horizontal strip at the top of every
+ * HRBP-side page.
+ *
+ * Design (final, per user direction):
+ *   - bg deep navy, ALL text white (eyebrow + summary + meta)
+ *   - lucide Sparkles icon on the left — no box frame; same glyph also
+ *     replaces the small "AI dot" before the eyebrow text so the brand
+ *     mark is consistent and the eyebrow gets a tiny twin sparkle.
+ *   - no yellow left vertical bar
+ *   - yellow CTA preserved as the only high-attention accent
+ *
+ * The Sparkles icon has a subtle pulse so it reads as "agent is live"
+ * without needing a separate dot indicator.
  */
 export function HeroBanner({
   eyebrow,
@@ -21,20 +31,27 @@ export function HeroBanner({
 }) {
   return (
     <SpringIn>
-      {/* Per user: 主页 banner = 深蓝背景 + 白色字 + 黄色按钮.
-          Bold navy fill makes the dashboard hero read "this is THE Valley
-          AI HR product"; yellow CTA is the high-attention click target. */}
-      <section className="bg-surface-deep text-ink-inverse rounded-md px-5 py-3 flex items-center justify-between gap-5 border-l-4 border-l-[var(--surface-sage)]">
-        <div className="flex items-center gap-3 min-w-0">
-          {/* Yellow icon block — flips inside-out from the previous navy
-              square so the brand sparkle pops against the navy banner bg. */}
-          <div className="w-9 h-9 rounded-lg bg-surface-sage flex items-center justify-center shrink-0">
-            <span className="text-surface-deep text-[14px] font-bold">✦</span>
-          </div>
+      <section className="bg-surface-deep text-ink-inverse rounded-md px-5 py-3.5 flex items-center justify-between gap-5">
+        <div className="flex items-center gap-3.5 min-w-0">
+          {/* Main brand mark — Sparkles, unboxed, gently pulsing.
+              Yellow-tinted to read as "AI accent" without a colored block. */}
+          <Sparkles
+            size={28}
+            strokeWidth={1.6}
+            className="text-surface-sage shrink-0 hr-pulse"
+            aria-hidden
+          />
           <div className="min-w-0 leading-tight">
-            <div className="flex items-center gap-2 mb-0.5">
-              <AIDot size={6} tone="yellow" pulse />
-              <span className="text-[11px] tracking-[0.08em] uppercase text-surface-sage font-medium">
+            <div className="flex items-center gap-1.5 mb-0.5">
+              {/* Twin small sparkle — replaces the previous AIDot. White on
+                  navy keeps everything in the white text register. */}
+              <Sparkles
+                size={11}
+                strokeWidth={2}
+                className="text-ink-inverse shrink-0"
+                aria-hidden
+              />
+              <span className="text-[11px] tracking-[0.08em] uppercase text-ink-inverse font-medium">
                 {eyebrow}
               </span>
             </div>
