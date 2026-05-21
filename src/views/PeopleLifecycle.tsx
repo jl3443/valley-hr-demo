@@ -13,9 +13,16 @@
  * No Kanban — Kanban is HRBP daily-ops, not CXO control tower.
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  UserPlus,
+  UserMinus,
+  ArrowLeftRight,
+  ShieldCheck,
+  X as XIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useApp } from "@/state";
+import { useApp, type View } from "@/state";
 import { TopRow } from "@/components/blocks/TopRow";
 import { HeroBanner } from "@/components/blocks/HeroBanner";
 import { KPIStrip, type KPI } from "@/components/blocks/KPIStrip";
@@ -71,11 +78,12 @@ const statusTone: Record<StatusKind, { dot: string; chip: string; label: string 
 };
 
 export function PeopleLifecycle() {
-  const { go } = useApp();
   const kpis = useLifecycleKpis();
   /* Stage filter selected from LifecycleFlowChart. When set, ExceptionsList
      narrows to that stage's at-risk employees. Toggle off by clicking again. */
   const [stageFilter, setStageFilter] = useState<Stage | null>(null);
+  /* Modal: opens from the banner CTA to actually start a new lifecycle event. */
+  const [newEventOpen, setNewEventOpen] = useState(false);
   return (
     <div className="pl-5 pr-6 pt-4 pb-8 space-y-3 min-h-screen bg-[color-mix(in_srgb,var(--surface-mint)_18%,var(--surface-fog))]">
       <TopRow breadcrumb={{ label: "People lifecycle", chip: "HR Ops · control tower" }} />
@@ -88,12 +96,14 @@ export function PeopleLifecycle() {
           <PillButton
             variant="mint"
             size="sm"
-            onClick={() => go({ kind: "compliance-radar" })}
+            onClick={() => setNewEventOpen(true)}
           >
             + Start new lifecycle event
           </PillButton>
         }
       />
+
+      <NewLifecycleEventModal open={newEventOpen} onClose={() => setNewEventOpen(false)} />
 
       <KPIStrip items={kpis} cols={5} />
 
@@ -400,6 +410,8 @@ function HeadcountTrendChart() {
     .map((p, i) => `${i === 0 ? "M" : "L"} ${x(i)} ${y(p.headcount)}`)
     .join(" ");
   const areaPath = `${linePath} L ${x(headcountTrend.length - 1)} ${pad.t + innerH} L ${x(0)} ${pad.t + innerH} Z`;
+  /* Hover index — when set, render cross-hair + tooltip at that month. */
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
   const ytdNet = headcountTrend.reduce((a, b) => a + b.hires - b.exits, 0);
   const ytdHires = headcountTrend.reduce((a, b) => a + b.hires, 0);
   const ytdExits = headcountTrend.reduce((a, b) => a + b.exits, 0);
@@ -465,17 +477,103 @@ function HeadcountTrendChart() {
           ))}
           <path d={areaPath} fill="url(#lifecycle-area-fade)" />
           <path d={linePath} fill="none" stroke="var(--accent-green-deep)" strokeWidth="2" />
-          {headcountTrend.map((p, i) => (
-            <circle
-              key={i}
-              cx={x(i)}
-              cy={y(p.headcount)}
-              r={i === headcountTrend.length - 1 ? 4 : 2}
-              fill={i === headcountTrend.length - 1 ? "var(--surface-sage)" : "white"}
+          {/* Cross-hair vertical line when a point is hovered */}
+          {hoverIdx !== null && (
+            <line
+              x1={x(hoverIdx)}
+              x2={x(hoverIdx)}
+              y1={pad.t}
+              y2={pad.t + innerH}
               stroke="var(--accent-green-deep)"
-              strokeWidth={i === headcountTrend.length - 1 ? 2 : 1.5}
+              strokeOpacity="0.25"
+              strokeDasharray="2 3"
             />
-          ))}
+          )}
+          {headcountTrend.map((p, i) => {
+            const isHovered = hoverIdx === i;
+            const isLatest = i === headcountTrend.length - 1;
+            return (
+              <g key={i}>
+                {/* Invisible hover hit-box — wider than the dot for easy mouse-over */}
+                <rect
+                  x={x(i) - 24}
+                  y={pad.t}
+                  width="48"
+                  height={innerH}
+                  fill="transparent"
+                  onMouseEnter={() => setHoverIdx(i)}
+                  onMouseLeave={() => setHoverIdx(null)}
+                  style={{ cursor: "pointer" }}
+                />
+                <circle
+                  cx={x(i)}
+                  cy={y(p.headcount)}
+                  r={isHovered ? 5 : isLatest ? 4 : 2}
+                  fill={isHovered || isLatest ? "var(--surface-sage)" : "white"}
+                  stroke="var(--accent-green-deep)"
+                  strokeWidth={isHovered || isLatest ? 2 : 1.5}
+                  pointerEvents="none"
+                />
+              </g>
+            );
+          })}
+          {/* Hover tooltip — anchored above the hovered point */}
+          {hoverIdx !== null && (() => {
+            const p = headcountTrend[hoverIdx];
+            const net = p.hires - p.exits;
+            // Tooltip box dimensions
+            const tw = 130;
+            const th = 78;
+            // Keep tooltip in-bounds — flip left when near right edge
+            const px = x(hoverIdx);
+            const tooltipX = px + tw + 12 > w - pad.r ? px - tw - 12 : px + 12;
+            const tooltipY = Math.max(pad.t, y(p.headcount) - th / 2);
+            return (
+              <g pointerEvents="none">
+                <rect
+                  x={tooltipX}
+                  y={tooltipY}
+                  width={tw}
+                  height={th}
+                  rx="4"
+                  fill="var(--accent-green-deep)"
+                />
+                <text
+                  x={tooltipX + 10}
+                  y={tooltipY + 16}
+                  fill="var(--surface-sage)"
+                  style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "1px" }}
+                >
+                  {p.month.toUpperCase()}
+                </text>
+                <text
+                  x={tooltipX + 10}
+                  y={tooltipY + 36}
+                  fill="white"
+                  style={{ fontSize: "14px", fontWeight: 700 }}
+                >
+                  {p.headcount.toLocaleString()}
+                </text>
+                <text
+                  x={tooltipX + 10}
+                  y={tooltipY + 53}
+                  fill="rgba(255,255,255,0.7)"
+                  style={{ fontSize: "10px" }}
+                >
+                  <tspan fill="rgba(195,230,225,0.9)">+{p.hires}</tspan>
+                  <tspan dx="6" fill="rgba(255,180,180,0.9)">−{p.exits}</tspan>
+                </text>
+                <text
+                  x={tooltipX + 10}
+                  y={tooltipY + 68}
+                  fill="rgba(255,255,255,0.7)"
+                  style={{ fontSize: "10px" }}
+                >
+                  Net <tspan fill="var(--surface-sage)" fontWeight="700">{net >= 0 ? "+" : ""}{net}</tspan>
+                </text>
+              </g>
+            );
+          })()}
         </svg>
       </div>
     </Panel>
@@ -587,5 +685,126 @@ function ActivityStream() {
         </StaggerList>
       </div>
     </Panel>
+  );
+}
+
+/* ════════════════════════ New-lifecycle-event modal ═══════════════════════
+   Opens from the banner "+ Start new lifecycle event" CTA.
+   4 quick-pick options, each routes to its matching workspace or radar.
+   ESC + backdrop click close the modal. */
+
+type NewEventOption = {
+  Icon: React.ComponentType<{ size?: number; strokeWidth?: number }>;
+  title: string;
+  desc: string;
+  target: View;
+};
+
+const newEventOptions: NewEventOption[] = [
+  {
+    Icon: UserPlus,
+    title: "Start an onboarding",
+    desc: "New hire · Day 1 to 90",
+    target: { kind: "workspace", flow: "uc4" },
+  },
+  {
+    Icon: UserMinus,
+    title: "Initiate an offboarding",
+    desc: "Resignation or termination",
+    target: { kind: "workspace", flow: "uc1" },
+  },
+  {
+    Icon: ArrowLeftRight,
+    title: "Begin internal transfer",
+    desc: "Promotion or branch move",
+    target: { kind: "workspace", flow: "uc2" },
+  },
+  {
+    Icon: ShieldCheck,
+    title: "Run compliance audit",
+    desc: "FINRA · NJ WTA · BSA · OFAC",
+    target: { kind: "compliance-radar" },
+  },
+];
+
+function NewLifecycleEventModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  const { go } = useApp();
+
+  /* ESC to close. Native listener so it works anywhere on the page. */
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const pick = (target: View) => {
+    onClose();
+    go(target);
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/45 flex items-center justify-center p-6"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Start new lifecycle event"
+    >
+      <SpringIn>
+        <div
+          className="bg-white rounded-md w-full max-w-[560px] overflow-hidden shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <header className="flex items-center justify-between px-5 py-3.5 border-b border-divider">
+            <div className="flex items-center gap-3">
+              <AIDot size={6} tone="yellow" />
+              <span className="text-[12px] tracking-[0.08em] uppercase text-surface-deep font-medium">
+                Start new lifecycle event
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close"
+              className="w-7 h-7 grid place-items-center rounded text-mute hover:text-ink hover:bg-surface-fog transition-colors"
+            >
+              <XIcon size={16} />
+            </button>
+          </header>
+
+          <div className="grid grid-cols-2 gap-3 p-5">
+            {newEventOptions.map(({ Icon, title, desc, target }) => (
+              <button
+                key={title}
+                type="button"
+                onClick={() => pick(target)}
+                className="group flex flex-col items-start gap-2 rounded-md border border-divider bg-white px-4 py-4 text-left transition-all hover:border-surface-deep hover:shadow-md hover:-translate-y-0.5"
+              >
+                <span className="w-9 h-9 rounded-md bg-surface-sage flex items-center justify-center text-surface-deep">
+                  <Icon size={18} strokeWidth={1.8} />
+                </span>
+                <span className="text-[14px] font-bold text-ink">{title}</span>
+                <span className="text-[12px] text-mute">{desc}</span>
+              </button>
+            ))}
+          </div>
+
+          <footer className="px-5 py-3 border-t border-divider bg-surface-fog/40 text-[11px] text-mute">
+            Pick an event type · agent will pre-fill the workspace for you.
+          </footer>
+        </div>
+      </SpringIn>
+    </div>
   );
 }
