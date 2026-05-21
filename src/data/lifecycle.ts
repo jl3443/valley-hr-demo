@@ -337,34 +337,34 @@ export type LifecycleDecision = {
 };
 
 export const lifecycleDecisions: LifecycleDecision[] = [
+  /* CXO decision cards · one plain-English sentence per card.
+     No sub-text, no jargon, no system names. The supporting context lives
+     inside the workspace the card routes to. */
   {
     urgency: "high",
     cardId: "LC-201",
-    title: "Maya Chen onboarding · run remaining 7 steps",
-    sub: "5/12 auto-completed. Queue NJ anti-discrimination training + Q2 console provisioning + Salesforce role assignment.",
-    primary: { label: "Run remaining steps" },
-    secondary: { label: "Preview checklist" },
-    dueLabel: "Target",
+    title: "Finish Maya Chen's onboarding",
+    sub: "",
+    primary: { label: "Open", target: { kind: "workspace", flow: "uc4" } },
+    dueLabel: "",
     dueWhen: "Today",
   },
   {
     urgency: "critical",
     cardId: "LC-501",
-    title: "Carlos Ramirez offboarding · approve exit package",
-    sub: "23 system accesses ready to revoke · final pay $14,820 includes prorated bonus + 16-day NJ-required PTO payout.",
-    primary: { label: "Preview letter", target: { kind: "doc", id: "termination-letter" } },
-    secondary: { label: "Approve package", target: { kind: "workspace", flow: "uc1" } },
-    dueLabel: "Decide by",
-    dueWhen: "Tomorrow EOD",
+    title: "Approve Carlos Ramirez's exit package",
+    sub: "",
+    primary: { label: "Open", target: { kind: "workspace", flow: "uc1" } },
+    dueLabel: "",
+    dueWhen: "Tomorrow",
   },
   {
     urgency: "high",
     cardId: "LC-401",
-    title: "Sarah Park transfer · re-disclose pay range (NJ WTA)",
-    sub: "PAT → WYN promotion · new band $125K–$152K · NJ Wage Transparency Act requires disclosure on the internal posting.",
-    primary: { label: "Re-disclose now" },
-    secondary: { label: "Preview posting" },
-    dueLabel: "Decide by",
+    title: "Publish Sarah Park's promotion",
+    sub: "",
+    primary: { label: "Open", target: { kind: "workspace", flow: "uc2" } },
+    dueLabel: "",
     dueWhen: "End of week",
   },
 ];

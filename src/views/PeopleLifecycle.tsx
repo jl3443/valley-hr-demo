@@ -170,43 +170,26 @@ function DecisionsHero() {
       <div className="flex-1 flex flex-col divide-y divide-divider">
         {lifecycleDecisions.map((d, i) => (
           <SpringIn key={d.cardId} delay={i * 90}>
-            {/* Uniform row height — line-clamps + min-h pin each row to the
-                same vertical extent, so 3 stacked decisions read as a clean grid. */}
-            <article className="px-5 py-4 grid grid-cols-[1fr_auto] gap-5 items-center min-h-[124px]">
-              <div className="min-w-0 space-y-1.5">
-                <div className="flex items-center gap-2.5">
-                  <span className={cn("text-[10px] font-bold tracking-[0.08em] uppercase px-2 py-0.5 rounded", urgencyChip[d.urgency])}>
-                    {d.urgency}
-                  </span>
-                  <span className="text-[11px] text-mute">
-                    {d.dueLabel} <span className="text-surface-deep font-semibold">{d.dueWhen}</span>
-                  </span>
-                </div>
-                <h3 className="text-[15px] font-bold leading-[20px] text-ink line-clamp-1 min-h-[20px]">
-                  {d.title}
-                </h3>
-                <p className="text-[13px] leading-[18px] text-mute line-clamp-2 min-h-[36px]">
-                  {d.sub}
-                </p>
-              </div>
-              <div className="flex items-center gap-2 shrink-0">
-                {d.secondary && (
-                  <PillButton
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => d.secondary?.target && go(d.secondary.target)}
-                  >
-                    {d.secondary.label}
-                  </PillButton>
-                )}
-                <PillButton
-                  variant="primary"
-                  size="sm"
-                  onClick={() => d.primary.target && go(d.primary.target)}
-                >
-                  {d.primary.label}
-                </PillButton>
-              </div>
+            {/* CXO card — single plain-English sentence + one action.
+                No sub-text under the title (the rule). Urgency + date are
+                discrete metadata chips, NOT explanations of the title. */}
+            <article className="px-5 py-5 grid grid-cols-[auto_auto_1fr_auto] gap-3 items-center min-h-[88px]">
+              <span className={cn("text-[10px] font-bold tracking-[0.08em] uppercase px-2 py-1 rounded shrink-0", urgencyChip[d.urgency])}>
+                {d.urgency}
+              </span>
+              <span className="text-[12px] font-semibold text-surface-deep shrink-0">
+                {d.dueWhen}
+              </span>
+              <h3 className="text-[16px] font-bold leading-[22px] text-ink truncate">
+                {d.title}
+              </h3>
+              <PillButton
+                variant="primary"
+                size="sm"
+                onClick={() => d.primary.target && go(d.primary.target)}
+              >
+                {d.primary.label} →
+              </PillButton>
             </article>
           </SpringIn>
         ))}
@@ -263,22 +246,20 @@ function ExceptionsList({
               type="button"
               onClick={() => c.target && go(c.target)}
               disabled={!clickable}
+              title={c.ai}
               className={cn(
-                "w-full px-4 py-3 text-left flex items-center gap-3 transition-colors min-h-[64px]",
+                "w-full px-4 py-3 text-left flex items-center gap-3 transition-colors min-h-[56px]",
                 clickable && "hover:bg-surface-mint/40 cursor-pointer",
               )}
             >
               <span className={cn("w-2 h-2 rounded-full shrink-0", tone.dot)} aria-label={tone.label} />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-[13px] font-semibold text-ink truncate">{c.name}</span>
-                  <span className={cn("text-[9px] font-bold tracking-[0.04em] px-1.5 py-0.5 rounded leading-none shrink-0", branchTone[c.branch])}>
-                    {c.branch}
-                  </span>
-                </div>
-                <div className="text-[11.5px] text-mute truncate mt-0.5">{c.ai}</div>
-              </div>
-              <span className="text-[11px] text-mute shrink-0">{c.date}</span>
+              <span className="text-[13.5px] font-semibold text-ink truncate flex-1">{c.name}</span>
+              <span className={cn("text-[10px] font-bold tracking-[0.04em] px-1.5 py-0.5 rounded leading-none shrink-0", branchTone[c.branch])}>
+                {c.branch}
+              </span>
+              <span className="text-[12px] font-medium text-surface-deep shrink-0 w-12 text-right">
+                {c.date}
+              </span>
             </button>
           );
         })}
@@ -526,15 +507,15 @@ function ComplianceHealthPanel() {
               key={m.label}
               type="button"
               onClick={() => go({ kind: "compliance-radar" })}
+              title={m.note}
               className="w-full text-left group cursor-pointer"
             >
               <div className="flex items-baseline justify-between mb-1.5">
-                <span className="text-[13px] font-semibold text-ink group-hover:text-surface-deep transition-colors">
+                <span className="text-[13.5px] font-semibold text-ink group-hover:text-surface-deep transition-colors">
                   {m.label}
                 </span>
-                <span className="font-mono text-[12px] tabular-nums text-surface-deep font-semibold">
-                  {m.current.toLocaleString()} / {m.total.toLocaleString()}
-                  <span className="text-mute font-normal ml-2">{pct.toFixed(1)}%</span>
+                <span className="text-[13px] font-semibold text-surface-deep tabular-nums">
+                  {pct.toFixed(1)}%
                 </span>
               </div>
               <div className="h-1.5 w-full bg-surface-fog rounded-full overflow-hidden">
@@ -542,9 +523,6 @@ function ComplianceHealthPanel() {
                   className={cn("h-full rounded-full transition-all", tone)}
                   style={{ width: `${pct}%` }}
                 />
-              </div>
-              <div className="text-[11px] text-mute mt-1 group-hover:text-surface-deep transition-colors">
-                {m.note}
               </div>
             </button>
           );
