@@ -19,7 +19,7 @@ function Router() {
 
 function Shell() {
   return (
-    <div className="min-h-screen bg-[color:var(--surface-fog)] font-sans">
+    <div className="min-h-screen bg-surface-fog text-ink font-sans">
       <div className="flex">
         <Sidebar />
         <main className="flex-1 min-w-0">
