@@ -6,7 +6,12 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// GitHub Pages serves this at https://<owner>.github.io/<repo>/kyc/ — the
+// /kyc/ suffix comes from publishing dist/ under a kyc/ folder on gh-pages.
+const base = process.env.GH_PAGES === "1" ? "/valley-hr-demo/kyc/" : "/";
+
 export default defineConfig({
+  base,
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
