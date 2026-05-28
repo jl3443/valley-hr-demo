@@ -1,9 +1,40 @@
 /**
  * KYC backend client — matches yuwang1028/kyc FastAPI routes.
- * Uses Vite dev proxy: /api → http://localhost:8000
+ *
+ * Falls back to in-memory mock data when the backend is unreachable so
+ * the demo always renders. Set VITE_KYC_MOCK=1 to force mock mode.
  */
 
+import { mockApi } from "./mockData";
+
 const BASE = import.meta.env.VITE_API_BASE ?? "/api/v1";
+const FORCE_MOCK = import.meta.env.VITE_KYC_MOCK === "1";
+
+let liveMode = !FORCE_MOCK;
+let probed = false;
+
+export function isMockMode() {
+  return !liveMode;
+}
+
+async function probeBackend(): Promise<boolean> {
+  if (FORCE_MOCK) return false;
+  try {
+    const res = await fetch(`${BASE}/cases`, { method: "GET" });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
+async function ensureProbed() {
+  if (probed) return;
+  probed = true;
+  liveMode = await probeBackend();
+  if (!liveMode && !FORCE_MOCK) {
+    console.warn("[KYC] backend unreachable — running in mock mode");
+  }
+}
 
 async function req<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
@@ -16,6 +47,18 @@ async function req<T>(path: string, init?: RequestInit): Promise<T> {
   }
   if (res.status === 204) return undefined as T;
   return res.json() as Promise<T>;
+}
+
+async function withFallback<T>(live: () => Promise<T>, mock: () => Promise<T>): Promise<T> {
+  await ensureProbed();
+  if (!liveMode) return mock();
+  try {
+    return await live();
+  } catch (e) {
+    console.warn("[KYC] live call failed, using mock", e);
+    liveMode = false;
+    return mock();
+  }
 }
 
 export type Organization = {
@@ -117,36 +160,65 @@ export type Task = {
 };
 
 export const api = {
-  listCases: () => req<Case[]>("/cases"),
-  getCase: (id: string) => req<Case>(`/cases/${id}`),
+  listCases: () => withFallback(() => req<Case[]>("/cases"), mockApi.listCases),
+  getCase: (id: string) => withFallback(() => req<Case>(`/cases/${id}`), () => mockApi.getCase(id)),
   createCase: (body: { organization: Organization; case_type?: string; customer_type?: string; jurisdiction?: string; priority?: string }) =>
-    req<Case>("/cases", { method: "POST", body: JSON.stringify(body) }),
+    withFallback(
+      () => req<Case>("/cases", { method: "POST", body: JSON.stringify(body) }),
+      () => mockApi.createCase(body),
+    ),
   updateCase: (id: string, body: Partial<Case>) =>
-    req<Case>(`/cases/${id}`, { method: "PATCH", body: JSON.stringify(body) }),
-  submitCase: (id: string) => req<Case>(`/cases/${id}/submit`, { method: "POST" }),
+    withFallback(
+      () => req<Case>(`/cases/${id}`, { method: "PATCH", body: JSON.stringify(body) }),
+      async () => ({ ...(await mockApi.getCase(id)), ...body }),
+    ),
+  submitCase: (id: string) =>
+    withFallback(
+      () => req<Case>(`/cases/${id}/submit`, { method: "POST" }),
+      () => mockApi.getCase(id),
+    ),
 
-  listDocuments: (caseId: string) => req<KycDocument[]>(`/cases/${caseId}/documents`),
+  listDocuments: (caseId: string) =>
+    withFallback(() => req<KycDocument[]>(`/cases/${caseId}/documents`), () => mockApi.listDocuments(caseId)),
   addDocument: (caseId: string, body: Omit<KycDocument, "id" | "case_id" | "created_at">) =>
-    req<KycDocument>(`/cases/${caseId}/documents`, { method: "POST", body: JSON.stringify(body) }),
+    withFallback(
+      () => req<KycDocument>(`/cases/${caseId}/documents`, { method: "POST", body: JSON.stringify(body) }),
+      () => mockApi.addDocument(caseId, body),
+    ),
 
-  runScreening: (caseId: string) => req<ScreeningResult[]>(`/cases/${caseId}/screening/run`, { method: "POST" }),
-  listScreening: (caseId: string) => req<ScreeningResult[]>(`/cases/${caseId}/screening/results`),
+  runScreening: (caseId: string) =>
+    withFallback(
+      () => req<ScreeningResult[]>(`/cases/${caseId}/screening/run`, { method: "POST" }),
+      () => mockApi.runScreening(caseId),
+    ),
+  listScreening: (caseId: string) =>
+    withFallback(() => req<ScreeningResult[]>(`/cases/${caseId}/screening/results`), () => mockApi.listScreening(caseId)),
 
-  evaluateRisk: (caseId: string) => req<RiskEvaluation>(`/cases/${caseId}/risk/evaluate`, { method: "POST" }),
-  getRisk: (caseId: string) => req<RiskEvaluation>(`/cases/${caseId}/risk`),
+  evaluateRisk: (caseId: string) =>
+    withFallback(() => req<RiskEvaluation>(`/cases/${caseId}/risk/evaluate`, { method: "POST" }), () => mockApi.evaluateRisk(caseId)),
+  getRisk: (caseId: string) =>
+    withFallback(() => req<RiskEvaluation>(`/cases/${caseId}/risk`), () => mockApi.getRisk(caseId)),
 
-  runIntakeAgent: (caseId: string) => req<AgentRun>(`/cases/${caseId}/agents/intake`, { method: "POST" }),
-  runSummaryAgent: (caseId: string) => req<AgentRun>(`/cases/${caseId}/agents/summary`, { method: "POST" }),
-  listAgentRuns: (caseId: string) => req<AgentRun[]>(`/cases/${caseId}/agent-runs`),
+  runIntakeAgent: (caseId: string) =>
+    withFallback(() => req<AgentRun>(`/cases/${caseId}/agents/intake`, { method: "POST" }), () => mockApi.runIntakeAgent(caseId)),
+  runSummaryAgent: (caseId: string) =>
+    withFallback(() => req<AgentRun>(`/cases/${caseId}/agents/summary`, { method: "POST" }), () => mockApi.runSummaryAgent(caseId)),
+  listAgentRuns: (caseId: string) =>
+    withFallback(() => req<AgentRun[]>(`/cases/${caseId}/agent-runs`), () => mockApi.listAgentRuns(caseId)),
 
   recordDecision: (caseId: string, body: { decision_type: string; decision_reason?: string; decision_notes?: string }) =>
-    req<Decision>(`/cases/${caseId}/decision`, { method: "POST", body: JSON.stringify(body) }),
+    withFallback(
+      () => req<Decision>(`/cases/${caseId}/decision`, { method: "POST", body: JSON.stringify(body) }),
+      () => mockApi.recordDecision(caseId, body),
+    ),
 
-  listAudit: (caseId: string) => req<AuditEvent[]>(`/cases/${caseId}/audit`),
+  listAudit: (caseId: string) =>
+    withFallback(() => req<AuditEvent[]>(`/cases/${caseId}/audit`), () => mockApi.listAudit(caseId)),
 
-  listTasks: () => req<Task[]>("/tasks"),
+  listTasks: () => withFallback(() => req<Task[]>("/tasks"), mockApi.listTasks),
   updateTask: (id: string, body: Partial<Task>) =>
-    req<Task>(`/tasks/${id}`, { method: "PATCH", body: JSON.stringify(body) }),
-
-  refresh: () => req<{ status: string }>("/refresh/run", { method: "POST" }),
+    withFallback(
+      () => req<Task>(`/tasks/${id}`, { method: "PATCH", body: JSON.stringify(body) }),
+      async () => ({ id, ...body }),
+    ),
 };

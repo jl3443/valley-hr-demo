@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useApp } from "@/state";
-import { api, type Case } from "@/lib/api";
+import { api, isMockMode, type Case } from "@/lib/api";
 import { TopRow } from "@/components/blocks/TopRow";
 import { HeroBanner } from "@/components/blocks/HeroBanner";
 import { KPIStrip, type KPI } from "@/components/blocks/KPIStrip";
@@ -48,7 +48,13 @@ export function Dashboard() {
             + New intake
           </Button>
         }
-        meta={err ? `Backend offline — ${err}` : "Live · Supabase Postgres"}
+        meta={
+          isMockMode()
+            ? "Demo mode · backend offline, showing mock data"
+            : err
+              ? `Backend error — ${err}`
+              : "Live · Supabase Postgres"
+        }
       />
 
       <KPIStrip items={kpis} />
