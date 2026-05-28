@@ -1,0 +1,62 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
+@import "tailwindcss";
+
+/* Valley KYC Concierge — tokens lifted from valley-hr-demo */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface-mint: var(--surface-mint);
+  --color-surface-sage: var(--surface-sage);
+  --color-surface-rose: var(--surface-rose);
+  --color-surface-fog: var(--surface-fog);
+  --color-surface-deep: var(--accent-green-deep);
+  --color-surface-navy: var(--accent-navy);
+
+  --color-ink: var(--ink);
+  --color-ink-inverse: var(--ink-inverse);
+  --color-mute: var(--mute);
+  --color-divider: var(--divider);
+
+  --color-accent-green: var(--accent-green);
+  --color-accent-green-deep: var(--accent-green-deep);
+  --color-accent-sage: var(--surface-sage);
+  --color-accent-navy: var(--accent-navy);
+  --color-mark-red: var(--mark-red);
+
+  --color-valley-yellow: var(--valley-yellow);
+  --color-valley-cream: var(--valley-cream);
+
+  --font-sans: "DM Sans", sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #323a3f;
+  --ink: #323a3f;
+  --ink-inverse: #ffffff;
+  --mute: #5c646c;
+  --divider: #dee2e6;
+
+  --surface-mint: #e6eaed;
+  --surface-sage: #f3d01c;
+  --surface-rose: #fefae8;
+  --surface-fog: #f2f3f4;
+
+  --accent-green: #002c4e;
+  --accent-green-deep: #112e44;
+  --accent-navy: #002c4e;
+  --mark-red: #b8232f;
+
+  --valley-yellow: #f3d01c;
+  --valley-cream: #fefae8;
+  --valley-slate: #788995;
+  --valley-blue: #0042a5;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  color: var(--ink);
+  background: var(--background);
+}
